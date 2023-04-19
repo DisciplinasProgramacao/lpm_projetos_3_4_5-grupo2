@@ -15,7 +15,23 @@ public class Cliente {
 	public void adicionarNaLista (Serie serie) {
 		this.listaParaVer.add(serie);
 	}
-	
+
+	public String getNomedeUsuario() {
+		return nomedeUsuario;
+	}
+
+	public void setNomedeUsuario(String nomedeUsuario) {
+		this.nomedeUsuario = nomedeUsuario;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
 	public void retirarDaLista (String nomeSerie) {
 		Serie[] series = new Serie[this.listaParaVer.size()];
 		series = this.listaParaVer.allElements(series);
