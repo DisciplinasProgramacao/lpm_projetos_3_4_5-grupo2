@@ -1,19 +1,32 @@
 
 
 public class Cliente {
+	public String nome;
 	public String nomedeUsuario;
 	String senha;
 	Lista<Serie> listaParaVer;
 	Lista<Serie> listaJaVistas;
-	
-	public Cliente() {
+
+
+
+	public Cliente(String nome, String nomeDeUsuario, String senha) {
 		this.listaParaVer = new Lista<Serie>();
 		this.listaJaVistas = new Lista<Serie>();
-		
+		this.nome = nome;
+		this.nomedeUsuario = nomeDeUsuario;
+		this.senha = senha;
 	}
 	
 	public void adicionarNaLista (Serie serie) {
 		this.listaParaVer.add(serie);
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getNomedeUsuario() {
