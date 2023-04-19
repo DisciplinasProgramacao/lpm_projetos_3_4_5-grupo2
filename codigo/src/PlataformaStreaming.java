@@ -5,8 +5,8 @@ import java.util.List;
 
 public class PlataformaStreaming {
     private String nome;
-    private ArrayList<Serie> series;
-    private ArrayList<Cliente> clientes;
+    private List<Serie> series;
+    private List<Cliente> clientes;
     private Cliente clienteAtual;
  
     
@@ -18,15 +18,16 @@ public class PlataformaStreaming {
         
     }
     
-    /*public void login(String nomeUsuario, String senha) {
-        
-        for (Cliente: clientes){
-            if (nomeUsuario.equals(clientes.nomedeUsuario) && senha.equals(clientes.senha)){
-                login = true;
-
+    public Cliente login(String nomeUsuario, String senha) {
+        for (Cliente cliente : clientes){
+            if (nomeUsuario.equals(cliente.nomedeUsuario) && senha.equals(cliente.senha)){
+                this.clienteAtual=cliente;
+                return clienteAtual;
             }
         }
-    }*/
+        return null;
+        
+    }
     
     public void adicionarSerie(Serie serie) {
         series.add(serie);
@@ -39,7 +40,7 @@ public class PlataformaStreaming {
     }
     
     public List<Serie> filtrarPorGenero(String genero) {
-        ArrayList aux = new ArrayList();
+        List aux = new ArrayList<>();
         for (Serie serie : series){
             if (genero.equals(serie.getGenero())){
                 aux.add(series);
@@ -50,7 +51,7 @@ public class PlataformaStreaming {
     }
     
     public List<Serie> filtrarPorIdioma(String idioma) {
-        ArrayList aux = new ArrayList();
+        ArrayList aux = new ArrayList<>();
         for (Serie serie : series){
             if (idioma.equals(serie.getIdioma())){
                 aux.add(series);
@@ -61,7 +62,7 @@ public class PlataformaStreaming {
     }
     
     public List<Serie> filtrarPorQntEps(int qntEps) {
-        ArrayList aux = new ArrayList();
+        List aux = new ArrayList<>();
         for (Serie serie : series){
             if (qntEps == serie.getQuantidadeDeEpsodios()){
                 aux.add(series);
@@ -79,6 +80,7 @@ public class PlataformaStreaming {
     }*/
     
     public void logoff() {
+        this.clienteAtual=null;
 
     }
     
