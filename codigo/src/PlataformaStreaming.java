@@ -1,58 +1,95 @@
-/*package src;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlataformaStreaming {
     private String nome;
-    private Hash<Serie> series;
-    private hash<Clientes> clientes;
+    private ArrayList<Serie> series;
+    private ArrayList<Cliente> clientes;
     private Cliente clienteAtual;
+ 
     
     public PlataformaStreaming(String nome) {
         this.nome = nome;
-        this.series = new hash<Serie>();
-        this.clientes = new hash<Clientes>();
+        this.series = new ArrayList<Serie>();
+        this.clientes = new ArrayList<Cliente>();
         this.clienteAtual = null;
+        
     }
     
-    public void login(Cliente cliente) {
-        // TODO: implementar
-    }
+    /*public void login(String nomeUsuario, String senha) {
+        
+        for (Cliente: clientes){
+            if (nomeUsuario.equals(clientes.nomedeUsuario) && senha.equals(clientes.senha)){
+                login = true;
+
+            }
+        }
+    }*/
     
     public void adicionarSerie(Serie serie) {
-        // TODO: implementar
+        series.add(serie);
+ 
     }
     
     public void adicionarCliente(Cliente cliente) {
-        // TODO: implementar
+        clientes.add(cliente);
+ 
     }
     
     public List<Serie> filtrarPorGenero(String genero) {
-        // TODO: implementar
-        return null;
+        ArrayList aux = new ArrayList();
+        for (Serie serie : series){
+            if (genero.equals(serie.getGenero())){
+                aux.add(series);
+            }
+        }
+
+        return aux;
     }
     
     public List<Serie> filtrarPorIdioma(String idioma) {
-        // TODO: implementar
-        return null;
+        ArrayList aux = new ArrayList();
+        for (Serie serie : series){
+            if (idioma.equals(serie.getIdioma())){
+                aux.add(series);
+            }
+        }
+
+        return aux;
     }
     
     public List<Serie> filtrarPorQntEps(int qntEps) {
-        // TODO: implementar
-        return null;
+        ArrayList aux = new ArrayList();
+        for (Serie serie : series){
+            if (qntEps == serie.getQuantidadeDeEpsodios()){
+                aux.add(series);
+            }
+        }
+
+        return aux;
     }
     
-    public void registrarAudiencia(Serie serie) {
-        // TODO: implementar
-    }
+    /*public void registrarAudiencia(Serie serie) {
+        int audiencia;
+        for(Serie s : this.series) {
+            audiencia += s.registraAudiencia();    
+        }
+    }*/
     
     public void logoff() {
-        // TODO: implementar
+
     }
     
-    public Serie buscarSerie(String nomeSerie) {
-        // TODO: implementar
-        return null;
-    }
+    /*public Serie buscarSerie(String nomeSerie) {
+        for (Serie serie : series){
+            if (nomeSerie.equals(serie.getNome())){
+                return serie;
+            }
+        }
+
+        
+    }*/
 }
-*/
+

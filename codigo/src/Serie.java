@@ -1,12 +1,12 @@
-package src;
+
 
 public class Serie {
 	 private final String[] GENEROS = {"Drama", "Comédia", "Terror", "Ficção Científica", "Ação", "Policial", "Fantasia"};
 	 private String nome;
 	 private String genero;
-	 private String idioma;
+	private String idioma;
 	 private int quantidadeDeEpsodios;
-	 private int audiencia;
+	private int audiencia;
 
 
 	 public void registraAudiencia() {
@@ -16,5 +16,16 @@ public class Serie {
 	 public String getNome() {
 		 return this.nome;
 	 }
+	 public String getGenero() {
+		return genero;
+	}
+	public String getIdioma() {
+		return idioma;
+	}
+	public int getQuantidadeDeEpsodios() {
+		return quantidadeDeEpsodios;
+	}
+
+	
 
 }

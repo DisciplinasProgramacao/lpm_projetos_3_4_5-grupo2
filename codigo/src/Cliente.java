@@ -1,7 +1,7 @@
-package src;
+
 
 public class Cliente {
-	String nomedeUsuario;
+	public String nomedeUsuario;
 	String senha;
 	Lista<Serie> listaParaVer;
 	Lista<Serie> listaJaVistas;
