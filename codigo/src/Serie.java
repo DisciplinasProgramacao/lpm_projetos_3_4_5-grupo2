@@ -26,7 +26,7 @@ public class Serie {
 	}
 	
 	/**
-	 * Método que registra audieência de determinada série
+	 * Método que registra audiência de determinada série
 	 */
 	public int registraAudiencia() {
 		return this.audiencia += this.audiencia;

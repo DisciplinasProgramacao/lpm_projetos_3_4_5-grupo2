@@ -8,50 +8,60 @@ skinparam classFontColor automatic
 skinparam classHeaderBackgroundColor #444
 
 class Cliente {
-  ~ senha: String
+  - nomedeUsuario: String
+  - senha: String
   ~ listaParaVer: Lista<Serie>
   ~ listaJaVistas: Lista<Serie>
-  + nomedeUsuario: String
   + adicionarNaLista(Serie): void
   + retirarDaLista(String): void
+  + filtrarPorGenero: List<Serie>
+}
+
+class LeituraDados {
+  +listaEspectadores: Lista<Cliente>
+  +listaSeries: Lista<Serie>
+  + carregarEspectador(String): void
+  + carregarSeries(String): void
+  + carregarAudiencia(String): void
 }
 
 class Lista<T> {
-  - data: LinkedList<T>
+  - data: T[]
   + add(T): boolean
-  + allElements(T[]): T[]
-  + remove(int): T
   + size(): int
+  + remove(int): T
+  + allElements(T[]): T[]
 }
 
 class PlataformaStreaming {
   - clientes: List<Cliente>
+  - series: List<Serie>
   - nome: String
   - clienteAtual: Cliente
-  - series: List<Serie>
-  + filtrarPorIdioma(String): List<Serie>
-  + filtrarPorGenero(String): List<Serie>
   + login(String, String): Cliente
   + adicionarSerie(Serie): void
   + adicionarCliente(Cliente): void
-  + logoff(): void
+  + filtrarPorGenero(String): List<Serie>
+  + filtrarPorIdioma(String): List<Serie>
+  + filtrarPorQntEps(int): List<Serie>
+  + registraAudiencia: void
+  + logoff: void
+  + buscarSerie(String): Serie
 }
 
 class Serie {
   - GENEROS: String[]
-  - genero: String
-  - idioma: String
-  - quantidadeDeEpsodios: int
   - nome: String
+  - genero: String
+  - quantidadeDeEpsodios: int
   - audiencia: int
-  + registraAudiencia(): void
-  + getGenero(): String
-  + getIdioma(): String
-  + getNome(): String
-  + getQuantidadeDeEpsodios(): int
+  - idioma: String
+  + registraAudiencia(): in
+
 }
 
-Cliente             *--[#595959,plain]- Lista
-PlataformaStreaming *--[#595959,plain]- Cliente
-PlataformaStreaming *--[#595959,plain]- Serie
+Cliente             "1" *--[#595959,plain]-- "1" Lista
+LeituraDados        "1" *--[#595959,plain]-- "1" Lista
+PlataformaStreaming "1" *--[#595959,plain]-- "*" Cliente
+PlataformaStreaming "1" *--[#595959,plain]-- "*" Serie
 @enduml
