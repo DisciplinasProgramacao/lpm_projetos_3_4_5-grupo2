@@ -15,6 +15,18 @@ public class Serie {
 	private int quantidadeDeEpsodios;
 	private int audiencia;
 
+	public Serie() {
+	}
+	
+	public Serie(String nome, String genero, String idioma, int quantidadeDeEpsodios, int audiencia) {
+		super();
+		this.nome = nome;
+		this.genero = genero;
+		this.idioma = idioma;
+		this.quantidadeDeEpsodios = quantidadeDeEpsodios;
+		this.audiencia = audiencia;
+	}
+	
 	/**
 	 * Método que registra audieência de determinada série
 	 */
@@ -32,6 +44,26 @@ public class Serie {
 
 	public void setAudiencia(int audiencia) {
 		this.audiencia = audiencia;
+	}
+
+	public String getIdioma() {
+		return idioma;
+	}
+
+	public void setIdioma(String idioma) {
+		this.idioma = idioma;
+	}
+
+	public int getQuantidadeDeEpsodios() {
+		return quantidadeDeEpsodios;
+	}
+
+	public void setQuantidadeDeEpsodios(int quantidadeDeEpsodios) {
+		this.quantidadeDeEpsodios = quantidadeDeEpsodios;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getGenero() {
