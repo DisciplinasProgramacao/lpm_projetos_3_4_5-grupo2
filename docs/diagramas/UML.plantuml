@@ -1,0 +1,57 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+skinparam classFontColor automatic
+skinparam classHeaderBackgroundColor #444
+
+class Cliente {
+  ~ senha: String
+  ~ listaParaVer: Lista<Serie>
+  ~ listaJaVistas: Lista<Serie>
+  + nomedeUsuario: String
+  + adicionarNaLista(Serie): void
+  + retirarDaLista(String): void
+}
+
+class Lista<T> {
+  - data: LinkedList<T>
+  + add(T): boolean
+  + allElements(T[]): T[]
+  + remove(int): T
+  + size(): int
+}
+
+class PlataformaStreaming {
+  - clientes: List<Cliente>
+  - nome: String
+  - clienteAtual: Cliente
+  - series: List<Serie>
+  + filtrarPorIdioma(String): List<Serie>
+  + filtrarPorGenero(String): List<Serie>
+  + login(String, String): Cliente
+  + adicionarSerie(Serie): void
+  + adicionarCliente(Cliente): void
+  + logoff(): void
+}
+
+class Serie {
+  - GENEROS: String[]
+  - genero: String
+  - idioma: String
+  - quantidadeDeEpsodios: int
+  - nome: String
+  - audiencia: int
+  + registraAudiencia(): void
+  + getGenero(): String
+  + getIdioma(): String
+  + getNome(): String
+  + getQuantidadeDeEpsodios(): int
+}
+
+Cliente             *--[#595959,plain]- Lista
+PlataformaStreaming *--[#595959,plain]- Cliente
+PlataformaStreaming *--[#595959,plain]- Serie
+@enduml
