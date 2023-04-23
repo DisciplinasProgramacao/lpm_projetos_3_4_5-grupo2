@@ -14,4 +14,7 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<classpath>
+		<classpathentry kind="src" path="src"/>
+	</classpath>
 </projectDescription>

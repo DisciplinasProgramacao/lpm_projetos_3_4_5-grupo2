@@ -1,3 +1,5 @@
+package codigo;
+
 /**
  * Classe Serie
  * 
@@ -13,7 +15,7 @@ public class Serie {
 	private int quantidadeDeEpsodios;
 	private int audiencia;
 
-	public Serie() {
+	public Serie(int idSerie, String nome2, String dataLancamento) {
 	}
 	
 	public Serie(String nome, String genero, String idioma, int quantidadeDeEpsodios, int audiencia) {

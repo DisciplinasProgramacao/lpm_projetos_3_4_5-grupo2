@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+package codigo;
 
 public class Cliente {
 	String nomedeUsuario;
@@ -12,6 +9,10 @@ public class Cliente {
 	public Cliente() {
 		this.listaParaVer = new Lista<Serie>();
 		this.listaJaVistas = new Lista<Serie>();
+
+	}
+	
+	public Cliente(String nome, String login, String senha2) {
 
 	}
 
