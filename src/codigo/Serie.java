@@ -7,6 +7,7 @@ package codigo;
  *
  */
 public class Serie {
+	private int idSerie;
 	private final String[] GENEROS = { "Drama", "Comédia", "Terror", "Ficção Científica", "Ação", "Policial",
 			"Fantasia" };
 	private String nome;
@@ -14,8 +15,15 @@ public class Serie {
 	private String idioma;
 	private int quantidadeDeEpsodios;
 	private int audiencia;
+	private String dataLancamento;
 
-	public Serie(int idSerie, String nome2, String dataLancamento) {
+	public Serie() {
+	}
+
+	public Serie(int idSerie, String nome, String dataLancamento) {
+		this.idSerie = idSerie;
+		this.nome = nome;
+		this.dataLancamento = dataLancamento;
 	}
 	
 	public Serie(String nome, String genero, String idioma, int quantidadeDeEpsodios, int audiencia) {
@@ -32,6 +40,10 @@ public class Serie {
 	 */
 	public int registraAudiencia() {
 		return this.audiencia += this.audiencia;
+	}
+
+	public int getIdSerie() {
+		return idSerie;
 	}
 
 	public String getNome() {
