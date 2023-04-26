@@ -33,6 +33,7 @@ public class Main {
 
                     l.carregarEspectador("POO_Espectadores.csv");
                     l.carregarSeries("POO_Series.csv");
+                    l.carregarFilmes("POO_Filmes.csv");
                     break;
                 case 2:
                     System.out.println("Carregando audiência...");

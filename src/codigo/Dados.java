@@ -10,34 +10,12 @@ public class Dados {
 
     private static Cliente[] listaClientes;
     private static Lista<Serie> listaSeries;
+    private static Lista<Filme> listaFilmes;
 
     public Dados(){
         listaEspectadores = new Lista<>();
         listaSeries = new Lista<>();
-    }
-
-
-    /**
-     * Método que carrega um arquivo e cria as listas contendo informações de Espectadores
-     * , Séries e Audiências
-     * @param nomeArquivo
-     */
-    public void carregarEspectador(String nomeArquivo) throws FileNotFoundException {
-        int i;
-        Scanner leitor = new Scanner(new File(nomeArquivo));
-        String linha = leitor.nextLine();
-        while(leitor.hasNextLine()){
-            linha = leitor.nextLine();
-            String [] detalhes = linha.split(";");
-            String nome = detalhes[0];
-            String login = detalhes[1];
-            String senha = detalhes[2];
-
-            Cliente c = new Cliente(nome, login, senha);
-            this.listaEspectadores.add(c);
-            System.out.println("Usuário " + nome + " adicionado com sucesso. Login: " + login);
-
-        }
+        listaFilmes = new Lista<>();
     }
 
     public static Cliente[] getListaClientes() {
@@ -72,6 +50,27 @@ public class Dados {
         System.out.println("Lista de clientes atualizada com informações de audiência.");
     }
 
+    /**
+     * Método que carrega um arquivo e cria as listas contendo informações de Espectadores
+     * @param nomeArquivo
+     */
+    public void carregarEspectador(String nomeArquivo) throws FileNotFoundException {
+        int i;
+        Scanner leitor = new Scanner(new File(nomeArquivo));
+        String linha = leitor.nextLine();
+        while(leitor.hasNextLine()){
+            linha = leitor.nextLine();
+            String [] detalhes = linha.split(";");
+            String nome = detalhes[0];
+            String login = detalhes[1];
+            String senha = detalhes[2];
+
+            Cliente c = new Cliente(nome, login, senha);
+            listaEspectadores.add(c);
+            System.out.println("Usuário " + nome + " adicionado com sucesso. Login: " + login);
+
+        }
+    }
     public void carregarSeries(String nomeArquivo) throws FileNotFoundException {
         Scanner leitor = new Scanner(new File(nomeArquivo));
         String linha = leitor.nextLine();
@@ -85,6 +84,24 @@ public class Dados {
             Serie s = new Serie(idSerie, nome, dataLancamento);
             this.listaSeries.add(s);
             System.out.println("Série " + nome + ", lançada em " + dataLancamento + ", cadastrada com ID " + idSerie);
+
+        }
+    }
+
+    public void carregarFilmes(String nomeArquivo) throws FileNotFoundException {
+        Scanner leitor = new Scanner(new File(nomeArquivo));
+        String linha = leitor.nextLine();
+        while(leitor.hasNextLine()){
+            linha = leitor.nextLine();
+            String [] detalhes = linha.split(";");
+            int idFilme = Integer.parseInt(detalhes[0]);
+            String nome = detalhes[1];
+            String dataLancamento = detalhes[2];
+            int duracao = Integer.parseInt(detalhes[3]);
+
+            Filme f = new Filme (idFilme, nome, dataLancamento, duracao);
+            listaFilmes.add(f);
+            System.out.println("Filme " + nome + ", lançado em " + dataLancamento + ", cadastrada com ID " + idFilme + ". Duração: " + duracao + " minutos");
 
         }
     }
