@@ -8,21 +8,46 @@ skinparam classFontColor automatic
 skinparam classHeaderBackgroundColor #444
 
 class Cliente {
+  - nome: String
   - nomedeUsuario: String
   - senha: String
   ~ listaParaVer: Lista<Serie>
   ~ listaJaVistas: Lista<Serie>
   + adicionarNaLista(Serie): void
   + retirarDaLista(String): void
+  + registraAudiencia(Serie): void
+  + imprimeListParaVer(): void
   + filtrarPorGenero: List<Serie>
 }
 
-class LeituraDados {
-  +listaEspectadores: Lista<Cliente>
-  +listaSeries: Lista<Serie>
+class Dados {
+  - listaClientes: Cliente[]
+  + listaEspectadores: Lista<Cliente>
+  + listaSeries: Lista<Serie>
+  + listaSeries: Lista<Serie>
+  + listaFilmes: Lista<Filme>
+  + atualizarClientes(Cliente[]): void
   + carregarEspectador(String): void
   + carregarSeries(String): void
+  + carregarFilmes(String): void
   + carregarAudiencia(String): void
+}
+
+class Filme{
+  - idFilme: int
+  - duracao: int
+  +Filme(int, int): void
+}
+
+class Midia {
+  - nome: String
+  - genero: String
+  - GENEROS: String[]
+  - idioma: String
+  - audiencia: int
+  - idioma: String
+  - dataLancamento: String
+  + registraAudiencia(): int
 }
 
 class Lista<T> {
@@ -50,18 +75,14 @@ class PlataformaStreaming {
 }
 
 class Serie {
-  - GENEROS: String[]
-  - nome: String
-  - genero: String
+  - idSerie: int
   - quantidadeDeEpsodios: int
-  - audiencia: int
-  - idioma: String
-  + registraAudiencia(): in
-
 }
 
 Cliente             "1" *--[#595959,plain]-- "1" Lista
-LeituraDados        "1" *--[#595959,plain]-- "1" Lista
+Dados        "1" *--[#595959,plain]-- "1" Lista
+Midia        "1" *--[#595959,plain]-- "1" Filme
+Midia        "1" *--[#595959,plain]-- "1" Serie
 PlataformaStreaming "1" *--[#595959,plain]-- "*" Cliente
 PlataformaStreaming "1" *--[#595959,plain]-- "*" Serie
 @enduml
