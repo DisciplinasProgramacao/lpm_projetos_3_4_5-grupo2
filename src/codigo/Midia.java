@@ -14,6 +14,8 @@ public abstract class Midia {
     protected int audiencia;
     protected String dataLancamento;
 
+    protected int nota;
+
     public Midia() {
         super();
     }
@@ -56,4 +58,13 @@ public abstract class Midia {
     public void setGenero(String genero) {
         this.genero = genero;
     }
+
+    public int getNota() {
+        return this.nota;
+    }
+
+    public void avaliarMidia(int nota){
+        this.nota = nota;
+    }
+
 }

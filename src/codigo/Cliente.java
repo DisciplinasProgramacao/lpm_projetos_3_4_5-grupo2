@@ -4,8 +4,8 @@ public class Cliente {
 	String nome;
 	String nomedeUsuario;
 	String senha;
-	Lista<Serie> listaParaVer;
-	Lista<Serie> listaJaVistas;
+	Lista<Midia> listaParaVer;
+	Lista<Midia> listaJaVistas;
 
 	public Cliente() {
 		this.listaParaVer = new Lista<>();
@@ -32,23 +32,27 @@ public class Cliente {
 		return nomedeUsuario;
 	}
 
-	public Lista<Serie> getListaParaVer() {
+	public String getSenha() {
+		return senha;
+	}
+
+	public Lista<Midia> getListaParaVer() {
 		return listaParaVer;
 	}
 
-	public Lista<Serie> getListaJaVistas() {
+	public Lista<Midia> getListaJaVistas() {
 		return listaJaVistas;
 	}
 
 
-	public void adicionarNaLista(Serie serie) {
-		this.listaParaVer.add(serie);
+	public void adicionarNaLista(Midia midia) {
+		this.listaParaVer.add(midia);
 	}
 
-	public void retirarDaLista(String nomeSerie) {
-		Serie[] series = this.listaParaVer.allElements(new Serie[this.listaParaVer.size()]);
-		for (Serie item : series) {
-			if (item.getNome().equals(nomeSerie)) {
+	public void retirarDaLista(String nomeMidia) {
+		Midia[] midias = this.listaParaVer.allElements(new Midia[this.listaParaVer.size()]);
+		for (Midia item : midias) {
+			if (item.getNome().equals(nomeMidia)) {
 				this.listaParaVer.remove(item.hashCode());
 			}
 //			else {
@@ -59,18 +63,18 @@ public class Cliente {
 		}
 	}
 
-	public void registrarAudiencia (Serie serie) {
-		this.listaJaVistas.add(serie);
+	public void registrarAudiencia (Midia midia) {
+		this.listaJaVistas.add(midia);
 	}
 
 	public void imprimeListaParaVer() {
 		System.out.printf("'Lista para Ver' de %s", getNome());
 
-		Serie[] seriesParaVer = new Serie[listaParaVer.size()];
-		seriesParaVer = listaParaVer.allElements(seriesParaVer);
+		Midia[] midiasParaVer = new Serie[listaParaVer.size()];
+		midiasParaVer = listaParaVer.allElements(midiasParaVer);
 
-		for (Serie serie : seriesParaVer)
-			System.out.printf("\n- %s", serie.getNome());
+		for (Midia midia : midiasParaVer)
+			System.out.printf("\n- %s", midia.getNome());
 	}
 
 

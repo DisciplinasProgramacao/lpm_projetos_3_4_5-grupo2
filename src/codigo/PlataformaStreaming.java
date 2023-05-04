@@ -84,14 +84,25 @@ public class PlataformaStreaming {
         this.clienteAtual=null;
 
     }
-    
-    public Serie buscarSerie(String nomeSerie) {
-        for (Serie serie : series){
-            if (nomeSerie.equals(serie.getNome())){
-                return serie;
+
+    public Midia buscarMidia(String nomeMidia) {
+        for (Midia midia : midias){
+            if (nomeMidia.equals(midia.getNome())){
+                return midia;
             }
         }
-		return null;
+        return null;
     }
+
+//    public List<Serie> filtrarPorQntEps(int qntEps) {
+//        List<Serie> aux = new ArrayList<>();
+//        for (Midia midia : midias){
+//            if (midia instanceof Serie && qntEps == midia.getQuantidadeDeEpsodios()){
+//                aux.add(midias);
+//            }
+//        }
+//
+//        return aux;
+//    }
 }
 

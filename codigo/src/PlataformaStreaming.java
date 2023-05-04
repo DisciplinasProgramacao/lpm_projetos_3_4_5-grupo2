@@ -1,5 +1,7 @@
 
 
+import codigo.Cliente;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +22,7 @@ public class PlataformaStreaming {
     
     public Cliente login(String nomeUsuario, String senha) {
         for (Cliente cliente : clientes){
-            if (nomeUsuario.equals(cliente.nomedeUsuario) && senha.equals(cliente.senha)){
+            if (nomeUsuario.equals(cliente.getNomedeUsuario()) && senha.equals(cliente.getSenha())){
                 this.clienteAtual=cliente;
                 return clienteAtual;
             }
@@ -72,12 +74,12 @@ public class PlataformaStreaming {
         return aux;
     }
     
-    public void registrarAudiencia(Serie serie) {
-        int soma;
-         return soma = series.stream()
-                    .mapToInt(Serie::audiencia)
-                    .sum(); // Soma dos números filtrados
-    }
+//    public void registrarAudiencia(Serie serie) {
+//        int soma;
+//         return soma = series.stream()
+//                    .mapToInt(Serie::audiencia)
+//                    .sum(); // Soma dos números filtrados
+//    }
     
     public void logoff() {
         this.clienteAtual=null;

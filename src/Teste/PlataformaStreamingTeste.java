@@ -23,8 +23,8 @@ class PlataformaStreamingTeste {
 	@DisplayName("Método que testa a classe buscarSerie")
 	@Test
 	void testBuscarSerie() {
-		plataforma.adicionarSerie(serie);
-		assertEquals("The Walking Dead", plataforma.buscarSerie(("The Walking Dead")).getNome());
+		plataforma.adicionarMidia(serie);
+		assertEquals("The Walking Dead", plataforma.buscarMidia(("The Walking Dead")).getNome());
 	}
 
 }
