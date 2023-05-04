@@ -1,19 +1,18 @@
-package codigo;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlataformaStreaming {
     private String nome;
-    private List<Midia> midias;
+    private List<Serie> series;
     private List<Cliente> clientes;
     private Cliente clienteAtual;
  
-    public PlataformaStreaming() {
-    }
+    
     public PlataformaStreaming(String nome) {
         this.nome = nome;
-        this.midias = new ArrayList<Midia>();
+        this.series = new ArrayList<Serie>();
         this.clientes = new ArrayList<Cliente>();
         this.clienteAtual = null;
         
@@ -30,8 +29,8 @@ public class PlataformaStreaming {
         
     }
     
-    public void adicionarMidia(Midia midia) {
-        midias.add(midia);
+    public void adicionarSerie(Serie serie) {
+        series.add(serie);
  
     }
     
@@ -40,58 +39,59 @@ public class PlataformaStreaming {
  
     }
     
-    public List<Midia> filtrarPorGenero(String genero) {
+    public List<Serie> filtrarPorGenero(String genero) {
         List aux = new ArrayList<>();
-        for (Midia midia : midias){
-            if (genero.equals(midia.getGenero())){
-                aux.add(midias);
+        for (Serie serie : series){
+            if (genero.equals(serie.getGenero())){
+                aux.add(series);
             }
         }
 
         return aux;
     }
     
-    public List<Midia> filtrarPorIdioma(String idioma) {
+    public List<Serie> filtrarPorIdioma(String idioma) {
         ArrayList aux = new ArrayList<>();
-        for (Midia midia : midias){
-            if (idioma.equals(midia.getIdioma())){
-                aux.add(midias);
+        for (Serie serie : series){
+            if (idioma.equals(serie.getIdioma())){
+                aux.add(series);
             }
         }
 
         return aux;
     }
-  /* 
-    public List<Midia> filtrarPorQntEps(int qntEps) {
+    
+    public List<Serie> filtrarPorQntEps(int qntEps) {
         List aux = new ArrayList<>();
-        for (Midia midia : midias){
-            if (qntEps == midia.getQuantidadeDeEpsodios()){
-                aux.add(midias);
+        for (Serie serie : series){
+            if (qntEps == serie.getQuantidadeDeEpsodios()){
+                aux.add(series);
             }
         }
 
         return aux;
     }
-    /*
-    /*public void registrarAudiencia(Serie serie) {
-        int audiencia;
-        for(Serie s : this.series) {
-            audiencia += s.registraAudiencia();    
-        }
-    }*/
+    
+    public void registrarAudiencia(Serie serie) {
+        int soma;
+         return soma = series.stream()
+                    .mapToInt(Serie::audiencia)
+                    .sum(); // Soma dos números filtrados
+    }
     
     public void logoff() {
         this.clienteAtual=null;
 
     }
     
-    public Serie buscarSerie(String nomeSerie) {
+    /*public Serie buscarSerie(String nomeSerie) {
         for (Serie serie : series){
             if (nomeSerie.equals(serie.getNome())){
                 return serie;
             }
         }
-		return null;
-    }
+
+        
+    }*/
 }
 

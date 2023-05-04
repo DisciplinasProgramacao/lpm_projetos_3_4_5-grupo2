@@ -5,7 +5,7 @@ package codigo;
  * @author Lucas Figueira
  *
  */
-public class Midia {
+public abstract class Midia {
     private final String[] GENEROS = {"Drama", "Comédia", "Terror", "Ficção Científica", "Ação", "Policial",
             "Fantasia"};
     protected String nome;
@@ -21,7 +21,7 @@ public class Midia {
     /**
      * Método que registra audiência de determinada série
      */
-    public int registraAudiencia() {
+    public int  registraAudiencia() {
         return this.audiencia += this.audiencia;
     }
 

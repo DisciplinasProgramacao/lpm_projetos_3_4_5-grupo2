@@ -5,23 +5,23 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import codigo.Serie;
+import codigo.Filme;
 import codigo.Midia;
 
-class SerieTeste {
+class FilmeTeste {
 
-	Midia serie;
+	Midia filme;
 
 	@BeforeEach
 	void init() {
-		this.serie = new Serie();
+		this.filme = new Filme();
 	}
 
 	@Test
-	@DisplayName("Método que testa o registro de audiência de uma série")
+	@DisplayName("Método que testa o registro de audiência de um filme")
 	void testRegistraAudiencia() {
-		this.serie.setAudiencia(4);
-		Assertions.assertEquals(8, this.serie.registraAudiencia());
+		this.filme.setAudiencia(4);
+		Assertions.assertEquals(8, this.filme.registraAudiencia());
 	}
 
 }

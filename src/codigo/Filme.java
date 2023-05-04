@@ -4,6 +4,8 @@ public class Filme extends Midia{
     private int idFilme;
     public int duracao;
 
+    public Filme() {}
+    
     public Filme(int idFilme, String nome, String dataLancamento, int duracao) {
         this.idFilme = idFilme;
         this.nome = nome;
