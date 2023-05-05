@@ -48,7 +48,7 @@ public class Serie extends Midia {
 
 	@Override
 	public String toString() {
-		return "Série: " + nome + " | Gênero: " + genero + " | Idioma: " + idioma +
+		return "Série: " + nome + " | Gênero: " + genero + " | " +
 				" | Episódios: " + quantidadeDeEpsodios + " | Lançamento: " + dataLancamento;
 	}
 }

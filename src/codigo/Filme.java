@@ -43,11 +43,8 @@ public class Filme extends Midia{
         StringBuilder sb = new StringBuilder();
         sb.append("Nome: ").append(this.nome).append("\n");
         sb.append("Gênero: ").append(this.genero).append("\n");
-        sb.append("Idioma: ").append(this.idioma).append("\n");
         sb.append("Duração: ").append(this.duracao).append(" minutos").append("\n");
         sb.append("Data de lançamento: ").append(this.dataLancamento).append("\n");
-        sb.append("Audiência: ").append(this.audiencia).append("\n");
-        sb.append("Nota: ").append(this.nota).append("\n");
         return sb.toString();
     }
 }

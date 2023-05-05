@@ -23,12 +23,13 @@ public class PlataformaStreaming {
         this.clientes = new ArrayList<Cliente>();
         this.clienteAtual = null;
 
-
+        System.out.println("Carregando dados...");
         carregarSeries("POO_Series.csv");
         carregarFilmes("POO_Filmes.csv");
+        carregarEspectador("POO_Espectadores.csv");
 
-        System.out.println("Carregando audiência...");
-        carregarAudiencia("POO_Audiencia.csv");
+        //System.out.println("Carregando audiência...");
+        //carregarAudiencia("POO_Audiencia.csv");
         
     }
 
@@ -120,9 +121,9 @@ public class PlataformaStreaming {
      * @throws FileNotFoundException
      */
     public void carregarAudiencia(String nomeArquivo) throws FileNotFoundException {
-        if (clientes.size() == 0 || clientes.size() == 0) {
-            System.out.println("Audiência não carregada. As listas estão vazias. É necessário fazer a carga dos arquivos primeiro.");
-        } else {
+//        if (clientes.size() == 0 || clientes.size() == 0) {
+//            System.out.println("Audiência não carregada. As listas estão vazias. É necessário fazer a carga dos arquivos primeiro.");
+//        } else {
             Scanner leitor = new Scanner(new File(nomeArquivo));
             //Cliente[] clientesComAudiencia = new Cliente[clientes.size()];
             //clientesComAudiencia = clientes.toArray();
@@ -146,17 +147,17 @@ public class PlataformaStreaming {
                     if (cliente.getNomedeUsuario().equals(login)){
                         if (tipoLista.equals("F")) {
                             cliente.adicionarNaLista(serie);
-                            System.out.printf("Série %s adicionada na lista 'Para ver' do cliente %s\n", serie.getNome(), cliente.getNome());
+                            //System.out.printf("Série %s adicionada na lista 'Para ver' do cliente %s\n", serie.getNome(), cliente.getNome());
                         } else {
                             cliente.registrarAudiencia(serie);
-                            System.out.printf("\nSérie %s adicionada na lista 'Já assistidas' do cliente %s\n", serie.getNome(), cliente.getNome());
+                            //System.out.printf("\nSérie %s adicionada na lista 'Já assistidas' do cliente %s\n", serie.getNome(), cliente.getNome());
                         }
                     }
             }
             System.out.println("Audiência carregada com sucesso");
 
         }
-    }
+   // }
     
     /**
      * Método que faz login do Cliente
