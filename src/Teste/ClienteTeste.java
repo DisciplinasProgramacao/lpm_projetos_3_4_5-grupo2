@@ -2,15 +2,12 @@ package Teste;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import codigo.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import codigo.Cliente;
-import codigo.Filme;
-import codigo.Midia;
-import codigo.PlataformaStreaming;
-import codigo.Serie;
+import java.io.FileNotFoundException;
 
 class ClienteTeste {
 
@@ -19,8 +16,8 @@ class ClienteTeste {
 	    PlataformaStreaming plataforma;
 
 		@BeforeEach
-		void init() {
-	        this.serie = new Serie("Game of Trhones", "Aventura", "Ingles", 100, 10000);
+		void init() throws FileNotFoundException {
+	        this.serie = new Serie("Game of Trhones", "Aventura", "Ingles", 100, "12/03/2008");
 	        this.cliente = new Cliente("Roberto", "robertolmg", "123456");
 	        this.plataforma = new PlataformaStreaming("Netflix");
 	    }
@@ -51,7 +48,7 @@ class ClienteTeste {
 	    @Test
 		@DisplayName("Método que testa o regitrar nota do cliente")
 	    public void testRegistrarNota(){
-	        Midia titanic = new Filme(1997, "Titanic", "16/01/1998", 194);
+	        Midia titanic = new Filme(1997, "Titanic", "16/01/1998", 194, Midia.gerarGeneroAleatorio());
 	        cliente.registrarAudiencia(titanic);
 	        titanic.avaliarMidia(5);
 	        assertEquals(5, titanic.getNota());

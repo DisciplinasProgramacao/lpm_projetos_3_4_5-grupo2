@@ -10,19 +10,20 @@ public class Serie extends Midia {
 	public Serie() {
 	}
 
-	public Serie(int idSerie, String nome, String dataLancamento) {
-		this.idSerie = idSerie;
+	public Serie(int idSerie, String nome, String dataLancamento, String genero) {
+		this.id = idSerie;
 		this.nome = nome;
 		this.dataLancamento = dataLancamento;
+		this.genero = genero;
 	}
-	
-	public Serie(String nome, String genero, String idioma, int quantidadeDeEpsodios, int audiencia) {
+
+	public Serie(String nome, String genero, String idioma, int quantidadeDeEpsodios, String dataLancamento) {
 		super();
 		this.nome = nome;
 		this.genero = genero;
 		this.idioma = idioma;
 		this.quantidadeDeEpsodios = quantidadeDeEpsodios;
-		this.audiencia = audiencia;
+		this.dataLancamento = dataLancamento;
 	}
 	
 	/**
@@ -33,6 +34,10 @@ public class Serie extends Midia {
 		return idSerie;
 	}
 
+	public void setIdSerie(int idSerie) {
+		this.idSerie = idSerie;
+	}
+
 	public int getQuantidadeDeEpsodios() {
 		return quantidadeDeEpsodios;
 	}
@@ -41,4 +46,9 @@ public class Serie extends Midia {
 		this.quantidadeDeEpsodios = quantidadeDeEpsodios;
 	}
 
+	@Override
+	public String toString() {
+		return "Série: " + nome + " | Gênero: " + genero + " | Idioma: " + idioma +
+				" | Episódios: " + quantidadeDeEpsodios + " | Lançamento: " + dataLancamento;
+	}
 }

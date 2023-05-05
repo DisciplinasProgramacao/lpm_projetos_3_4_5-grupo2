@@ -96,4 +96,25 @@ public class Cliente {
 			System.out.printf("\n- %s", midia.getNome());
 	}
 
+	public String getSenha() {
+		return this.getSenha();
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Cliente: ").append(this.nome).append("\n");
+		sb.append("Nome de usuario: ").append(this.nomedeUsuario).append("\n");
+		sb.append("Lista de midias para ver:\n");
+		Midia[] midiasParaVer = this.listaParaVer.allElements(new Midia[this.listaParaVer.size()]);
+		for (Midia midia : midiasParaVer) {
+			sb.append("- ").append(midia.getNome()).append("\n");
+		}
+		sb.append("Lista de midias já vistas:\n");
+		Midia[] midiasJaVistas = this.listaJaVistas.allElements(new Midia[this.listaJaVistas.size()]);
+		for (Midia midia : midiasJaVistas) {
+			sb.append("- ").append(midia.getNome()).append("\n");
+		}
+		return sb.toString();
+	}
 }

@@ -40,7 +40,7 @@ public class Dados {
     /**
      * Método que busca Serie
      * @param idSerie
-     * @return
+     * @return serie
      */
     public static Serie buscarSerie(int idSerie){
         Serie[] series = new Serie[listaSeries.size()];
@@ -71,10 +71,11 @@ public class Dados {
      * @param nomeArquivo
      */
     public void carregarEspectador(String nomeArquivo) throws FileNotFoundException {
-        int i;
+
         Scanner leitor = new Scanner(new File(nomeArquivo));
         String linha = leitor.nextLine();
         while(leitor.hasNextLine()){
+
             linha = leitor.nextLine();
             String [] detalhes = linha.split(";");
             String nome = detalhes[0];
@@ -102,9 +103,11 @@ public class Dados {
             int idSerie = Integer.parseInt(detalhes[0]);
             String nome = detalhes[1];
             String dataLancamento = detalhes[2];
+            String genero = Midia.gerarGeneroAleatorio();
 
-            Serie s = new Serie(idSerie, nome, dataLancamento);
+            Serie s = new Serie(idSerie, nome, dataLancamento, genero);
             this.listaSeries.add(s);
+
             System.out.println("Série " + nome + ", lançada em " + dataLancamento + ", cadastrada com ID " + idSerie);
 
         }
@@ -125,8 +128,9 @@ public class Dados {
             String nome = detalhes[1];
             String dataLancamento = detalhes[2];
             int duracao = Integer.parseInt(detalhes[3]);
+            String genero = Midia.gerarGeneroAleatorio();
 
-            Filme f = new Filme (idFilme, nome, dataLancamento, duracao);
+            Filme f = new Filme (idFilme, nome, dataLancamento, duracao, genero);
             listaFilmes.add(f);
             System.out.println("Filme " + nome + ", lançado em " + dataLancamento + ", cadastrada com ID " + idFilme + ". Duração: " + duracao + " minutos");
 

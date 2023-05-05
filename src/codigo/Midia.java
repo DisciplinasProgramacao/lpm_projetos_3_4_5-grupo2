@@ -1,8 +1,11 @@
 package codigo;
 
+import java.util.Random;
+
 public abstract class Midia {
-    private final String[] GENEROS = {"Drama", "Comédia", "Terror", "Ficção Científica", "Ação", "Policial",
+    public final static String[] GENEROS = {"Drama", "Comédia", "Terror", "Ficção Científica", "Ação", "Policial",
             "Fantasia"};
+    protected int id;
     protected String nome;
     protected String genero;
     protected String idioma;
@@ -16,6 +19,13 @@ public abstract class Midia {
      */
     public Midia() {
         super();
+    }
+
+    public static String gerarGeneroAleatorio(){
+        Random rand = new Random();
+        int numeroAleatorio = rand.nextInt(6);
+
+        return GENEROS[numeroAleatorio];
     }
 
     /**
@@ -51,6 +61,10 @@ public abstract class Midia {
 
     public String getGenero() {
         return genero;
+    }
+
+    public int getIdMidia(){
+        return this.id;
     }
 
     public void setGenero(String genero) {

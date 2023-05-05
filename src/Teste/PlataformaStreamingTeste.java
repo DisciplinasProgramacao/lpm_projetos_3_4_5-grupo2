@@ -3,6 +3,7 @@ package Teste;
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -24,11 +25,11 @@ class PlataformaStreamingTeste {
 	Filme filme;
 
 	@BeforeEach
-	void init() {
-		this.serie = new Serie("The Walking Dead", "Terror", "Inglês", 512, 5);
+	void init() throws FileNotFoundException {
+		this.serie = new Serie("The Walking Dead", "Terror", "Inglês", 512, "12/11/2012");
 		this.plataforma = new PlataformaStreaming("Netflix");
 		this.cliente = new Cliente("Flávia", "flasriibeiro", "12345");
-		this.filme = new Filme("Harry Potter", "Ficção Científica", "Inglês", 3500, 10);
+		this.filme = new Filme("Harry Potter", "Ficção Científica", "Inglês", 3500, "20/10/2001");
 	}
 
 	@DisplayName("Método que testa a função de buscarSerie")
@@ -95,8 +96,20 @@ class PlataformaStreamingTeste {
 	@DisplayName("Método que testa a função de registrarAudiencia")
 	@Test
 	public void testRegistrarAudiencia() {
+		serie.setAudiencia(32);
 		plataforma.adicionarMidia(serie);
-		assertEquals(5, plataforma.registrarAudiencia(serie));
+		assertEquals(32, plataforma.registrarAudiencia(serie));
+	}
+
+	@Test
+	@DisplayName("Método que testa a função de adicionarCliente")
+	void testAdicionarCliente() {
+		plataforma.adicionarCliente(cliente);
+
+		Cliente cliente2 = new Cliente("Flávia", "flasriibeiro", "12345");;
+		plataforma.adicionarCliente(cliente2);
+
+		assertEquals(1, plataforma.getClientes().size());
 	}
 
 }
