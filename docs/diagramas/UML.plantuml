@@ -14,21 +14,6 @@ class Cliente {
   + imprimeListParaVer(): void
 }
 
-class Dados {
-  - listaClientes: Cliente[]
-  - listaEspectadores: Lista<Cliente>
-  - listaSeries: Lista<Serie>
-  - listaSeries: Lista<Serie>
-  - listaFilmes: Lista<Filme>
-  ..
-  + {static} atualizarClientes(Cliente[]): void
-  + carregarEspectador(String): void
-  + carregarSeries(String): void
-  + carregarFilmes(String): void
-  + carregarAudiencia(String): void
-  + {static} buscarSeries(int): Serie
-}
-
 abstract class Midia {
   + {static} GENEROS: String[]
   # id: int
@@ -80,9 +65,8 @@ class PlataformaStreaming {
   + filtrarPorQntEps(int): List<Serie>
 }
 
-Filme ---|> Midia
-Midia <|--- Serie
-Dados ---> Cliente
-PlataformaStreaming ---> Midia
-PlataformaStreaming ---> Cliente
+Filme --|> Midia
+Serie --|> Midia
+Midia <-- PlataformaStreaming
+Cliente <-- PlataformaStreaming
 @enduml
