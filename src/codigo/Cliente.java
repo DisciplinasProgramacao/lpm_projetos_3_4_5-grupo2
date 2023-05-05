@@ -1,5 +1,12 @@
 package codigo;
 
+import java.util.Arrays;
+
+/**
+ * Classe Cliente
+ * @author Lucas Figueiredo
+ *
+ */
 public class Cliente {
 	String nome;
 	String nomedeUsuario;
@@ -7,6 +14,9 @@ public class Cliente {
 	Lista<Midia> listaParaVer;
 	Lista<Midia> listaJaVistas;
 
+	/**
+	 * Construtores padrão
+	 */
 	public Cliente() {
 		this.listaParaVer = new Lista<>();
 		this.listaJaVistas = new Lista<>();
@@ -23,17 +33,17 @@ public class Cliente {
 		this.senha = senha;
 
 	}
-
+	
+	/**
+	 * Getters e Setters
+	 * @return
+	 */
 	public String getNome() {
 		return nome;
 	}
 
 	public String getNomedeUsuario() {
 		return nomedeUsuario;
-	}
-
-	public String getSenha() {
-		return senha;
 	}
 
 	public Lista<Midia> getListaParaVer() {
@@ -44,29 +54,38 @@ public class Cliente {
 		return listaJaVistas;
 	}
 
-
+	
+	/**
+	 * Método que adiciona midia na lista do Cliente
+	 * @param midia
+	 */
 	public void adicionarNaLista(Midia midia) {
 		this.listaParaVer.add(midia);
 	}
 
+	/**
+	 * Método que remove midia na lista do Cliente
+	 * @param nomeMidia
+	 */
 	public void retirarDaLista(String nomeMidia) {
 		Midia[] midias = this.listaParaVer.allElements(new Midia[this.listaParaVer.size()]);
 		for (Midia item : midias) {
 			if (item.getNome().equals(nomeMidia)) {
-				this.listaParaVer.remove(item.hashCode());
+				this.listaParaVer.remove(Arrays.asList(midias).indexOf(item));
 			}
-//			else {
-//				StringBuilder sb = new StringBuilder();
-//				sb.append("Está série não está n sua lista.\n");
-//				sb.append("Sua lista está assim:"+ series.toString());
-//			}
 		}
 	}
-
+	/**
+	 * Método que registra audiencia das midias já vistas pelo Cliente
+	 * @param midia
+	 */
 	public void registrarAudiencia (Midia midia) {
 		this.listaJaVistas.add(midia);
 	}
-
+	
+	/**
+	 * Imprime Lista
+	 */
 	public void imprimeListaParaVer() {
 		System.out.printf("'Lista para Ver' de %s", getNome());
 
@@ -77,11 +96,4 @@ public class Cliente {
 			System.out.printf("\n- %s", midia.getNome());
 	}
 
-
-
-//	public Lista<Serie> filtrarPorGenero(String genero){
-//		Serie[] series = this.listaJaVistas.allElements(new Serie[this.listaParaVer.size()]);
-//		List<Serie> listSeries = new ArrayList<>(Arrays.asList(series));
-//		return listSeries.stream().filter(s -> s.getGenero().equals(genero));
-//		}
 }

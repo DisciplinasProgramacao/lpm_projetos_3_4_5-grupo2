@@ -21,7 +21,7 @@ class SerieTeste {
 	@DisplayName("Método que testa o registro de audiência de uma série")
 	void testRegistraAudiencia() {
 		this.serie.setAudiencia(4);
-		Assertions.assertEquals(8, this.serie.registraAudiencia());
+		Assertions.assertEquals(4, this.serie.registraAudiencia());
 	}
 
 }

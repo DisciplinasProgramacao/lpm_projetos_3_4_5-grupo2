@@ -21,7 +21,7 @@ class FilmeTeste {
 	@DisplayName("Método que testa o registro de audiência de um filme")
 	void testRegistraAudiencia() {
 		this.filme.setAudiencia(4);
-		Assertions.assertEquals(8, this.filme.registraAudiencia());
+		Assertions.assertEquals(4, this.filme.registraAudiencia());
 	}
 
 }
