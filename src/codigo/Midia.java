@@ -1,10 +1,5 @@
 package codigo;
-/**
- * Classe Midia
- *
- * @author Lucas Figueira
- *
- */
+
 public abstract class Midia {
     private final String[] GENEROS = {"Drama", "Comédia", "Terror", "Ficção Científica", "Ação", "Policial",
             "Fantasia"};
@@ -16,6 +11,9 @@ public abstract class Midia {
 
     protected int nota;
 
+    /**
+     * Construtor padrão
+     */
     public Midia() {
         super();
     }
@@ -24,7 +22,7 @@ public abstract class Midia {
      * Método que registra audiência de determinada série
      */
     public int  registraAudiencia() {
-        return this.audiencia += this.audiencia;
+        return this.audiencia ++;
     }
 
     public String getNome() {
@@ -62,7 +60,11 @@ public abstract class Midia {
     public int getNota() {
         return this.nota;
     }
-
+    
+    /**
+     * Método que avalia midia
+     * @param nota
+     */
     public void avaliarMidia(int nota){
         this.nota = nota;
     }

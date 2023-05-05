@@ -1,15 +1,12 @@
 package codigo;
 
-/**
- * Classe Serie
- * 
- * @author Ana Flavia
- *
- */
 public class Serie extends Midia {
 	private int idSerie;
 	private int quantidadeDeEpsodios;
 
+	/**
+	 * Construtores padrão
+	 */
 	public Serie() {
 	}
 
@@ -27,7 +24,11 @@ public class Serie extends Midia {
 		this.quantidadeDeEpsodios = quantidadeDeEpsodios;
 		this.audiencia = audiencia;
 	}
-
+	
+	/**
+	 * Getters e Setters
+	 * @return
+	 */
 	public int getIdSerie() {
 		return idSerie;
 	}

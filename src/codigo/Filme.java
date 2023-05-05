@@ -4,6 +4,9 @@ public class Filme extends Midia{
     private int idFilme;
     public int duracao;
 
+    /**
+     * Contrutores padrão
+     */
     public Filme() {}
     
     public Filme(int idFilme, String nome, String dataLancamento, int duracao) {
@@ -21,7 +24,11 @@ public class Filme extends Midia{
         this.duracao = duracao;
         this.audiencia = audiencia;
     }
-
+    
+    /**
+     * Getters e Setters
+     * @return
+     */
     public int getIdFilme() {
         return idFilme;
     }

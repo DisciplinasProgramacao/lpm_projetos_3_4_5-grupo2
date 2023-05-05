@@ -9,6 +9,9 @@ public class PlataformaStreaming {
     private List<Cliente> clientes;
     private Cliente clienteAtual;
  
+    /*
+     * Construtor padrão
+     */
     public PlataformaStreaming() {
     }
     public PlataformaStreaming(String nome) {
@@ -19,6 +22,12 @@ public class PlataformaStreaming {
         
     }
     
+    /**
+     * Método que faz login do Cliente
+     * @param nomeUsuario
+     * @param senha
+     * @return
+     */
     public Cliente login(String nomeUsuario, String senha) {
         for (Cliente cliente : clientes){
             if (nomeUsuario.equals(cliente.nomedeUsuario) && senha.equals(cliente.senha)){
@@ -30,16 +39,29 @@ public class PlataformaStreaming {
         
     }
     
+    /**
+     * Método que adiciona midia na Plataforma
+     * @param midia
+     */
     public void adicionarMidia(Midia midia) {
         midias.add(midia);
  
     }
     
+    /**
+     * Método que adiciona Cliente na Plataforma
+     * @param cliente
+     */
     public void adicionarCliente(Cliente cliente) {
         clientes.add(cliente);
  
     }
     
+    /**
+     * Método que filtra as mídias por genero
+     * @param genero
+     * @return
+     */
     public List<Midia> filtrarPorGenero(String genero) {
         List aux = new ArrayList<>();
         for (Midia midia : midias){
@@ -51,6 +73,11 @@ public class PlataformaStreaming {
         return aux;
     }
     
+    /**
+     * Método que filtra as mídias por idioma
+     * @param idioma
+     * @return
+     */
     public List<Midia> filtrarPorIdioma(String idioma) {
         ArrayList aux = new ArrayList<>();
         for (Midia midia : midias){
@@ -61,30 +88,28 @@ public class PlataformaStreaming {
 
         return aux;
     }
-  /* 
-    public List<Midia> filtrarPorQntEps(int qntEps) {
-        List aux = new ArrayList<>();
-        for (Midia midia : midias){
-            if (qntEps == midia.getQuantidadeDeEpsodios()){
-                aux.add(midias);
-            }
-        }
-
-        return aux;
-    }
-    /*
-    /*public void registrarAudiencia(Serie serie) {
-        int audiencia;
-        for(Serie s : this.series) {
-            audiencia += s.registraAudiencia();    
-        }
-    }*/
     
+    /**
+     * Método que registra audiencia de determinada midia
+     * @param m
+     * @return
+     */
+    public int registrarAudiencia(Midia m) {
+    	return this.buscarMidia(m.getNome()).registraAudiencia();
+    }
+    
+    /**
+     * Método que faz logoff do Cliente logado 
+     */
     public void logoff() {
         this.clienteAtual=null;
-
     }
-
+    
+    /**
+     * Método que busca midia
+     * @param nomeMidia
+     * @return
+     */
     public Midia buscarMidia(String nomeMidia) {
         for (Midia midia : midias){
             if (nomeMidia.equals(midia.getNome())){
@@ -93,16 +118,32 @@ public class PlataformaStreaming {
         }
         return null;
     }
+    
+    /**
+     * Método que filtra Serie por quantidade de epsódios
+     * @param qntEps
+     * @return
+     */
+	public List<Serie> filtrarPorQntEps(int qntEps) {
+        List<Serie> aux = new ArrayList<>();
+        for (Midia midia : midias){
+            if (midia instanceof Serie && qntEps == ((Serie) midia).getQuantidadeDeEpsodios()){
+                aux.add((Serie) midia);
+            }
+        }
 
-//    public List<Serie> filtrarPorQntEps(int qntEps) {
-//        List<Serie> aux = new ArrayList<>();
-//        for (Midia midia : midias){
-//            if (midia instanceof Serie && qntEps == midia.getQuantidadeDeEpsodios()){
-//                aux.add(midias);
-//            }
-//        }
-//
-//        return aux;
-//    }
+        return aux;
+    }
+    
+    /**
+     * Get e set de ClienteAtual para testar na classe PlataformaStreamingteste
+     * @return
+     */
+	public Cliente getClienteAtual() {
+		return clienteAtual;
+	}
+	public void setClienteAtual(Cliente clienteAtual) {
+		this.clienteAtual = clienteAtual;
+	}
 }
 

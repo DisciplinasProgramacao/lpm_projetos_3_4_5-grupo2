@@ -11,13 +11,20 @@ public class Dados {
     private static Cliente[] listaClientes;
     private static Lista<Serie> listaSeries;
     private static Lista<Filme> listaFilmes;
-
+    
+    /**
+     * Construtor padrão
+     */
     public Dados(){
         listaEspectadores = new Lista<>();
         listaSeries = new Lista<>();
         listaFilmes = new Lista<>();
     }
 
+    /**
+     * Getters e Setters
+     * @return
+     */
     public static Cliente[] getListaClientes() {
         return listaClientes;
     }
@@ -30,6 +37,11 @@ public class Dados {
         return listaSeries;
     }
 
+    /**
+     * Método que busca Serie
+     * @param idSerie
+     * @return
+     */
     public static Serie buscarSerie(int idSerie){
         Serie[] series = new Serie[listaSeries.size()];
         series = listaSeries.allElements(series);
@@ -40,7 +52,11 @@ public class Dados {
             }
         return null;
     }
-
+    
+    /**
+     * Método que atualiza Cliente
+     * @param clientes
+     */
     public static void atualizaClientes(Cliente[] clientes){
         listaEspectadores = new Lista<>();
 
@@ -71,6 +87,12 @@ public class Dados {
 
         }
     }
+    
+    /**
+     * Método que carrega Serie
+     * @param nomeArquivo
+     * @throws FileNotFoundException
+     */
     public void carregarSeries(String nomeArquivo) throws FileNotFoundException {
         Scanner leitor = new Scanner(new File(nomeArquivo));
         String linha = leitor.nextLine();
@@ -87,7 +109,12 @@ public class Dados {
 
         }
     }
-
+    
+    /**
+     * Método que carrega filme
+     * @param nomeArquivo
+     * @throws FileNotFoundException
+     */
     public void carregarFilmes(String nomeArquivo) throws FileNotFoundException {
         Scanner leitor = new Scanner(new File(nomeArquivo));
         String linha = leitor.nextLine();
@@ -105,7 +132,12 @@ public class Dados {
 
         }
     }
-
+    
+    /**
+     * Método que carrega Audiencia
+     * @param nomeArquivo
+     * @throws FileNotFoundException
+     */
     public void carregarAudiencia(String nomeArquivo) throws FileNotFoundException {
         if (listaEspectadores.size() == 0 || listaSeries.size() == 0) {
             System.out.println("Audiência não carregada. As listas estão vazias. É necessário fazer a carga dos arquivos primeiro.");
