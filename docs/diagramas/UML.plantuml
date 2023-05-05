@@ -1,88 +1,88 @@
 @startuml
-
-!theme plain
-top to bottom direction
 skinparam linetype ortho
-skinparam classAttributeIconSize 0
-skinparam classFontColor automatic
-skinparam classHeaderBackgroundColor #444
 
 class Cliente {
   - nome: String
   - nomedeUsuario: String
   - senha: String
-  ~ listaParaVer: Lista<Serie>
-  ~ listaJaVistas: Lista<Serie>
-  + adicionarNaLista(Serie): void
+  - listaParaVer: Lista<Midia>
+  - listaJaVistas: Lista<Midia>
+  ..
+  + adicionarNaLista(Midia): void
   + retirarDaLista(String): void
-  + registraAudiencia(Serie): void
+  + registraAudiencia(Midia): void
   + imprimeListParaVer(): void
-  + filtrarPorGenero: List<Serie>
 }
 
 class Dados {
   - listaClientes: Cliente[]
-  + listaEspectadores: Lista<Cliente>
-  + listaSeries: Lista<Serie>
-  + listaSeries: Lista<Serie>
-  + listaFilmes: Lista<Filme>
-  + atualizarClientes(Cliente[]): void
+  - listaEspectadores: Lista<Cliente>
+  - listaSeries: Lista<Serie>
+  - listaSeries: Lista<Serie>
+  - listaFilmes: Lista<Filme>
+  ..
+  + {static} atualizarClientes(Cliente[]): void
   + carregarEspectador(String): void
   + carregarSeries(String): void
   + carregarFilmes(String): void
   + carregarAudiencia(String): void
+  + {static} buscarSeries(int): Serie
+}
+
+abstract class Midia {
+  + {static} GENEROS: String[]
+  # id: int
+  # nome: String
+  # genero: String
+  # idioma: String
+  # audiencia: int
+  # dataLancamento: String
+  # nota: int
+  ..
+  + {static} gerarGeneroAleatorio(): String
+  + registraAudiencia(): int
+  + avaliarMidia(int): void
 }
 
 class Filme{
   - idFilme: int
   - duracao: int
+  ..
   +Filme(int, int): void
-}
-
-class Midia {
-  - nome: String
-  - genero: String
-  - GENEROS: String[]
-  - idioma: String
-  - audiencia: int
-  - idioma: String
-  - dataLancamento: String
-  + registraAudiencia(): int
-}
-
-class Lista<T> {
-  - data: T[]
-  + add(T): boolean
-  + size(): int
-  + remove(int): T
-  + allElements(T[]): T[]
-}
-
-class PlataformaStreaming {
-  - clientes: List<Cliente>
-  - series: List<Serie>
-  - nome: String
-  - clienteAtual: Cliente
-  + login(String, String): Cliente
-  + adicionarSerie(Serie): void
-  + adicionarCliente(Cliente): void
-  + filtrarPorGenero(String): List<Serie>
-  + filtrarPorIdioma(String): List<Serie>
-  + filtrarPorQntEps(int): List<Serie>
-  + registraAudiencia: void
-  + logoff: void
-  + buscarSerie(String): Serie
 }
 
 class Serie {
   - idSerie: int
   - quantidadeDeEpsodios: int
+  ..
 }
 
-Cliente             "1" *--[#595959,plain]-- "1" Lista
-Dados        "1" *--[#595959,plain]-- "1" Lista
-Midia        "1" *--[#595959,plain]-- "1" Filme
-Midia        "1" *--[#595959,plain]-- "1" Serie
-PlataformaStreaming "1" *--[#595959,plain]-- "*" Cliente
-PlataformaStreaming "1" *--[#595959,plain]-- "*" Serie
+class PlataformaStreaming {
+  - nome: String
+  - midias: List<Midia>
+  - clienteAtual: Cliente
+  - clientes: List<Cliente>
+  ..
+  + adicionarCliente(Cliente): void
+  + buscarSerie(String): Midia
+  + carregarEspectador(String): void
+  + carregarSeries(String): void
+  + carregarFilmes(String): void
+  + carregarAudiencia(String): void
+  + login(String, String): Cliente
+  + adicionarmidia(Midia): void
+  + adicionarCliente((Cliente): void
+  + filtrarPorGenero(String): List<Midia>
+  + filtrarPorIdioma(String): List<Midia>
+  + registraAudiencia(Midia): void
+  + logoff(): void
+  + buscarMidia(String): Midia
+  + filtrarPorQntEps(int): List<Serie>
+}
+
+Filme ---|> Midia
+Midia <|--- Serie
+Dados ---> Cliente
+PlataformaStreaming ---> Midia
+PlataformaStreaming ---> Cliente
 @enduml
