@@ -3,6 +3,7 @@ package codigo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,6 +12,7 @@ public class PlataformaStreaming {
     private List<Midia> midias;
     private List<Cliente> clientes;
     private Cliente clienteAtual;
+    private HashMap <String, Cliente> usuarios;
  
     /*
      * Construtor padrão
@@ -21,6 +23,7 @@ public class PlataformaStreaming {
         this.nome = nome;
         this.midias = new ArrayList<Midia>();
         this.clientes = new ArrayList<Cliente>();
+        this.usuarios = new HashMap<>();
         this.clienteAtual = null;
 
         System.out.println("Carregando dados...");
@@ -28,8 +31,8 @@ public class PlataformaStreaming {
         carregarFilmes("POO_Filmes.csv");
         carregarEspectador("POO_Espectadores.csv");
 
-        //System.out.println("Carregando audiência...");
-        //carregarAudiencia("POO_Audiencia.csv");
+        System.out.println("Carregando audiência...");
+        carregarAudiencia("POO_Audiencia.csv");
         
     }
     public void avaliar (Midia midia, int nota){
@@ -68,6 +71,7 @@ public class PlataformaStreaming {
 
             Cliente c = new Cliente(nome, login, senha);
             this.clientes.add(c);
+            this.usuarios.put(login, c);
             //System.out.println("Usuário " + nome + " adicionado com sucesso. Login: " + login);
 
         }
@@ -131,7 +135,7 @@ public class PlataformaStreaming {
             //Cliente[] clientesComAudiencia = new Cliente[clientes.size()];
             //clientesComAudiencia = clientes.toArray();
 
-            String linha;
+            String linha = leitor.nextLine();
             while(leitor.hasNextLine()) {
                 linha = leitor.nextLine();
                 String[] detalhes = linha.split(";");
@@ -145,9 +149,9 @@ public class PlataformaStreaming {
 //                if (serie == null){
 //                    System.out.println("Série ID " + idSerie + " não encontrada\nDados: " + linha);
 //                }
-
-                for (Cliente cliente : clientes)
-                    if (cliente.getNomedeUsuario().equals(login)){
+                System.out.println(login);
+                Cliente cliente = this.usuarios.get(login);
+                System.out.println(cliente.toString());
                         if (tipoLista.equals("F")) {
                             cliente.adicionarNaLista(serie);
                             //System.out.printf("Série %s adicionada na lista 'Para ver' do cliente %s\n", serie.getNome(), cliente.getNome());
@@ -156,7 +160,6 @@ public class PlataformaStreaming {
                             //System.out.printf("\nSérie %s adicionada na lista 'Já assistidas' do cliente %s\n", serie.getNome(), cliente.getNome());
                         }
                     }
-            }
             System.out.println("Audiência carregada com sucesso");
 
         }

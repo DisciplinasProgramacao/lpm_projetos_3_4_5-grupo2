@@ -15,23 +15,23 @@ public class Cliente {
 	private String nome;
 	String nomedeUsuario;
 	String senha;
-	private Lista<Midia> listaParaVer;
-	private Lista<Midia> listaJaVistas;
+	private List<Midia> listaParaVer;
+	private List<Midia> listaJaVistas;
 	private HashMap<Midia, Integer> notas;
 
 	/**
 	 * Construtores padrão
 	 */
 	public Cliente() {
-		this.listaParaVer = new Lista<>();
-		this.listaJaVistas = new Lista<>();
+		this.listaParaVer = new ArrayList<>();
+		this.listaJaVistas = new ArrayList<>();
 
 	}
 
 	public Cliente(String nome, String nomedeUsuario, String senha) {
 
-		this.listaParaVer = new Lista<>();
-		this.listaJaVistas = new Lista<>();
+		this.listaParaVer = new ArrayList<>();
+		this.listaJaVistas = new ArrayList<>();
 		this.notas = new HashMap<>();
 		//ARRUMAR ISSO
 		/*for (Midia midia : listaJaVistas) {
@@ -64,11 +64,11 @@ public class Cliente {
 		return nomedeUsuario;
 	}
 
-	public Lista<Midia> getListaParaVer() {
+	public List<Midia> getListaParaVer() {
 		return listaParaVer;
 	}
 
-	public Lista<Midia> getListaJaVistas() {
+	public List<Midia> getListaJaVistas() {
 		return listaJaVistas;
 	}
 
@@ -86,12 +86,17 @@ public class Cliente {
 	 * @param nomeMidia
 	 */
 	public void retirarDaLista(String nomeMidia) {
-		Midia[] midias = this.listaParaVer.allElements(new Midia[this.listaParaVer.size()]);
-		for (Midia item : midias) {
-			if (item.getNome().equals(nomeMidia)) {
-				this.listaParaVer.remove(Arrays.asList(midias).indexOf(item));
-			}
-		}
+
+		for (Midia midia : this.listaParaVer)
+			if (midia.getNome().equals(nomeMidia))
+				this.listaParaVer.remove(midia);
+
+//		Midia[] midias = this.listaParaVer.allElements(new Midia[this.listaParaVer.size()]);
+//		for (Midia item : midias) {
+//			if (item.getNome().equals(nomeMidia)) {
+//				this.listaParaVer.remove(Arrays.asList(midias).indexOf(item));
+//			}
+//		}
 	}
 	/**
 	 * Método que registra audiencia das midias já vistas pelo Cliente
@@ -105,12 +110,12 @@ public class Cliente {
 	 * Imprime Lista
 	 */
 	public void imprimeListaParaVer() {
-		System.out.printf("'Lista para Ver' de %s", getNome());
+		for (Midia midia : this.listaParaVer)
+			System.out.printf("\n- %s", midia.getNome());
+	}
 
-		Midia[] midiasParaVer = new Serie[listaParaVer.size()];
-		midiasParaVer = listaParaVer.allElements(midiasParaVer);
-
-		for (Midia midia : midiasParaVer)
+	public void imprimeListaJaVistas() {
+		for (Midia midia : this.listaJaVistas)
 			System.out.printf("\n- %s", midia.getNome());
 	}
 
@@ -125,16 +130,17 @@ public class Cliente {
 		sb.append("Cliente: ").append(this.nome).append("\n");
 		sb.append("Nome de usuario: ").append(this.nomedeUsuario).append("\n");
 		sb.append("Lista de midias para ver:\n");
-		Midia[] midiasParaVer = this.listaParaVer.allElements(new Midia[this.listaParaVer.size()]);
-		for (Midia midia : midiasParaVer) {
+
+		for (Midia midia : this.listaParaVer) {
 			sb.append("- ").append(midia.getNome()).append("\n");
 		}
 		sb.append("Lista de midias já vistas:\n");
-		Midia[] midiasJaVistas = this.listaJaVistas.allElements(new Midia[this.listaJaVistas.size()]);
-		for (Midia midia : midiasJaVistas) {
+
+		for (Midia midia : this.listaJaVistas) {
 			sb.append("- ").append(midia.getNome()).append("\n");
 		}
 		return sb.toString();
 	}
+
 	
 }

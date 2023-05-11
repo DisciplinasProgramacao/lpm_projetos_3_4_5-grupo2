@@ -5,6 +5,8 @@ import java.util.Random;
 public abstract class Midia {
     public final static String[] GENEROS = {"Drama", "Comédia", "Terror", "Ficção Científica", "Ação", "Policial",
             "Fantasia"};
+    public final static String[] IDIOMAS = {"Inglês", "Português", "Espanhol", "Francês", "Coreano", "Japonês",
+            "Fantasia"};
     protected int id;
     protected String nome;
     protected String genero;
@@ -26,6 +28,14 @@ public abstract class Midia {
 
         return GENEROS[numeroAleatorio];
     }
+
+    public static String gerarIdiomaAleatorio(){
+        Random rand = new Random();
+        int numeroAleatorio = rand.nextInt(6);
+
+        return IDIOMAS[numeroAleatorio];
+    }
+
 
     /**
      * Método que registra audiência de determinada série

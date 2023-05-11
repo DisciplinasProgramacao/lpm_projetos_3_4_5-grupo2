@@ -16,6 +16,7 @@ public class Filme extends Midia{
         this.dataLancamento = dataLancamento;
         this.duracao = duracao;
         this.genero = genero;
+        this.idioma = Midia.gerarIdiomaAleatorio();
     }
 
     public Filme(String nome, String genero, String idioma, int duracao, String dataLancamento) {
