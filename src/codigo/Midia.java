@@ -12,7 +12,6 @@ public abstract class Midia {
     protected int audiencia;
     protected String dataLancamento;
 
-    protected int nota;
 
     /**
      * Construtor padrão
@@ -71,16 +70,9 @@ public abstract class Midia {
         this.genero = genero;
     }
 
-    public int getNota() {
-        return this.nota;
-    }
+
     
-    /**
-     * Método que avalia midia
-     * @param nota
-     */
-    public void avaliarMidia(int nota){
-        this.nota = nota;
-    }
+    
+
 
 }

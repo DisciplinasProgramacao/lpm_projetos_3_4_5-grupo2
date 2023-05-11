@@ -32,6 +32,9 @@ public class PlataformaStreaming {
         //carregarAudiencia("POO_Audiencia.csv");
         
     }
+    public void avaliar (Midia midia, int nota){
+        
+    }
 
     /**
      * Método que busca uma série de acordo com seu ID, para ser adicionado na lista do cliente

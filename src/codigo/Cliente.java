@@ -1,6 +1,10 @@
 package codigo;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 /**
  * Classe Cliente
@@ -8,11 +12,12 @@ import java.util.Arrays;
  *
  */
 public class Cliente {
-	String nome;
+	private String nome;
 	String nomedeUsuario;
 	String senha;
-	Lista<Midia> listaParaVer;
-	Lista<Midia> listaJaVistas;
+	private Lista<Midia> listaParaVer;
+	private Lista<Midia> listaJaVistas;
+	private HashMap<Midia, Integer> notas;
 
 	/**
 	 * Construtores padrão
@@ -27,12 +32,25 @@ public class Cliente {
 
 		this.listaParaVer = new Lista<>();
 		this.listaJaVistas = new Lista<>();
+		this.notas = new HashMap<>();
+		//ARRUMAR ISSO
+		/*for (Midia midia : listaJaVistas) {
+            notas.put(midia, null);
+        }*/
 
 		this.nome = nome;
 		this.nomedeUsuario = nomedeUsuario;
 		this.senha = senha;
 
 	}
+	public void avaliarMidia(int idSerie, int nota) {
+		for (Midia midia : notas.keySet()){
+			if (midia.getIdMidia()== idSerie){
+				notas.replace(midia, nota);
+			}
+		}
+		
+    }
 	
 	/**
 	 * Getters e Setters
@@ -99,6 +117,7 @@ public class Cliente {
 	public String getSenha() {
 		return this.getSenha();
 	}
+	
 
 	@Override
 	public String toString() {
@@ -117,4 +136,5 @@ public class Cliente {
 		}
 		return sb.toString();
 	}
+	
 }
