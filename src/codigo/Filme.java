@@ -42,8 +42,10 @@ public class Filme extends Midia{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Nome: ").append(this.nome).append("\n");
+        sb.append("## ID ").append(id).append(" ##\n");
+        sb.append("Filme: ").append(this.nome).append("\n");
         sb.append("Gênero: ").append(this.genero).append("\n");
+        sb.append("Idioma: ").append(idioma).append("\n");
         sb.append("Duração: ").append(this.duracao).append(" minutos").append("\n");
         sb.append("Data de lançamento: ").append(this.dataLancamento).append("\n");
         return sb.toString();

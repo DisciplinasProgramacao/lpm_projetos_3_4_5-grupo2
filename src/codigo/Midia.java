@@ -1,18 +1,19 @@
 package codigo;
 
+import java.util.HashMap;
 import java.util.Random;
 
 public abstract class Midia {
     public final static String[] GENEROS = {"Drama", "Comédia", "Terror", "Ficção Científica", "Ação", "Policial",
             "Fantasia"};
-    public final static String[] IDIOMAS = {"Inglês", "Português", "Espanhol", "Francês", "Coreano", "Japonês",
-            "Fantasia"};
+    public final static String[] IDIOMAS = {"Inglês", "Português", "Espanhol", "Francês", "Coreano", "Japonês"};
     protected int id;
     protected String nome;
     protected String genero;
     protected String idioma;
     protected int audiencia;
     protected String dataLancamento;
+    public HashMap <String, Integer> avaliacoes;
 
 
     /**
@@ -20,6 +21,7 @@ public abstract class Midia {
      */
     public Midia() {
         super();
+        avaliacoes = new HashMap<>();
     }
 
     public static String gerarGeneroAleatorio(){
@@ -79,6 +81,35 @@ public abstract class Midia {
     public void setGenero(String genero) {
         this.genero = genero;
     }
+
+    public int getQuantidadeAvaliacoes(){
+        return this.avaliacoes.size();
+    }
+
+    public void registrarAvaliacao(String loginUsuario, int notaDada){
+            this.avaliacoes.put(loginUsuario, notaDada);
+    }
+
+    public boolean verificaAvaliacaoRegistrada (String loginUsuario){
+        if (this.avaliacoes.containsKey(loginUsuario)){
+           return true;
+        }
+        return false;
+    }
+
+    public int getNotaAvaliacaoUsuario (String loginUsuario) {
+        return this.avaliacoes.get(loginUsuario);
+    }
+
+    public double getMediaAvaliacoes(){
+        int soma = 0;
+        for (int nota : this.avaliacoes.values()){
+            soma += nota;
+        }
+        double media = soma / (double) this.avaliacoes.size();
+        return media;
+    }
+
 
 
     

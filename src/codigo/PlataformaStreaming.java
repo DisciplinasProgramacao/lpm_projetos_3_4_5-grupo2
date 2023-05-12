@@ -41,17 +41,19 @@ public class PlataformaStreaming {
 
     /**
      * Método que busca uma série de acordo com seu ID, para ser adicionado na lista do cliente
-     * @param idSerie
+     *
+     * @param idMidia
      * @throws FileNotFoundException
      */
-    public Midia buscarSerie(int idSerie){
+    public Midia buscarMidia(int idMidia){
 
-        for (Midia serie : midias)
-            if(serie.getIdMidia() == idSerie){
-                return serie;
+        for (Midia midia : midias)
+            if(midia.getIdMidia() == idMidia){
+                return midia;
             }
         return null;
     }
+
 
     /**
      * Método que carrega um arquivo e cria as listas contendo informações de Espectadores
@@ -145,13 +147,13 @@ public class PlataformaStreaming {
                 //TODO
                 //Verificar porque está dando loop infinito quando coloco um else na linha 113.
                 int idSerie = Integer.parseInt(detalhes[2]);
-                Midia serie = buscarSerie(idSerie);
+                Midia serie = buscarMidia(idSerie);
 //                if (serie == null){
 //                    System.out.println("Série ID " + idSerie + " não encontrada\nDados: " + linha);
 //                }
-                System.out.println(login);
+//                System.out.println(login);
                 Cliente cliente = this.usuarios.get(login);
-                System.out.println(cliente.toString());
+//                System.out.println(cliente.toString());
                         if (tipoLista.equals("F")) {
                             cliente.adicionarNaLista(serie);
                             //System.out.printf("Série %s adicionada na lista 'Para ver' do cliente %s\n", serie.getNome(), cliente.getNome());

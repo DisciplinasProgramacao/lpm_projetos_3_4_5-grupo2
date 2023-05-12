@@ -1,5 +1,7 @@
 package codigo;
 
+import java.util.Random;
+
 public class Serie extends Midia {
 	private int idSerie;
 	private int quantidadeDeEpsodios;
@@ -11,10 +13,14 @@ public class Serie extends Midia {
 	}
 
 	public Serie(int idSerie, String nome, String dataLancamento, String genero) {
+		Random r = new Random();
+
 		this.id = idSerie;
 		this.nome = nome;
 		this.dataLancamento = dataLancamento;
 		this.genero = genero;
+		this.idioma = Midia.gerarIdiomaAleatorio();
+		this.quantidadeDeEpsodios = r.nextInt(23);
 	}
 
 	public Serie(String nome, String genero, String idioma, int quantidadeDeEpsodios, String dataLancamento) {
@@ -25,9 +31,10 @@ public class Serie extends Midia {
 		this.quantidadeDeEpsodios = quantidadeDeEpsodios;
 		this.dataLancamento = dataLancamento;
 	}
-	
+
 	/**
 	 * Getters e Setters
+	 *
 	 * @return
 	 */
 	public int getIdSerie() {
@@ -48,7 +55,14 @@ public class Serie extends Midia {
 
 	@Override
 	public String toString() {
-		return "Série: " + nome + " | Gênero: " + genero + " | " +
-				" | Episódios: " + quantidadeDeEpsodios + " | Lançamento: " + dataLancamento;
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("## ID ").append(id).append(" ##\n");
+		sb.append("Série: ").append(nome).append("\n");
+		sb.append("Gênero: ").append(genero).append("\n");
+		sb.append("Idioma: ").append(idioma).append("\n");
+		sb.append("Episódios: ").append(quantidadeDeEpsodios).append(" episódios").append("\n");
+		sb.append("Data de lançamento: ").append(dataLancamento).append("\n");
+		return sb.toString();
 	}
 }

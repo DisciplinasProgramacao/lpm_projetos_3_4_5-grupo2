@@ -2,8 +2,7 @@ package codigo;
 
 
 import java.io.FileNotFoundException;
-import java.time.LocalDateTime;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
@@ -17,7 +16,7 @@ public class Main {
         PlataformaStreaming plataforma = new PlataformaStreaming(nomePlataforma);
 
         while (opcao != 0) {
-            System.out.printf("\nBem-vindo a plataforma %s!\n", plataforma.getNome());
+            System.out.printf("\nBem-vindo a plataforma %s!\nSelecione uma opção no menu abaixo\n", plataforma.getNome());
             Cliente clienteAtual = plataforma.getClienteAtual();
             if (plataforma.getClienteAtual() != null){
                 System.out.printf("\nUsuário logado: %s (%s)\nHorário atual: %s\n", clienteAtual.getNome(), clienteAtual.getNomedeUsuario(), Data.agora());
@@ -28,14 +27,15 @@ public class Main {
             System.out.println("*                                                   *");
             System.out.println("*****************************************************");
             System.out.println("*  1. Imprimir lista de mídias...                   *");
-            System.out.println("*  2. Imprimir lista de clientes...                 *");
-            System.out.println("*  3. Adicionar cliente                             *");
-            System.out.println("*  4. Adicionar série                               *");
-            System.out.println("*  5. Adicionar filme                               *");
+            if (clienteAtual != null && clienteAtual.ehAdmin()) System.out.println("*  2. Imprimir lista de clientes...                 *");
+            if (clienteAtual != null && clienteAtual.ehAdmin()) System.out.println("*  3. Adicionar cliente                             *");
+            if (clienteAtual != null && clienteAtual.ehAdmin()) System.out.println("*  4. Adicionar série                               *");
+            if (clienteAtual != null && clienteAtual.ehAdmin()) System.out.println("*  5. Adicionar filme                               *");
             if (clienteAtual == null) System.out.println("*  6. Login                                         *");
             if (clienteAtual != null) System.out.println("*  6. Logoff                                        *");
             if (clienteAtual != null) System.out.println("*  7. Minha lista 'Para Ver'                        *");
             if (clienteAtual != null) System.out.println("*  8. Minha lista de itens 'Já Vistos'              *");
+            if (clienteAtual != null) System.out.println("*  9. Avaliar mídia assistida                       *");
             System.out.println("*  0. Sair                                          *");
             System.out.println("*****************************************************");
 
@@ -126,13 +126,39 @@ public class Main {
                     }
                     break;
                 case 7:
-                    System.out.println("*** Minha Lista 'Para Ver' ***");
                     clienteAtual.imprimeListaParaVer();
                     break;
                 case 8:
-                    System.out.println("*** Minha Lista 'Já Vistos' ***");
                     clienteAtual.imprimeListaJaVistas();
                     break;
+                case 9:
+                        scanner.nextLine();
+                        System.out.println("Selecione a mídia a avaliar, digitando o ID correspondente.");
+                        clienteAtual.imprimeListaJaVistas();
+                        int idMidia = scanner.nextInt();
+
+                        Midia midiaParaAvaliar = plataforma.buscarMidia(idMidia);
+
+                        if (clienteAtual.getListaJaVistas().contains(midiaParaAvaliar)) {
+                            if (!midiaParaAvaliar.verificaAvaliacaoRegistrada(clienteAtual.getNomedeUsuario())) {
+                                System.out.println("Você está avaliando a mídia '" + midiaParaAvaliar.getNome() + "'. Digite sua avaliação (de 1 a 5)");
+                                int nota = scanner.nextInt();
+                                midiaParaAvaliar.registrarAvaliacao(clienteAtual.getNomedeUsuario(), nota);
+                                System.out.println("Média de notas: " + midiaParaAvaliar.getMediaAvaliacoes() + " (" + midiaParaAvaliar.getQuantidadeAvaliacoes() + " avaliações)");
+                                ;
+                                if (clienteAtual.ehAdmin()) {
+                                    System.out.println("Notas dessa mídia:");
+                                    for (HashMap.Entry<String, Integer> entrada : midiaParaAvaliar.avaliacoes.entrySet()) {
+                                        System.out.println("Nota: " + entrada.getValue() + " | Usuário responsável pela nota: " + entrada.getKey());
+                                    }
+                                }
+                            } else {
+                                System.out.println("Você já avaliou a mídia '" + midiaParaAvaliar.getNome() + "' com a nota " + midiaParaAvaliar.getNotaAvaliacaoUsuario(clienteAtual.getNomedeUsuario()));
+                            }
+                        } else {
+                            System.out.println("Essa mídia não foi assistida por você");
+                        }
+                        break;
                 default:
                     System.out.println("Opção inválida! Tente novamente.");
                     break;

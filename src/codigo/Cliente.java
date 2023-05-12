@@ -43,6 +43,14 @@ public class Cliente {
 		this.senha = senha;
 
 	}
+
+	public boolean ehAdmin(){
+		if (getNomedeUsuario().equals("admin")){
+			return true;
+		}
+		return false;
+	}
+
 	public void avaliarMidia(int idSerie, int nota) {
 		for (Midia midia : notas.keySet()){
 			if (midia.getIdMidia()== idSerie){
@@ -110,13 +118,25 @@ public class Cliente {
 	 * Imprime Lista
 	 */
 	public void imprimeListaParaVer() {
-		for (Midia midia : this.listaParaVer)
-			System.out.printf("\n- %s", midia.getNome());
+		if (this.listaParaVer.isEmpty()) {
+			System.out.println("Lista 'Para Ver' vazia");
+		} else {
+			System.out.println("*** Minha Lista 'Para Ver' ***");
+			for (Midia midia : this.listaParaVer)
+				System.out.printf("\n- %s (ID %d)", midia.getNome(), midia.getIdMidia());
+		}
+		System.out.println("\n");
 	}
 
 	public void imprimeListaJaVistas() {
-		for (Midia midia : this.listaJaVistas)
-			System.out.printf("\n- %s", midia.getNome());
+		if (this.listaJaVistas.isEmpty()) {
+			System.out.println("Lista 'Já Vistos' vazia");
+		} else {
+			System.out.println("*** Minha Lista 'Já Vistos' ***");
+			for (Midia midia : this.listaJaVistas)
+				System.out.printf("\n- %s (ID %d)", midia.getNome(), midia.getIdMidia());
+		}
+		System.out.println("\n");
 	}
 
 	public String getSenha() {
