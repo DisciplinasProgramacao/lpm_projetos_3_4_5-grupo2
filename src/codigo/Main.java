@@ -141,9 +141,13 @@ public class Main {
 
                         if (clienteAtual.getListaJaVistas().contains(midiaParaAvaliar)) {
                             if (!midiaParaAvaliar.verificaAvaliacaoRegistrada(clienteAtual.getNomedeUsuario())) {
-                                System.out.println("Você está avaliando a mídia '" + midiaParaAvaliar.getNome() + "'. Digite sua avaliação (de 1 a 5)");
-                                int nota = scanner.nextInt();
-                                midiaParaAvaliar.registrarAvaliacao(clienteAtual.getNomedeUsuario(), nota);
+
+                                int nota = -1;
+                                while (!(nota > 0 && nota <= 5)) {
+                                    System.out.println("Você está avaliando a mídia '" + midiaParaAvaliar.getNome() + "'. Digite sua avaliação (de 1 a 5)");
+                                    nota = scanner.nextInt();
+                                    midiaParaAvaliar.registrarAvaliacao(clienteAtual.getNomedeUsuario(), nota);
+                                }
                                 System.out.println("Média de notas: " + midiaParaAvaliar.getMediaAvaliacoes() + " (" + midiaParaAvaliar.getQuantidadeAvaliacoes() + " avaliações)");
                                 ;
                                 if (clienteAtual.ehAdmin()) {

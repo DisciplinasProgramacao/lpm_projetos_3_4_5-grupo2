@@ -87,7 +87,10 @@ public abstract class Midia {
     }
 
     public void registrarAvaliacao(String loginUsuario, int notaDada){
+        if (notaDada > 1 && notaDada <=5)
             this.avaliacoes.put(loginUsuario, notaDada);
+        else
+            System.out.println("Nota inválida. Ela deve ser de 1 a 5.");
     }
 
     public boolean verificaAvaliacaoRegistrada (String loginUsuario){
@@ -103,10 +106,15 @@ public abstract class Midia {
 
     public double getMediaAvaliacoes(){
         int soma = 0;
+        double media = 0;
         for (int nota : this.avaliacoes.values()){
             soma += nota;
         }
-        double media = soma / (double) this.avaliacoes.size();
+
+        if (!this.avaliacoes.isEmpty()) {
+            media = soma / (double) this.avaliacoes.size();
+        }
+
         return media;
     }
 
