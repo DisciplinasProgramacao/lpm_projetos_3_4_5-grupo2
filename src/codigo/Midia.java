@@ -118,6 +118,17 @@ public abstract class Midia {
         return media;
     }
 
+    public void getNotasAvaliacoesMidia() {
+        if (!this.avaliacoes.isEmpty()) {
+            System.out.println("Notas dessa mídia:");
+            for (HashMap.Entry<String, Integer> entrada : this.avaliacoes.entrySet()) {
+                System.out.println("Nota: " + entrada.getValue() + " | Usuário responsável pela nota: " + entrada.getKey());
+            }
+        } else {
+            System.out.println("Não há notas registradas para essa mídia.");
+        }
+    }
+
 
 
     

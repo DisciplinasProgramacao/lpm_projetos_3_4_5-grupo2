@@ -137,28 +137,34 @@ public class Main {
                         clienteAtual.imprimeListaJaVistas();
                         int idMidia = scanner.nextInt();
 
+                        // Busca a mídia na plataforma pelo ID
                         Midia midiaParaAvaliar = plataforma.buscarMidia(idMidia);
 
+                        // Verifica se o cliente possui na lista lista 'Para avaliar' aquela mídia
                         if (clienteAtual.getListaJaVistas().contains(midiaParaAvaliar)) {
+                            // Verifica se o cliente já não avaliou essa mídia
                             if (!midiaParaAvaliar.verificaAvaliacaoRegistrada(clienteAtual.getNomedeUsuario())) {
 
                                 int nota = -1;
+                                // Pede a nota a ser dada até que esteja certa.
                                 while (!(nota > 0 && nota <= 5)) {
                                     System.out.println("Você está avaliando a mídia '" + midiaParaAvaliar.getNome() + "'. Digite sua avaliação (de 1 a 5)");
                                     nota = scanner.nextInt();
+                                    // Registra a avaliação, passando junto o nome do usuário
                                     midiaParaAvaliar.registrarAvaliacao(clienteAtual.getNomedeUsuario(), nota);
                                 }
-                                System.out.println("Média de notas: " + midiaParaAvaliar.getMediaAvaliacoes() + " (" + midiaParaAvaliar.getQuantidadeAvaliacoes() + " avaliações)");
+                                System.out.println("Média de notas de '" + midiaParaAvaliar.getNome() + "': " + midiaParaAvaliar.getMediaAvaliacoes() + " (" + midiaParaAvaliar.getQuantidadeAvaliacoes() + " avaliações)");
                                 ;
+                                // Se o usuário for administrador, serão exibidas as notas dadas para essa mídia.
                                 if (clienteAtual.ehAdmin()) {
-                                    System.out.println("Notas dessa mídia:");
-                                    for (HashMap.Entry<String, Integer> entrada : midiaParaAvaliar.avaliacoes.entrySet()) {
-                                        System.out.println("Nota: " + entrada.getValue() + " | Usuário responsável pela nota: " + entrada.getKey());
-                                    }
+                                    midiaParaAvaliar.getNotasAvaliacoesMidia();
                                 }
+
+                                // Se o cliente já avaliou a mídia, retorna a mensagem abaixo com a nota.
                             } else {
                                 System.out.println("Você já avaliou a mídia '" + midiaParaAvaliar.getNome() + "' com a nota " + midiaParaAvaliar.getNotaAvaliacaoUsuario(clienteAtual.getNomedeUsuario()));
                             }
+                            // Se o cliente não assistiu a mídia, retorna a mensagem abaixo.
                         } else {
                             System.out.println("Essa mídia não foi assistida por você");
                         }
@@ -172,4 +178,5 @@ public class Main {
         }
         scanner.close();
     }
+
 }
