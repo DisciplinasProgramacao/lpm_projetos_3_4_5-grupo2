@@ -21,11 +21,14 @@ public class Filme extends Midia{
 
     public Filme(String nome, String genero, String idioma, int duracao, String dataLancamento) {
         super();
+        int novoId = Midia.getUltimoIdMidia() + 1;
+        this.id = novoId;
         this.nome = nome;
         this.genero = genero;
         this.idioma = idioma;
         this.duracao = duracao;
         this.dataLancamento = dataLancamento;
+        Midia.setUltimoId(novoId);
     }
     
     /**
@@ -35,8 +38,8 @@ public class Filme extends Midia{
     public int getIdFilme() {
         return idFilme;
     }
-    public int getDuracao() {
-        return duracao;
+    public int getDuracaoFilme() {
+        return this.duracao;
     }
 
     @Override

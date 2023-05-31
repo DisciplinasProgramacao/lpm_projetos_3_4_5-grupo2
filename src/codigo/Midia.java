@@ -8,12 +8,13 @@ public abstract class Midia {
             "Fantasia"};
     public final static String[] IDIOMAS = {"Inglês", "Português", "Espanhol", "Francês", "Coreano", "Japonês"};
     protected int id;
+    protected static int ultimoId;
     protected String nome;
     protected String genero;
     protected String idioma;
     protected int audiencia;
     protected String dataLancamento;
-    public HashMap <String, Integer> avaliacoes;
+    public HashMap <String, Avaliacao> avaliacoes;
 
 
     /**
@@ -78,6 +79,15 @@ public abstract class Midia {
         return this.id;
     }
 
+    public String getDataLancamento() {return this.dataLancamento; }
+
+    public static int getUltimoIdMidia(){
+        return ultimoId;
+    }
+    public static void setUltimoId(int ultimoIdMidia) {
+        ultimoId = ultimoIdMidia;
+    }
+
     public void setGenero(String genero) {
         this.genero = genero;
     }
@@ -87,8 +97,17 @@ public abstract class Midia {
     }
 
     public void registrarAvaliacao(String loginUsuario, int notaDada){
+        Avaliacao avaliacao = new Avaliacao(notaDada);
         if (notaDada > 1 && notaDada <=5)
-            this.avaliacoes.put(loginUsuario, notaDada);
+            this.avaliacoes.put(loginUsuario, avaliacao);
+        else
+            System.out.println("Nota inválida. Ela deve ser de 1 a 5.");
+    }
+
+    public void registrarAvaliacaoComentario(String loginUsuario, int notaDada, String comentario){
+        Avaliacao avaliacao = new Avaliacao(notaDada, comentario);
+        if (notaDada > 1 && notaDada <=5)
+            this.avaliacoes.put(loginUsuario, avaliacao);
         else
             System.out.println("Nota inválida. Ela deve ser de 1 a 5.");
     }
@@ -101,14 +120,14 @@ public abstract class Midia {
     }
 
     public int getNotaAvaliacaoUsuario (String loginUsuario) {
-        return this.avaliacoes.get(loginUsuario);
+        return this.avaliacoes.get(loginUsuario).getNota();
     }
 
     public double getMediaAvaliacoes(){
         int soma = 0;
         double media = 0;
-        for (int nota : this.avaliacoes.values()){
-            soma += nota;
+        for (Avaliacao avaliacao : this.avaliacoes.values()){
+            soma += avaliacao.getNota();
         }
 
         if (!this.avaliacoes.isEmpty()) {
@@ -121,13 +140,16 @@ public abstract class Midia {
     public void getNotasAvaliacoesMidia() {
         if (!this.avaliacoes.isEmpty()) {
             System.out.println("Notas dessa mídia:");
-            for (HashMap.Entry<String, Integer> entrada : this.avaliacoes.entrySet()) {
-                System.out.println("Nota: " + entrada.getValue() + " | Usuário responsável pela nota: " + entrada.getKey());
+            for (HashMap.Entry<String, Avaliacao> entrada : this.avaliacoes.entrySet()) {
+                String comentario = entrada.getValue().getComentario();
+                if (comentario == null) comentario = "(Sem comentário)";
+                System.out.println("Nota: " + entrada.getValue().getNota() + " | Comentário: " + comentario +  " | Usuário responsável pela nota: " + entrada.getKey() + "\n");
             }
         } else {
             System.out.println("Não há notas registradas para essa mídia.");
         }
     }
+
 
 
 

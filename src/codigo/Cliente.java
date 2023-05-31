@@ -1,5 +1,6 @@
 package codigo;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -17,7 +18,7 @@ public class Cliente {
 	String senha;
 	private List<Midia> listaParaVer;
 	private List<Midia> listaJaVistas;
-	private HashMap<Midia, Integer> notas;
+	private HashMap<Midia, String> datasExibicao;
 
 	/**
 	 * Construtores padrão
@@ -32,11 +33,8 @@ public class Cliente {
 
 		this.listaParaVer = new ArrayList<>();
 		this.listaJaVistas = new ArrayList<>();
-		this.notas = new HashMap<>();
-		//ARRUMAR ISSO
-		/*for (Midia midia : listaJaVistas) {
-            notas.put(midia, null);
-        }*/
+		this.datasExibicao = new HashMap<>();
+
 
 		this.nome = nome;
 		this.nomedeUsuario = nomedeUsuario;
@@ -51,14 +49,6 @@ public class Cliente {
 		return false;
 	}
 
-	public void avaliarMidia(int idSerie, int nota) {
-		for (Midia midia : notas.keySet()){
-			if (midia.getIdMidia()== idSerie){
-				notas.replace(midia, nota);
-			}
-		}
-		
-    }
 	
 	/**
 	 * Getters e Setters
@@ -110,8 +100,28 @@ public class Cliente {
 	 * Método que registra audiencia das midias já vistas pelo Cliente
 	 * @param midia
 	 */
-	public void registrarAudiencia (Midia midia) {
+	public void registrarAudiencia (Midia midia, String dataExibicao) {
 		this.listaJaVistas.add(midia);
+		this.datasExibicao.put(midia, dataExibicao);
+	}
+
+	public boolean ehClienteEspecialista () {
+
+		int exibicoesMesAnterior = 0;
+
+		for (HashMap.Entry<Midia, String> entrada : this.datasExibicao.entrySet()) {
+			LocalDate dataExibicao = Data.converterStringParaData(entrada.getValue());
+
+			if (Data.ehDataDoMesAnterior(dataExibicao)){
+				exibicoesMesAnterior++;
+			}
+		}
+
+		if (exibicoesMesAnterior >= 5){
+			return true;
+		}
+
+		return false;
 	}
 	
 	/**
@@ -134,13 +144,50 @@ public class Cliente {
 		} else {
 			System.out.println("*** Minha Lista 'Já Vistos' ***");
 			for (Midia midia : this.listaJaVistas)
-				System.out.printf("\n- %s (ID %d)", midia.getNome(), midia.getIdMidia());
+				System.out.printf("\n- %s (ID %d) - Vista em %s", midia.getNome(), midia.getIdMidia(), this.datasExibicao.get(midia));
 		}
 		System.out.println("\n");
 	}
 
 	public String getSenha() {
-		return this.getSenha();
+		return this.senha;
+	}
+
+	public ArrayList<Midia> filtrarListaParaVer(String nomeMidia) {
+		ArrayList<Midia> aux = new ArrayList<>();
+		for (Midia midia : this.listaParaVer){
+			if (nomeMidia.equals(midia.getNome())){
+				aux.add(midia);
+			}
+		}
+		if (!aux.isEmpty()){
+			for (Midia midia : aux)
+				System.out.printf("\n- %s (ID %d) - %s", midia.getNome(), midia.getIdMidia(), midia.getGenero());
+		} else {
+			System.out.println("Não foram encontradas mídias com esse nome na lista 'Para Ver'.");
+		}
+
+
+		return aux;
+
+	}
+
+	public ArrayList<Midia> filtrarListaJaVistas(String nomeMidia) {
+		ArrayList<Midia> aux = new ArrayList<>();
+		for (Midia midia : this.listaJaVistas){
+			if (nomeMidia.contains(midia.getNome())){
+				aux.add(midia);
+			}
+		}
+		if (!aux.isEmpty()){
+			for (Midia midia : aux)
+				System.out.printf("\n- %s (ID %d) - %s", midia.getNome(), midia.getIdMidia(), midia.getGenero());
+		} else {
+			System.out.println("Não foram encontradas mídias com esse nome na lista 'Já Vistas'.");
+		}
+
+
+		return aux;
 	}
 	
 

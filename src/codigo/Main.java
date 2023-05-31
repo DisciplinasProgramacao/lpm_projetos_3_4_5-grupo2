@@ -3,6 +3,7 @@ package codigo;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -18,8 +19,8 @@ public class Main {
         while (opcao != 0) {
             System.out.printf("\nBem-vindo a plataforma %s!\nSelecione uma opção no menu abaixo\n", plataforma.getNome());
             Cliente clienteAtual = plataforma.getClienteAtual();
-            if (plataforma.getClienteAtual() != null){
-                System.out.printf("\nUsuário logado: %s (%s)\nHorário atual: %s\n", clienteAtual.getNome(), clienteAtual.getNomedeUsuario(), Data.agora());
+            if (plataforma.getClienteAtual() != null) {
+                System.out.printf("\nUsuário logado: %s (%s)\nHorário atual: %s\n", clienteAtual.getNome(), clienteAtual.getNomedeUsuario(), Data.agoraString());
             }
             System.out.println("*****************************************************");
             System.out.println("*                                                   *");
@@ -27,15 +28,23 @@ public class Main {
             System.out.println("*                                                   *");
             System.out.println("*****************************************************");
             System.out.println("*  1. Imprimir lista de mídias...                   *");
-            if (clienteAtual != null && clienteAtual.ehAdmin()) System.out.println("*  2. Imprimir lista de clientes...                 *");
-            if (clienteAtual != null && clienteAtual.ehAdmin()) System.out.println("*  3. Adicionar cliente                             *");
-            if (clienteAtual != null && clienteAtual.ehAdmin()) System.out.println("*  4. Adicionar série                               *");
-            if (clienteAtual != null && clienteAtual.ehAdmin()) System.out.println("*  5. Adicionar filme                               *");
+            if (clienteAtual != null && clienteAtual.ehAdmin())
+                System.out.println("*  2. Imprimir lista de clientes...                 *");
+            if (clienteAtual != null && clienteAtual.ehAdmin())
+                System.out.println("*  3. Adicionar cliente                             *");
+            if (clienteAtual != null && clienteAtual.ehAdmin())
+                System.out.println("*  4. Adicionar série                               *");
+            if (clienteAtual != null && clienteAtual.ehAdmin())
+                System.out.println("*  5. Adicionar filme                               *");
             if (clienteAtual == null) System.out.println("*  6. Login                                         *");
             if (clienteAtual != null) System.out.println("*  6. Logoff                                        *");
             if (clienteAtual != null) System.out.println("*  7. Minha lista 'Para Ver'                        *");
             if (clienteAtual != null) System.out.println("*  8. Minha lista de itens 'Já Vistos'              *");
             if (clienteAtual != null) System.out.println("*  9. Avaliar mídia assistida                       *");
+            if (clienteAtual != null) System.out.println("*  10. Filtrar mídias por gênero                    *");
+            if (clienteAtual != null) System.out.println("*  11. Filtrar mídias por nome na lista 'Para Ver'  *");
+            if (clienteAtual != null) System.out.println("*  12. Filtrar mídias por nome na lista 'Já Vistas' *");
+            if (clienteAtual != null) System.out.println("*  13. Filtrar mídias por nome no catálogo geral    *");
             System.out.println("*  0. Sair                                          *");
             System.out.println("*****************************************************");
 
@@ -46,6 +55,7 @@ public class Main {
                 case 0:
                     System.out.println("Saindo...");
                     break;
+
                 case 1:
                     System.out.println("*** Lista de Mídias ***");
 
@@ -53,6 +63,7 @@ public class Main {
                         System.out.println(midia.toString());
                     }
                     break;
+
                 case 2:
                     System.out.println("*** Lista de Clientes ***");
 
@@ -60,6 +71,7 @@ public class Main {
                         System.out.println(cliente.toString());
                     }
                     break;
+
                 case 3:
                     scanner.nextLine();
                     System.out.println("Digite o nome do cliente");
@@ -71,6 +83,7 @@ public class Main {
                     Cliente cliente = new Cliente(nome, nomeUsuario, senha);
                     plataforma.adicionarCliente(cliente);
                     break;
+
                 case 4:
                     scanner.nextLine();
                     System.out.println("Digite o nome da série");
@@ -86,6 +99,7 @@ public class Main {
                     Midia serie = new Serie(nome, genero, idioma, qntEps, dataLancamento);
                     plataforma.adicionarMidia(serie);
                     break;
+
                 case 5:
                     scanner.nextLine();
                     System.out.println("Digite o nome do filme");
@@ -101,6 +115,7 @@ public class Main {
                     Midia filme = new Filme(nome, genero, idioma, duracao, dataLancamento);
                     plataforma.adicionarMidia(filme);
                     break;
+
                 case 6:
                     scanner.nextLine();
 
@@ -112,6 +127,7 @@ public class Main {
                             System.out.println("Digite a senha");
                             senha = scanner.nextLine();
                             cliente = plataforma.login(usuario, senha);
+                            clienteAtual = cliente;
 
                             if (cliente != null) {
                                 System.out.printf("Bem-vindo(a), %s!", cliente.getNome());
@@ -125,50 +141,96 @@ public class Main {
                         System.out.println("Logoff efetuado com sucesso.");
                     }
                     break;
+
                 case 7:
                     clienteAtual.imprimeListaParaVer();
                     break;
+
                 case 8:
                     clienteAtual.imprimeListaJaVistas();
                     break;
+
                 case 9:
-                        scanner.nextLine();
-                        System.out.println("Selecione a mídia a avaliar, digitando o ID correspondente.");
-                        clienteAtual.imprimeListaJaVistas();
-                        int idMidia = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println("Selecione a mídia a avaliar, digitando o ID correspondente.");
+                    clienteAtual.imprimeListaJaVistas();
+                    int idMidia = scanner.nextInt();
 
-                        // Busca a mídia na plataforma pelo ID
-                        Midia midiaParaAvaliar = plataforma.buscarMidia(idMidia);
+                    // Busca a mídia na plataforma pelo ID
+                    Midia midiaParaAvaliar = plataforma.buscarMidia(idMidia);
 
-                        // Verifica se o cliente possui na lista lista 'Para avaliar' aquela mídia
-                        if (clienteAtual.getListaJaVistas().contains(midiaParaAvaliar)) {
-                            // Verifica se o cliente já não avaliou essa mídia
-                            if (!midiaParaAvaliar.verificaAvaliacaoRegistrada(clienteAtual.getNomedeUsuario())) {
+                    // Verifica se o cliente possui na lista 'Para avaliar' aquela mídia
+                    if (clienteAtual.getListaJaVistas().contains(midiaParaAvaliar)) {
+                        // Verifica se o cliente já não avaliou essa mídia
+                        if (!midiaParaAvaliar.verificaAvaliacaoRegistrada(clienteAtual.getNomedeUsuario())) {
 
-                                int nota = -1;
-                                // Pede a nota a ser dada até que esteja certa.
-                                while (!(nota > 0 && nota <= 5)) {
-                                    System.out.println("Você está avaliando a mídia '" + midiaParaAvaliar.getNome() + "'. Digite sua avaliação (de 1 a 5)");
-                                    nota = scanner.nextInt();
-                                    // Registra a avaliação, passando junto o nome do usuário
+                            int nota = -1;
+                            // Pede a nota a ser dada até que esteja certa.
+                            while (!(nota > 0 && nota <= 5)) {
+                                System.out.println("Você está avaliando a mídia '" + midiaParaAvaliar.getNome() + "'. Digite sua avaliação (de 1 a 5)");
+                                nota = scanner.nextInt();
+
+                                if (!clienteAtual.ehClienteEspecialista()) {
+                                    // Registra a avaliação só com nota, passando junto o nome do usuário,
+                                    // pois o cliente não é especialista
                                     midiaParaAvaliar.registrarAvaliacao(clienteAtual.getNomedeUsuario(), nota);
-                                }
-                                System.out.println("Média de notas de '" + midiaParaAvaliar.getNome() + "': " + midiaParaAvaliar.getMediaAvaliacoes() + " (" + midiaParaAvaliar.getQuantidadeAvaliacoes() + " avaliações)");
-                                ;
-                                // Se o usuário for administrador, serão exibidas as notas dadas para essa mídia.
-                                if (clienteAtual.ehAdmin()) {
-                                    midiaParaAvaliar.getNotasAvaliacoesMidia();
+                                } else {
+                                    // Para cliente especialista, registra a avaliação com nota e comentário,
+                                    // passando junto o nome do usuário
+                                    String comentario;
+                                    System.out.println("Você é um cliente especialista! Digite seu comentário");
+                                    comentario = scanner.nextLine();
+                                    midiaParaAvaliar.registrarAvaliacaoComentario(clienteAtual.getNomedeUsuario(), nota, comentario);
                                 }
 
-                                // Se o cliente já avaliou a mídia, retorna a mensagem abaixo com a nota.
-                            } else {
-                                System.out.println("Você já avaliou a mídia '" + midiaParaAvaliar.getNome() + "' com a nota " + midiaParaAvaliar.getNotaAvaliacaoUsuario(clienteAtual.getNomedeUsuario()));
                             }
-                            // Se o cliente não assistiu a mídia, retorna a mensagem abaixo.
+                            System.out.println("Média de notas de '" + midiaParaAvaliar.getNome() + "': " + midiaParaAvaliar.getMediaAvaliacoes() + " (" + midiaParaAvaliar.getQuantidadeAvaliacoes() + " avaliações)");
+                            ;
+                            // Se o usuário for administrador, serão exibidas as notas dadas para essa mídia.
+                            if (clienteAtual.ehAdmin()) {
+                                midiaParaAvaliar.getNotasAvaliacoesMidia();
+                            }
+
+                            // Se o cliente já avaliou a mídia, retorna a mensagem abaixo com a nota.
                         } else {
-                            System.out.println("Essa mídia não foi assistida por você");
+                            System.out.println("Você já avaliou a mídia '" + midiaParaAvaliar.getNome() + "' com a nota " + midiaParaAvaliar.getNotaAvaliacaoUsuario(clienteAtual.getNomedeUsuario()));
                         }
-                        break;
+                        // Se o cliente não assistiu a mídia, retorna a mensagem abaixo.
+                    } else {
+                        System.out.println("Essa mídia não foi assistida por você");
+                    }
+                    break;
+
+                case 10:
+                    scanner.nextLine();
+                    System.out.println("Digite o nome da gênero para buscar as mídias desse gênero.");
+                    String nomeGenero = scanner.nextLine();
+                    plataforma.filtrarPorGenero(nomeGenero);
+                    break;
+
+                case 11:
+                    scanner.nextLine();
+                    System.out.println("Digite o nome da mídia para procurar na lista 'Para Ver':");
+                    String nomeMidia = scanner.nextLine();
+                    clienteAtual.filtrarListaParaVer(nomeMidia);
+                    break;
+
+                case 12:
+                    scanner.nextLine();
+                    System.out.println("Digite o nome da mídia para procurar na lista 'Já Vistas':");
+                    nomeMidia = scanner.nextLine();
+                    clienteAtual.filtrarListaJaVistas(nomeMidia);
+
+                    //Revisar chamadas de 2 métodos
+                    break;
+
+                case 13:
+                    scanner.nextLine();
+                    System.out.println("Digite o nome da mídia a ser procurada no catálogo de mídias:");
+                    nomeMidia = scanner.nextLine();
+                    plataforma.filtrarPorNome(nomeMidia);
+                    break;
+
                 default:
                     System.out.println("Opção inválida! Tente novamente.");
                     break;

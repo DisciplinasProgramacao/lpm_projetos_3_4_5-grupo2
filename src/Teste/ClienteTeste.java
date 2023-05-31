@@ -41,7 +41,7 @@ class ClienteTeste {
 	    @Test
 		@DisplayName("Método que testa registrar audiencia de midia já vista pelo cliente")
 	    public void testRegistrarNaAudiencia(){
-	        cliente.registrarAudiencia(serie);
+	        cliente.registrarAudiencia(serie, Data.gerarDataAleatoria());
 	        assertEquals(1, cliente.getListaJaVistas().size());
 	    }
 

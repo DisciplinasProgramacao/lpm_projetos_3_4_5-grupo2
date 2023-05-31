@@ -1,6 +1,9 @@
 package codigo;
 
 import java.io.File;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +33,7 @@ public class PlataformaStreaming {
         carregarSeries("POO_Series.csv");
         carregarFilmes("POO_Filmes.csv");
         carregarEspectador("POO_Espectadores.csv");
+        Midia.setUltimoId(getMaiorId());
 
         System.out.println("Carregando audiência...");
         carregarAudiencia("POO_Audiencia.csv");
@@ -93,7 +97,7 @@ public class PlataformaStreaming {
             int idSerie = Integer.parseInt(detalhes[0]);
             String nome = detalhes[1];
             String dataLancamento = detalhes[2];
-            String genero = Midia.gerarGeneroAleatorio();
+            String genero = Midia.gerarGeneroAleatorio(); //Passar para o construtor (Filme e Midia)
 
             Serie s = new Serie(idSerie, nome, dataLancamento, genero);
             this.midias.add(s);
@@ -158,7 +162,9 @@ public class PlataformaStreaming {
                             cliente.adicionarNaLista(serie);
                             //System.out.printf("Série %s adicionada na lista 'Para ver' do cliente %s\n", serie.getNome(), cliente.getNome());
                         } else {
-                            cliente.registrarAudiencia(serie);
+                            String dataAleatoria = Data.gerarDataAleatoria();
+                            //cliente.registrarAudiencia(serie, dataAleatoria);
+                            cliente.registrarAudiencia(serie, "21/04/2023");
                             //System.out.printf("\nSérie %s adicionada na lista 'Já assistidas' do cliente %s\n", serie.getNome(), cliente.getNome());
                         }
                     }
@@ -190,7 +196,20 @@ public class PlataformaStreaming {
      */
     public void adicionarMidia(Midia midia) {
         midias.add(midia);
- 
+
+        String nomeArquivo = "";
+        String novaLinhaMidia = "";
+
+        if (midia.getClass().equals(Serie.class)){
+            nomeArquivo = "POO_Series.csv";
+            novaLinhaMidia = midia.getIdMidia() + ";" + midia.getNome() + ";" + midia.getDataLancamento();
+        } else {
+            Filme filme = (Filme) midia;
+            nomeArquivo = "POO_Filmes.csv";
+            novaLinhaMidia = filme.getIdMidia() + ";" + filme.getNome() + ";" + midia.getDataLancamento() + ";" + filme.getDuracaoFilme();
+        }
+
+        atualizarArquivo(nomeArquivo, novaLinhaMidia);
     }
 
     /**
@@ -205,6 +224,8 @@ public class PlataformaStreaming {
             }
         }
         clientes.add(cliente);
+        String novaLinhaEspectador = cliente.getNome() + ";" + cliente.getNomedeUsuario() + ";" + cliente.getSenha();
+        atualizarArquivo("POO_Espectadores.csv", novaLinhaEspectador);
     }
     
     /**
@@ -212,12 +233,35 @@ public class PlataformaStreaming {
      * @param genero
      * @return
      */
-    public List<Midia> filtrarPorGenero(String genero) {
-        List aux = new ArrayList<>();
+    public ArrayList<Midia> filtrarPorGenero(String genero) {
+        ArrayList<Midia> aux = new ArrayList<>();
         for (Midia midia : midias){
             if (genero.equals(midia.getGenero())){
-                aux.add(midias);
+                aux.add(midia);
             }
+        }
+        if (!aux.isEmpty()){
+            for (Midia midia : aux)
+                System.out.printf("\n- %s (ID %d) - %s", midia.getNome(), midia.getIdMidia(), midia.getGenero());
+        } else {
+            System.out.println("Não foram encontradas mídias desse gênero.");
+        }
+
+        return aux;
+    }
+
+    public ArrayList<Midia> filtrarPorNome(String nomeMidia) {
+        ArrayList<Midia> aux = new ArrayList<>();
+        for (Midia midia : midias){
+            if (nomeMidia.equals(midia.getNome())){
+                aux.add(midia);
+            }
+        }
+        if (!aux.isEmpty()){
+            for (Midia midia : aux)
+                System.out.printf("\n- %s (ID %d) - %s", midia.getNome(), midia.getIdMidia(), midia.getGenero());
+        } else {
+            System.out.println("Não foram encontradas mídias com esse nome.");
         }
 
         return aux;
@@ -284,6 +328,10 @@ public class PlataformaStreaming {
 
         return aux;
     }
+    // Salvar dados novos no arquivo
+    // Atualizar ID das mídias
+    // Corrigir filtros (passar para mídia)
+    // (Adicionar cliente ao entrar, no arquivo)
 
     /**
      * Get e set de ClienteAtual e Clientes para testar na classe PlataformaStreamingteste
@@ -306,6 +354,32 @@ public class PlataformaStreaming {
 
     public String getNome() {
         return nome;
+    }
+
+    public int getMaiorId() {
+        int maxId = -1;
+        for (Midia midia : midias){
+            if (midia.getIdMidia() > maxId){
+                maxId = midia.getIdMidia();
+            }
+        }
+        return maxId;
+    }
+
+    public void atualizarArquivo(String nomeArquivo, String novaLinha) {
+
+        try {
+            FileWriter fileWriter = new FileWriter(nomeArquivo, true); // true para modo de adição
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            bufferedWriter.newLine(); // Adicionar uma nova linha
+            bufferedWriter.write(novaLinha);
+
+            bufferedWriter.close(); // Fechar o BufferedWriter
+            System.out.println("Nova linha adicionada com sucesso ao arquivo " + nomeArquivo);
+        } catch (IOException e) {
+            System.out.println("Ocorreu um erro ao adicionar a nova linha: " + e.getMessage());
+        }
     }
 }
 

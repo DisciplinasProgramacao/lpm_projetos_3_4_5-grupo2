@@ -25,11 +25,14 @@ public class Serie extends Midia {
 
 	public Serie(String nome, String genero, String idioma, int quantidadeDeEpsodios, String dataLancamento) {
 		super();
+		int novoId = Midia.getUltimoIdMidia() + 1;
+		this.id = novoId;
 		this.nome = nome;
 		this.genero = genero;
 		this.idioma = idioma;
 		this.quantidadeDeEpsodios = quantidadeDeEpsodios;
 		this.dataLancamento = dataLancamento;
+		Midia.setUltimoId(novoId);
 	}
 
 	/**
