@@ -2,8 +2,6 @@ package codigo;
 
 
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -41,10 +39,7 @@ public class Main {
             if (clienteAtual != null) System.out.println("*  7. Minha lista 'Para Ver'                        *");
             if (clienteAtual != null) System.out.println("*  8. Minha lista de itens 'Já Vistos'              *");
             if (clienteAtual != null) System.out.println("*  9. Avaliar mídia assistida                       *");
-            if (clienteAtual != null) System.out.println("*  10. Filtrar mídias por gênero                    *");
-            if (clienteAtual != null) System.out.println("*  11. Filtrar mídias por nome na lista 'Para Ver'  *");
-            if (clienteAtual != null) System.out.println("*  12. Filtrar mídias por nome na lista 'Já Vistas' *");
-            if (clienteAtual != null) System.out.println("*  13. Filtrar mídias por nome no catálogo geral    *");
+            if (clienteAtual != null) System.out.println("*  10. Acessar menu de filtros                      *");
             System.out.println("*  0. Sair                                          *");
             System.out.println("*****************************************************");
 
@@ -202,20 +197,27 @@ public class Main {
                     break;
 
                 case 10:
-                    scanner.nextLine();
-                    System.out.println("Digite o nome da gênero para buscar as mídias desse gênero.");
-                    String nomeGenero = scanner.nextLine();
-                    plataforma.filtrarPorGenero(nomeGenero);
-                    break;
-
-                case 11:
+                clearConsole();
+                if (clienteAtual != null) System.out.println("*  1. Filtrar mídias por nome na lista 'Para Ver'   *");
+                if (clienteAtual != null) System.out.println("*  2. Filtrar mídias por nome na lista 'Já Vistas'  *");
+                if (clienteAtual != null) System.out.println("*  3. Filtrar mídias por nome no catálogo geral     *");
+                if (clienteAtual != null) System.out.println("*  4. Filtrar mídias por gênero na lista 'Para Ver' *");
+                if (clienteAtual != null) System.out.println("*  5. Filtrar mídias por gênero na lista 'Já Vistas'*");
+                if (clienteAtual != null) System.out.println("*  6. Filtrar mídias por gênero no catálogo geral   *");
+                if (clienteAtual != null) System.out.println("*  7. Filtrar mídias por idioma na lista 'Para Ver' *");
+                if (clienteAtual != null) System.out.println("*  8. Filtrar mídias por idioma na lista 'Já Vistas'*");
+                if (clienteAtual != null) System.out.println("*  9. Filtrar mídias por idioma no catálogo geral   *");
+                System.out.print("\nDigite o número da opção desejada: ");
+                int op = scanner.nextInt();
+                switch (op){
+                    
+                    case 1:
                     scanner.nextLine();
                     System.out.println("Digite o nome da mídia para procurar na lista 'Para Ver':");
                     String nomeMidia = scanner.nextLine();
                     clienteAtual.filtrarListaParaVer(nomeMidia);
                     break;
-
-                case 12:
+                    case 2:
                     scanner.nextLine();
                     System.out.println("Digite o nome da mídia para procurar na lista 'Já Vistas':");
                     nomeMidia = scanner.nextLine();
@@ -223,13 +225,55 @@ public class Main {
 
                     //Revisar chamadas de 2 métodos
                     break;
-
-                case 13:
+                    case 3:
                     scanner.nextLine();
                     System.out.println("Digite o nome da mídia a ser procurada no catálogo de mídias:");
                     nomeMidia = scanner.nextLine();
                     plataforma.filtrarPorNome(nomeMidia);
                     break;
+                    case 4:
+                    scanner.nextLine();
+                    System.out.println("Digite o gênero da mídia para procurar na lista 'Para Ver':");
+                    String generoMidia = scanner.nextLine();
+                    clienteAtual.filtrarParaVerPorGenero(generoMidia);
+                    break;
+                    case 5:
+                    scanner.nextLine();
+                    System.out.println("Digite o gênero da mídia para procurar na lista 'Já vistas':");
+                    generoMidia = scanner.nextLine();
+                    clienteAtual.filtrarJaVistasPorGenero(generoMidia);
+                    break;
+                    case 6:
+                    scanner.nextLine();
+                    System.out.println("Digite o gênero da mídia a ser procurada no catálogo de mídias:");
+                    generoMidia = scanner.nextLine();
+                    plataforma.filtrarPorGenero(generoMidia);
+                    break;
+                    case 7:
+                    scanner.nextLine();
+                    System.out.println("Digite o idioma da mídia para procurar na lista 'Para Ver':");
+                    String idiomaMidia = scanner.nextLine();
+                    clienteAtual.filtrarParaVerPorIdioma(idiomaMidia);
+                    break;
+                    case 8:
+                    scanner.nextLine();
+                    System.out.println("Digite o idioma da mídia para procurar na lista 'Já vistas':");
+                    idiomaMidia = scanner.nextLine();
+                    clienteAtual.filtrarJaVistasPorIdioma(idiomaMidia);
+                    break;
+                    case 9:
+                    scanner.nextLine();
+                    System.out.println("Digite o idioma da mídia a ser procurada no catálogo de mídias:");
+                    idiomaMidia = scanner.nextLine();
+                    plataforma.filtrarPorIdioma(idiomaMidia);
+                    break;
+                    default:
+                    System.out.println("Opção inválida! Tente novamente.");
+                    break;
+
+                }
+                    break;
+
 
                 default:
                     System.out.println("Opção inválida! Tente novamente.");
@@ -239,6 +283,28 @@ public class Main {
 
         }
         scanner.close();
+    
+
     }
+    public final static void clearConsole()
+{
+    try
+    {
+        final String os = System.getProperty("os.name");
+
+        if (os.contains("Windows"))
+        {
+            Runtime.getRuntime().exec("cls");
+        }
+        else
+        {
+            Runtime.getRuntime().exec("clear");
+        }
+    }
+    catch (final Exception e)
+    {
+        //  Handle any exceptions.
+    }
+}
 
 }

@@ -2,9 +2,9 @@ package codigo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.HashMap;
-import java.util.HashSet;
+
 import java.util.List;
 
 /**
@@ -189,7 +189,93 @@ public class Cliente {
 
 		return aux;
 	}
-	
+	/**
+     * Método que filtra as mídias por genero
+     * @param genero
+     * @return
+     */
+    public ArrayList<Midia> filtrarJaVistasPorGenero(String genero) {
+        ArrayList<Midia> aux = new ArrayList<>();
+        for (Midia midia : this.listaJaVistas){
+            if (genero.equals(midia.getGenero())){
+                aux.add(midia);
+            }
+        }
+        if (!aux.isEmpty()){
+            for (Midia midia : aux)
+                System.out.printf("\n- %s (ID %d) - %s", midia.getNome(), midia.getIdMidia(), midia.getGenero());
+        } else {
+            System.out.println("Não foram encontradas mídias desse gênero.");
+        }
+
+        return aux;
+    }
+    
+    /**
+     * Método que filtra as mídias por idioma
+     * @param idioma
+     * @return
+     */
+    public ArrayList<Midia> filtrarJaVistasPorIdioma(String idioma) {
+        ArrayList<Midia> aux = new ArrayList<>();
+        for (Midia midia : this.listaJaVistas){
+            if (idioma.equals(midia.getIdioma())){
+                aux.add(midia);
+            }
+        }
+		if (!aux.isEmpty()){
+            for (Midia midia : aux)
+                System.out.printf("\n- %s (ID %d) - %s", midia.getNome(), midia.getIdMidia(), midia.getIdioma());
+        } else {
+            System.out.println("Não foram encontradas mídias com esse idioma.");
+        }
+
+        return aux;
+    }
+	/**
+     * Método que filtra as mídias por genero
+     * @param genero
+     * @return
+     */
+    public ArrayList<Midia> filtrarParaVerPorGenero(String genero) {
+        ArrayList<Midia> aux = new ArrayList<>();
+        for (Midia midia : this.listaJaVistas){
+            if (genero.equals(midia.getGenero())){
+                aux.add(midia);
+            }
+        }
+        if (!aux.isEmpty()){
+            for (Midia midia : aux)
+                System.out.printf("\n- %s (ID %d) - %s", midia.getNome(), midia.getIdMidia(), midia.getGenero());
+        } else {
+            System.out.println("Não foram encontradas mídias desse gênero.");
+        }
+
+        return aux;
+    }
+
+    
+    /**
+     * Método que filtra as mídias por idioma
+     * @param idioma
+     * @return
+     */
+    public ArrayList<Midia> filtrarParaVerPorIdioma(String idioma) {
+        ArrayList<Midia> aux = new ArrayList<>();
+        for (Midia midia : this.listaParaVer){
+            if (idioma.equals(midia.getIdioma())){
+                aux.add(midia);
+            }
+        }
+		if (!aux.isEmpty()){
+            for (Midia midia : aux)
+                System.out.printf("\n- %s (ID %d) - %s", midia.getNome(), midia.getIdMidia(), midia.getIdioma());
+        } else {
+            System.out.println("Não foram encontradas mídias com esse idioma.");
+        }
+
+        return aux;
+    }
 
 	@Override
 	public String toString() {

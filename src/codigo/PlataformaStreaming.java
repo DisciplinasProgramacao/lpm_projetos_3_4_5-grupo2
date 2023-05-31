@@ -30,13 +30,13 @@ public class PlataformaStreaming {
         this.clienteAtual = null;
 
         System.out.println("Carregando dados...");
-        carregarSeries("POO_Series.csv");
-        carregarFilmes("POO_Filmes.csv");
-        carregarEspectador("POO_Espectadores.csv");
+        carregarSeries("src/codigo/POO_Series.csv");
+        carregarFilmes("src/codigo/POO_Filmes.csv");
+        carregarEspectador("src/codigo/POO_Espectadores.csv");
         Midia.setUltimoId(getMaiorId());
 
         System.out.println("Carregando audiência...");
-        carregarAudiencia("POO_Audiencia.csv");
+        carregarAudiencia("src/codigo/POO_Audiencia.csv");
         
     }
     public void avaliar (Midia midia, int nota){
@@ -272,12 +272,18 @@ public class PlataformaStreaming {
      * @param idioma
      * @return
      */
-    public List<Midia> filtrarPorIdioma(String idioma) {
-        ArrayList aux = new ArrayList<>();
+    public ArrayList<Midia> filtrarPorIdioma(String idioma) {
+        ArrayList<Midia> aux = new ArrayList<>();
         for (Midia midia : midias){
             if (idioma.equals(midia.getIdioma())){
-                aux.add(midias);
+                aux.add((Midia) midias);
             }
+        }
+        if (!aux.isEmpty()){
+            for (Midia midia : aux)
+                System.out.printf("\n- %s (ID %d) - %s", midia.getNome(), midia.getIdMidia(), midia.getIdioma());
+        } else {
+            System.out.println("Não foram encontradas mídias com esse idioma.");
         }
 
         return aux;
