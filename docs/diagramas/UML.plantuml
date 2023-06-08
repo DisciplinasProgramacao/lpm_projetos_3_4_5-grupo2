@@ -102,6 +102,4 @@ Filme  <--  PlataformaStreaming
 Serie  <--  PlataformaStreaming
 Cliente  *-->  Midia
 PlataformaStreaming  *--> Cliente
-
-
 @enduml
