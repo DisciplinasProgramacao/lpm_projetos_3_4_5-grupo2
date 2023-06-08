@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 
 import codigo.Cliente;
 import codigo.Filme;
+import codigo.Genero;
+import codigo.Idioma;
 import codigo.Midia;
 import codigo.PlataformaStreaming;
 import codigo.Serie;
@@ -23,13 +25,15 @@ class PlataformaStreamingTeste {
 	Midia midia;
 	Cliente cliente;
 	Filme filme;
+	Genero genero;
+	Idioma idioma;
 
 	@BeforeEach
 	void init() throws FileNotFoundException {
-		this.serie = new Serie("The Walking Dead", "Terror", "Inglês", 512, "12/11/2012");
+		this.serie = new Serie("The Walking Dead", Genero.SUSPENSE , Idioma.INGLES , 512, "12/11/2012");
 		this.plataforma = new PlataformaStreaming("Netflix");
 		this.cliente = new Cliente("Flávia", "flasriibeiro", "12345");
-		this.filme = new Filme("Harry Potter", "Ficção Científica", "Inglês", 3500, "20/10/2001");
+		this.filme = new Filme("Harry Potter", Genero.AVENTURA, Idioma.INGLES, 3500, "20/10/2001");
 	}
 
 	@DisplayName("Método que testa a função de buscarSerie")

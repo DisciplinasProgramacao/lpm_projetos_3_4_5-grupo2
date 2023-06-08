@@ -9,7 +9,7 @@ public class Filme extends Midia{
      */
     public Filme() {}
     
-    public Filme(int idFilme, String nome, String dataLancamento, int duracao, String genero) {
+    public Filme(int idFilme, String nome, String dataLancamento, int duracao, Genero genero) {
         super();
         this.id = idFilme;
         this.nome = nome;
@@ -19,7 +19,7 @@ public class Filme extends Midia{
         this.idioma = Midia.gerarIdiomaAleatorio();
     }
 
-    public Filme(String nome, String genero, String idioma, int duracao, String dataLancamento) {
+    public Filme(String nome, Genero genero, Idioma idioma, int duracao, String dataLancamento) {
         super();
         int novoId = Midia.getUltimoIdMidia() + 1;
         this.id = novoId;

@@ -97,7 +97,7 @@ public class PlataformaStreaming {
             int idSerie = Integer.parseInt(detalhes[0]);
             String nome = detalhes[1];
             String dataLancamento = detalhes[2];
-            String genero = Midia.gerarGeneroAleatorio(); //Passar para o construtor (Filme e Midia)
+            Genero genero = Midia.gerarGeneroAleatorio(); //Passar para o construtor (Filme e Midia)
 
             Serie s = new Serie(idSerie, nome, dataLancamento, genero);
             this.midias.add(s);
@@ -120,7 +120,7 @@ public class PlataformaStreaming {
             String nome = detalhes[1];
             String dataLancamento = detalhes[2];
             int duracao = Integer.parseInt(detalhes[3]);
-            String genero = Midia.gerarGeneroAleatorio();
+            Genero genero = Midia.gerarGeneroAleatorio();
 
             Filme f = new Filme (idFilme, nome, dataLancamento, duracao, genero);
             midias.add(f);
@@ -362,6 +362,11 @@ public class PlataformaStreaming {
         return nome;
     }
 
+    /**
+     * Método que filtra maior ID
+     * 
+     * @return
+     */
     public int getMaiorId() {
         int maxId = -1;
         for (Midia midia : midias){
@@ -372,6 +377,11 @@ public class PlataformaStreaming {
         return maxId;
     }
 
+    /**
+     * Método que atualiza o arquivo
+     * @param nomeArquivo
+     * @param novaLinha
+     */
     public void atualizarArquivo(String nomeArquivo, String novaLinha) {
 
         try {
