@@ -83,14 +83,20 @@ public class Main {
                     scanner.nextLine();
                     System.out.println("Digite o nome da série");
                     nome = scanner.nextLine();
+                    
                     System.out.println("Digite o gênero da série");
-                    String genero = scanner.nextLine();
+                    String generoStr = scanner.nextLine();
+                    Genero genero = Genero.valueOf(generoStr.toUpperCase());
+                    
                     System.out.println("Digite o idioma");
-                    String idioma = scanner.nextLine();
+                    String idiomaStr = scanner.nextLine();
+                    Idioma idioma = Idioma.valueOf(idiomaStr.toUpperCase());
+                    
                     System.out.println("Digite a quantidade de episódios");
                     int qntEps = Integer.parseInt(scanner.nextLine());
                     System.out.println("Digite a data de lançamento de série");
                     String dataLancamento = scanner.nextLine();
+                    
                     Midia serie = new Serie(nome, genero, idioma, qntEps, dataLancamento);
                     plataforma.adicionarMidia(serie);
                     break;
@@ -100,9 +106,13 @@ public class Main {
                     System.out.println("Digite o nome do filme");
                     nome = scanner.nextLine();
                     System.out.println("Digite o gênero do filme");
-                    genero = scanner.nextLine();
+                    generoStr = scanner.nextLine();
+                    genero = Genero.valueOf(generoStr.toUpperCase());
+                    
                     System.out.println("Digite o idioma do filme");
-                    idioma = scanner.nextLine();
+                    idiomaStr = scanner.nextLine();
+                    idioma = Idioma.valueOf(idiomaStr.toUpperCase());
+                    
                     System.out.println("Digite a duração do filme");
                     int duracao = Integer.parseInt(scanner.nextLine());
                     System.out.println("Digite a data de lançamento do filme");

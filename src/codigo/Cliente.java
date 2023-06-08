@@ -41,7 +41,11 @@ public class Cliente {
 		this.senha = senha;
 
 	}
-
+	
+	/**
+	 * Método que verifica se o Cliente é admin
+	 * @return
+	 */
 	public boolean ehAdmin(){
 		if (getNomedeUsuario().equals("admin")){
 			return true;

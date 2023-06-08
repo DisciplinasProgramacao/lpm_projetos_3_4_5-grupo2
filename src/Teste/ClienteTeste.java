@@ -14,10 +14,12 @@ class ClienteTeste {
 	    Midia serie;
 	    Cliente cliente;
 	    PlataformaStreaming plataforma;
+	    Genero genero;
+	    Idioma idioma;
 
 		@BeforeEach
 		void init() throws FileNotFoundException {
-	        this.serie = new Serie("Game of Thrones", "Aventura", "Ingles", 100, "12/03/2008");
+	        this.serie = new Serie("Game of Thrones", Genero.ACAO, Idioma.INGLES, 100, "12/03/2008");
 	        this.cliente = new Cliente("Roberto", "robertolmg", "123456");
 	        this.plataforma = new PlataformaStreaming("Netflix");
 	    }

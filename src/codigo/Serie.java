@@ -12,7 +12,7 @@ public class Serie extends Midia {
 	public Serie() {
 	}
 
-	public Serie(int idSerie, String nome, String dataLancamento, String genero) {
+	public Serie(int idSerie, String nome, String dataLancamento, Genero genero) {
 		Random r = new Random();
 
 		this.id = idSerie;
@@ -23,7 +23,7 @@ public class Serie extends Midia {
 		this.quantidadeDeEpsodios = r.nextInt(23);
 	}
 
-	public Serie(String nome, String genero, String idioma, int quantidadeDeEpsodios, String dataLancamento) {
+	public Serie(String nome, Genero genero, Idioma idioma, int quantidadeDeEpsodios, String dataLancamento) {
 		super();
 		int novoId = Midia.getUltimoIdMidia() + 1;
 		this.id = novoId;
