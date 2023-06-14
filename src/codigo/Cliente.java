@@ -201,7 +201,7 @@ public class Cliente {
     public ArrayList<Midia> filtrarJaVistasPorGenero(String genero) {
         ArrayList<Midia> aux = new ArrayList<>();
         for (Midia midia : this.listaJaVistas){
-            if (genero.equals(midia.getGenero())){
+            if (genero.equals(midia.getGenero().name())){
                 aux.add(midia);
             }
         }
@@ -223,7 +223,7 @@ public class Cliente {
     public ArrayList<Midia> filtrarJaVistasPorIdioma(String idioma) {
         ArrayList<Midia> aux = new ArrayList<>();
         for (Midia midia : this.listaJaVistas){
-            if (idioma.equals(midia.getIdioma())){
+            if (idioma.equals(midia.getIdioma().name())){
                 aux.add(midia);
             }
         }
@@ -244,7 +244,7 @@ public class Cliente {
     public ArrayList<Midia> filtrarParaVerPorGenero(String genero) {
         ArrayList<Midia> aux = new ArrayList<>();
         for (Midia midia : this.listaJaVistas){
-            if (genero.equals(midia.getGenero())){
+            if (genero.equals(midia.getGenero().name())){
                 aux.add(midia);
             }
         }
@@ -267,7 +267,7 @@ public class Cliente {
     public ArrayList<Midia> filtrarParaVerPorIdioma(String idioma) {
         ArrayList<Midia> aux = new ArrayList<>();
         for (Midia midia : this.listaParaVer){
-            if (idioma.equals(midia.getIdioma())){
+            if (idioma.equals(midia.getIdioma().name())){
                 aux.add(midia);
             }
         }

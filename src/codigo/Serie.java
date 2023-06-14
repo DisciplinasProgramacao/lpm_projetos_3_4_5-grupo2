@@ -12,13 +12,13 @@ public class Serie extends Midia {
 	public Serie() {
 	}
 
-	public Serie(int idSerie, String nome, String dataLancamento, Genero genero) {
+	public Serie(int idSerie, String nome, String dataLancamento) {
 		Random r = new Random();
 
 		this.id = idSerie;
 		this.nome = nome;
 		this.dataLancamento = dataLancamento;
-		this.genero = genero;
+		this.genero = Midia.gerarGeneroAleatorio();
 		this.idioma = Midia.gerarIdiomaAleatorio();
 		this.quantidadeDeEpsodios = r.nextInt(23);
 	}

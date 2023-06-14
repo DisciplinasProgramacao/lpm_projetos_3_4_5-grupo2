@@ -2,6 +2,7 @@ package codigo;
 
 
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -243,39 +244,45 @@ public class Main {
                     break;
                     case 4:
                     scanner.nextLine();
+                    System.out.println("Gêneros disponíveis: \n"+Arrays.asList(Genero.values()));
                     System.out.println("Digite o gênero da mídia para procurar na lista 'Para Ver':");
                     String generoMidia = scanner.nextLine();
-                    clienteAtual.filtrarParaVerPorGenero(generoMidia);
+                    clienteAtual.filtrarParaVerPorGenero(generoMidia.toUpperCase());
                     break;
                     case 5:
                     scanner.nextLine();
+                    System.out.println("Gêneros disponíveis: \n"+Arrays.asList(Genero.values()));
                     System.out.println("Digite o gênero da mídia para procurar na lista 'Já vistas':");
                     generoMidia = scanner.nextLine();
-                    clienteAtual.filtrarJaVistasPorGenero(generoMidia);
+                    clienteAtual.filtrarJaVistasPorGenero(generoMidia.toUpperCase());
                     break;
                     case 6:
                     scanner.nextLine();
+                    System.out.println("Gêneros disponíveis: \n"+Arrays.asList(Genero.values()));
                     System.out.println("Digite o gênero da mídia a ser procurada no catálogo de mídias:");
                     generoMidia = scanner.nextLine();
-                    plataforma.filtrarPorGenero(generoMidia);
+                    plataforma.filtrarPorGenero(generoMidia.toUpperCase());
                     break;
                     case 7:
                     scanner.nextLine();
+                    System.out.println("Idiomas disponíveis: \n"+Arrays.asList(Idioma.values()));
                     System.out.println("Digite o idioma da mídia para procurar na lista 'Para Ver':");
                     String idiomaMidia = scanner.nextLine();
-                    clienteAtual.filtrarParaVerPorIdioma(idiomaMidia);
+                    clienteAtual.filtrarParaVerPorIdioma(idiomaMidia.toUpperCase());
                     break;
                     case 8:
                     scanner.nextLine();
+                    System.out.println("Idiomas disponíveis: \n"+Arrays.asList(Idioma.values()));
                     System.out.println("Digite o idioma da mídia para procurar na lista 'Já vistas':");
                     idiomaMidia = scanner.nextLine();
-                    clienteAtual.filtrarJaVistasPorIdioma(idiomaMidia);
+                    clienteAtual.filtrarJaVistasPorIdioma(idiomaMidia.toUpperCase());
                     break;
                     case 9:
                     scanner.nextLine();
+                    System.out.println("Idiomas disponíveis: \n"+Arrays.asList(Idioma.values()));
                     System.out.println("Digite o idioma da mídia a ser procurada no catálogo de mídias:");
                     idiomaMidia = scanner.nextLine();
-                    plataforma.filtrarPorIdioma(idiomaMidia);
+                    plataforma.filtrarPorIdioma(idiomaMidia.toUpperCase());
                     break;
                     default:
                     System.out.println("Opção inválida! Tente novamente.");

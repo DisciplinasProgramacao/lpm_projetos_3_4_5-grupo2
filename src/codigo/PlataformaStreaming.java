@@ -97,9 +97,9 @@ public class PlataformaStreaming {
             int idSerie = Integer.parseInt(detalhes[0]);
             String nome = detalhes[1];
             String dataLancamento = detalhes[2];
-            Genero genero = Midia.gerarGeneroAleatorio(); //Passar para o construtor (Filme e Midia)
+          //  Genero genero = Midia.gerarGeneroAleatorio(); //Passar para o construtor (Filme e Midia)
 
-            Serie s = new Serie(idSerie, nome, dataLancamento, genero);
+            Serie s = new Serie(idSerie, nome, dataLancamento);
             this.midias.add(s);
 
         }
@@ -236,7 +236,7 @@ public class PlataformaStreaming {
     public ArrayList<Midia> filtrarPorGenero(String genero) {
         ArrayList<Midia> aux = new ArrayList<>();
         for (Midia midia : midias){
-            if (genero.equals(midia.getGenero())){
+            if (genero.equals(midia.getGenero().name())){
                 aux.add(midia);
             }
         }
@@ -275,8 +275,8 @@ public class PlataformaStreaming {
     public ArrayList<Midia> filtrarPorIdioma(String idioma) {
         ArrayList<Midia> aux = new ArrayList<>();
         for (Midia midia : midias){
-            if (idioma.equals(midia.getIdioma())){
-                aux.add((Midia) midias);
+            if (idioma.equals(midia.getIdioma().name())){
+                aux.add(midia);
             }
         }
         if (!aux.isEmpty()){
