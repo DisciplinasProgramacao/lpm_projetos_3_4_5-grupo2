@@ -54,7 +54,7 @@ public abstract class Midia {
     }
 
     public int getAudiencia() {
-        return audiencia;
+        return this.audiencia;
     }
 
     public void setAudiencia(int audiencia) {

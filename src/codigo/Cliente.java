@@ -19,6 +19,7 @@ public class Cliente {
 	private List<Midia> listaParaVer;
 	private List<Midia> listaJaVistas;
 	private HashMap<Midia, String> datasExibicao;
+	private int quantAval;
 
 	/**
 	 * Construtores padrão
@@ -107,6 +108,7 @@ public class Cliente {
 	public void registrarAudiencia (Midia midia, String dataExibicao) {
 		this.listaJaVistas.add(midia);
 		this.datasExibicao.put(midia, dataExibicao);
+		midia.registraAudiencia();
 	}
 
 	public boolean ehClienteEspecialista () {
@@ -280,6 +282,16 @@ public class Cliente {
 
         return aux;
     }
+	public int calcularQntAvalCliente(){
+
+		for (Midia midia : listaJaVistas){
+			if (midia.verificaAvaliacaoRegistrada(this.getNomedeUsuario())){
+				this.quantAval++;
+
+			}
+		}
+		return quantAval;
+	}
 
 	@Override
 	public String toString() {

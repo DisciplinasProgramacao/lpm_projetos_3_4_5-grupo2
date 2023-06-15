@@ -6,9 +6,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class PlataformaStreaming {
     private String nome;
@@ -148,7 +151,7 @@ public class PlataformaStreaming {
                 String login = detalhes[0];
                 String tipoLista = detalhes[1];
 
-                //TODO
+                
                 //Verificar porque está dando loop infinito quando coloco um else na linha 113.
                 int idSerie = Integer.parseInt(detalhes[2]);
                 Midia serie = buscarMidia(idSerie);
@@ -289,6 +292,8 @@ public class PlataformaStreaming {
         return aux;
     }
     
+    //TODO: Verificar se o método abaixo pode ser removido e o teste adaptado.
+    //Registro da audiência pelo cliente (método registrarAudiencia)
     /**
      * Método que registra audiencia de determinada midia
      * @param m
@@ -397,5 +402,72 @@ public class PlataformaStreaming {
             System.out.println("Ocorreu um erro ao adicionar a nova linha: " + e.getMessage());
         }
     }
+    /*public Cliente buscarClienteMaisAssistiu(){
+        Cliente clienteMaisAssistiu = this.clientes.stream()
+                                        .max(Comparator.comparingInt(cliente -> cliente.getListaJaVistas.size()))
+                                        .orElse(null);
+        
+
+        return clienteMaisAssistiu;
+    }*/
+    /*public Cliente buscarClientesMaisAvaliacoes (){
+        Cliente clienteMaisAvaliacoes = this.clientes.stream()
+                                        .mapToInt(cliente -> cliente.calcularQntAvalCliente())
+                                        .max();
+  
+
+        
+        return clienteMaisAvaliacoes;
+    }*/
+    public double PorcentagemClientesMaisQue15Aval(){
+        long qtdCLientesAval = this.clientes.stream()
+                                        .filter(cliente -> cliente.calcularQntAvalCliente()>15)
+                                        .count();
+                                        
+        double porcentagemClientesAval = (qtdCLientesAval / this.clientes.size());
+
+        return porcentagemClientesAval;
+    }
+    public List<Midia> buscarMelhoresMidiasAvaliadas (){ 
+        List<Midia> melhoresMidiasAvaliadas = midias.stream()
+        .filter(midia -> midia.getQuantidadeAvaliacoes()>=100)
+        .sorted(Comparator.comparingDouble(Midia::getMediaAvaliacoes).reversed())
+        .limit(10)
+        .collect(Collectors.toList());
+
+        return melhoresMidiasAvaliadas;
+    }
+    public List<Midia> buscarMidiasMaisAvaliadas (){
+        List<Midia> midiasMaisAvaliadas = midias.stream()
+        .sorted(Comparator.comparingDouble(Midia::getQuantidadeAvaliacoes).reversed())
+        .limit(10)
+        .collect(Collectors.toList());
+
+        return midiasMaisAvaliadas;
+    }
+    public Map<Genero, List<Midia>> buscarMidiasMaisAvaliadasPorGenero() { //TODO TESTAR STREAM
+        Map<Genero, List<Midia>> midiasMaisAvaliadasPorGenero = midias.stream()
+        .sorted(Comparator.comparingDouble(Midia::getQuantidadeAvaliacoes).reversed())
+        .limit(10)
+        .collect(Collectors.groupingBy(Midia::getGenero));
+        return midiasMaisAvaliadasPorGenero;
+    }
+    public List<Midia> buscarMidiasMaisVisu(){
+        List<Midia> midiasMaisVisualizadas = midias.stream()
+                                            .sorted(Comparator.comparingInt(Midia:: getAudiencia).reversed())
+                                            .limit(10)
+                                            .collect(Collectors.toList());
+    
+        return midiasMaisVisualizadas;
+    }
+    public Map<Genero, List<Midia>> buscarMidiasMaisVisuPorGenero(){
+        Map<Genero, List<Midia>> midiasMaisVisualizadas = midias.stream()
+                                            .sorted(Comparator.comparingInt(Midia:: getAudiencia).reversed())
+                                            .limit(10)
+                                            .collect(Collectors.groupingBy(Midia::getGenero));
+    
+        return midiasMaisVisualizadas;
+    }
+
 }
 
