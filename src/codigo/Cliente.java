@@ -131,7 +131,7 @@ public class Cliente {
 	}
 	
 	/**
-	 * Imprime Lista
+	 * Imprime Lista de mídias para ver.
 	 */
 	public void imprimeListaParaVer() {
 		if (this.listaParaVer.isEmpty()) {
@@ -143,7 +143,9 @@ public class Cliente {
 		}
 		System.out.println("\n");
 	}
-
+	/**
+	 * Imprime lista de mídias já vistas.
+	 */
 	public void imprimeListaJaVistas() {
 		if (this.listaJaVistas.isEmpty()) {
 			System.out.println("Lista 'Já Vistos' vazia");
@@ -158,26 +160,12 @@ public class Cliente {
 	public String getSenha() {
 		return this.senha;
 	}
-
-	public ArrayList<Midia> filtrarListaParaVer(String nomeMidia) {
-		ArrayList<Midia> aux = new ArrayList<>();
-		for (Midia midia : this.listaParaVer){
-			if (nomeMidia.equals(midia.getNome())){
-				aux.add(midia);
-			}
-		}
-		if (!aux.isEmpty()){
-			for (Midia midia : aux)
-				System.out.printf("\n- %s (ID %d) - %s", midia.getNome(), midia.getIdMidia(), midia.getGenero());
-		} else {
-			System.out.println("Não foram encontradas mídias com esse nome na lista 'Para Ver'.");
-		}
-
-
-		return aux;
-
-	}
-
+	
+	/**
+	 * Filtra lista já vistas a partir do nome
+	 * @param nomeMidia
+	 * @return Lista de mídias dentro da lista de mídias já vistas com o nome do parametro
+	 */
 	public ArrayList<Midia> filtrarListaJaVistas(String nomeMidia) {
 		ArrayList<Midia> aux = new ArrayList<>();
 		for (Midia midia : this.listaJaVistas){
@@ -237,7 +225,32 @@ public class Cliente {
         }
 
         return aux;
-    }
+    }	
+    
+	/**
+	 * Filtra a lista para ver por nome
+	 * @param nomeMidia
+	 * @return Uma lista de Mídias com o nome filtrado
+	 */
+	public ArrayList<Midia> filtrarListaParaVer(String nomeMidia) {
+		ArrayList<Midia> aux = new ArrayList<>();
+		for (Midia midia : this.listaParaVer){
+			if (nomeMidia.equals(midia.getNome())){
+				aux.add(midia);
+			}
+		}
+		if (!aux.isEmpty()){
+			for (Midia midia : aux)
+				System.out.printf("\n- %s (ID %d) - %s", midia.getNome(), midia.getIdMidia(), midia.getGenero());
+		} else {
+			System.out.println("Não foram encontradas mídias com esse nome na lista 'Para Ver'.");
+		}
+
+
+		return aux;
+
+	}
+	
 	/**
      * Método que filtra as mídias por genero
      * @param genero
@@ -245,7 +258,7 @@ public class Cliente {
      */
     public ArrayList<Midia> filtrarParaVerPorGenero(String genero) {
         ArrayList<Midia> aux = new ArrayList<>();
-        for (Midia midia : this.listaJaVistas){
+        for (Midia midia : this.listaParaVer){
             if (midia.getGenero().name().equalsIgnoreCase(genero) || midia.getGenero().getDescricao().equalsIgnoreCase(genero)){
                 aux.add(midia);
             }
@@ -282,6 +295,11 @@ public class Cliente {
 
         return aux;
     }
+    
+    /**
+     * Calcula a quantidade de avaliações do cliente
+     * @return 
+     */
 	public int calcularQntAvalCliente(){
 
 		for (Midia midia : listaJaVistas){

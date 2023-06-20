@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 
 class ClienteTeste {
 
@@ -36,7 +37,7 @@ class ClienteTeste {
 		@DisplayName("Método que testa o retirar midia da lista do cliente")
 	    public void testRetirarDaLista(){
 	        cliente.adicionarNaLista(serie);
-	        cliente.retirarDaLista("Game of Trhones");
+	        cliente.retirarDaLista("Game of Thrones");
 	        assertEquals(0, cliente.getListaParaVer().size());
 	    }
 
@@ -44,7 +45,7 @@ class ClienteTeste {
 		@DisplayName("Método que testa registrar audiencia de midia já vista pelo cliente")
 	    public void testRegistrarNaAudiencia(){
 	        cliente.registrarAudiencia(serie, Data.gerarDataAleatoria());
-	        assertEquals(1, cliente.getListaJaVistas().size());
+	        assertFalse(cliente.getListaParaVer().contains(serie));
 	    }
 
 	    /*@Test
@@ -55,5 +56,68 @@ class ClienteTeste {
 	        titanic.avaliarMidia(5);
 	        assertEquals(5, titanic.getNota());
 	    }*/
-
+	    
+	    
+	    @DisplayName("Método que testa a função de filtrarListaJaVistas")
+		@Test
+		public void testFiltrarListaJaVistas() {
+			plataforma.adicionarCliente(cliente);
+			cliente.registrarAudiencia(serie, "11/06/1997");
+			List<Midia> midias = cliente.filtrarListaJaVistas("Game of Thrones");
+			assertEquals(1, midias.size());
+		}
+	    
+	    @DisplayName("Método que testa a função de filtrarJaVistasPorGenero")
+		@Test
+		public void testFiltrarJaVistasPorGenero() {
+			plataforma.adicionarCliente(cliente);
+			cliente.registrarAudiencia(serie, "11/06/1997");
+			List<Midia> midias = cliente.filtrarJaVistasPorGenero("Ação");
+			assertEquals(1, midias.size());
+		}
+	    
+	    @DisplayName("Método que testa a função de filtrarJaVistasPorIdioma")
+		@Test
+		public void testFiltrarJaVistasPorIdioma() {
+			plataforma.adicionarCliente(cliente);
+			cliente.registrarAudiencia(serie, "11/06/1997");
+			List<Midia> midias = cliente.filtrarJaVistasPorIdioma("Inglês");
+			assertEquals(1, midias.size());
+		}
+	    
+	    @DisplayName("Método que testa a função de filtrarListaParaVer")
+		@Test
+		public void testFiltrarListaParaVer() {
+			plataforma.adicionarCliente(cliente);
+			cliente.adicionarNaLista(serie);
+			List<Midia> midias = cliente.filtrarListaParaVer("Game of Thrones");
+			assertEquals(1, midias.size());
+		}
+	    
+	    @DisplayName("Método que testa a função de filtrarParaVerPorGenero")
+		@Test
+		public void testFiltrarParaVerPorGenero() {
+			plataforma.adicionarCliente(cliente);
+			cliente.adicionarNaLista(serie);
+			List<Midia> midias = cliente.filtrarParaVerPorGenero("Ação");
+			assertEquals(1, midias.size());
+		}
+	    
+	    @DisplayName("Método que testa a função de filtrarParaVerPorIdioma")
+		@Test
+		public void testFiltrarParaVerPorIdioma() {
+			plataforma.adicionarCliente(cliente);
+			cliente.adicionarNaLista(serie);
+			List<Midia> midias = cliente.filtrarParaVerPorIdioma("Inglês");
+			assertEquals(1, midias.size());
+		}
+	    
+	    @DisplayName("Método que testa a função de calcularQntAvalCliente")
+		@Test
+		public void testCalcularQntAvalCliente() {
+			plataforma.adicionarCliente(cliente);
+			cliente.registrarAudiencia(serie, "11/06/1997");
+			serie.registrarAvaliacao("robertolmg", 5);
+			assertEquals(1, cliente.calcularQntAvalCliente());
+		}
 }
