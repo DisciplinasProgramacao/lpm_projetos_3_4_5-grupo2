@@ -3,6 +3,7 @@ package codigo;
 
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -45,7 +46,13 @@ public class Main {
             System.out.println("*****************************************************");
 
             System.out.print("\nDigite o número da opção desejada: ");
-            opcao = scanner.nextInt();
+            try {
+                opcao = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida! Digite um número inteiro.");
+                scanner.nextLine();
+                continue;
+            }
 
             switch (opcao) {
                 case 0:
@@ -81,45 +88,55 @@ public class Main {
                     break;
 
                 case 4:
+                	try {
                     scanner.nextLine();
                     System.out.println("Digite o nome da série");
                     nome = scanner.nextLine();
-                    
+
                     System.out.println("Digite o gênero da série");
                     String generoStr = scanner.nextLine();
-                    Genero genero = Genero.valueOf(generoStr.toUpperCase());
-                    
+                    Genero genero = Genero.findByValue(generoStr);
+
                     System.out.println("Digite o idioma");
                     String idiomaStr = scanner.nextLine();
-                    Idioma idioma = Idioma.valueOf(idiomaStr.toUpperCase());
-                    
+                    Idioma idioma = Idioma.findByValue(idiomaStr);
+
                     System.out.println("Digite a quantidade de episódios");
                     int qntEps = Integer.parseInt(scanner.nextLine());
                     System.out.println("Digite a data de lançamento de série");
                     String dataLancamento = scanner.nextLine();
-                    
-                    Midia serie = new Serie(nome, genero, idioma, qntEps, dataLancamento);
-                    plataforma.adicionarMidia(serie);
-                    break;
 
+                    Midia serie = MidiaFactory.criarMidia("Serie", nome, genero, idioma, qntEps, dataLancamento);
+
+                    plataforma.adicionarMidia(serie);
+                	} catch(EnumException e) {
+                		System.out.println(e.getMessage());
+                	}
+                    break;
                 case 5:
+                	try {
                     scanner.nextLine();
                     System.out.println("Digite o nome do filme");
                     nome = scanner.nextLine();
                     System.out.println("Digite o gênero do filme");
-                    generoStr = scanner.nextLine();
-                    genero = Genero.valueOf(generoStr.toUpperCase());
-                    
+                    String generoStr = scanner.nextLine();
+                    Genero genero = Genero.findByValue(generoStr);
+
                     System.out.println("Digite o idioma do filme");
-                    idiomaStr = scanner.nextLine();
-                    idioma = Idioma.valueOf(idiomaStr.toUpperCase());
-                    
+                    String idiomaStr = scanner.nextLine();
+                    Idioma idioma = Idioma.findByValue(idiomaStr);
+
                     System.out.println("Digite a duração do filme");
                     int duracao = Integer.parseInt(scanner.nextLine());
                     System.out.println("Digite a data de lançamento do filme");
-                    dataLancamento = scanner.nextLine();
-                    Midia filme = new Filme(nome, genero, idioma, duracao, dataLancamento);
+                    String dataLancamento = scanner.nextLine();
+
+                    Midia filme = MidiaFactory.criarMidia("Filme", nome, genero, idioma, duracao, dataLancamento);
+
                     plataforma.adicionarMidia(filme);
+                	} catch(EnumException e) {
+                		System.out.println(e.getMessage());
+                	}
                     break;
 
                 case 6:
@@ -219,9 +236,16 @@ public class Main {
                 if (clienteAtual != null) System.out.println("*  8. Filtrar mídias por idioma na lista 'Já Vistas'*");
                 if (clienteAtual != null) System.out.println("*  9. Filtrar mídias por idioma no catálogo geral   *");
                 System.out.print("\nDigite o número da opção desejada: ");
-                int op = scanner.nextInt();
+                int op;
+                try {
+                    op = scanner.nextInt();
+                } catch (InputMismatchException e) {
+                    System.out.println("Entrada inválida! Digite um número inteiro.");
+                    scanner.nextLine();
+                    continue;
+                }
                 switch (op){
-                    
+
                     case 1:
                     scanner.nextLine();
                     System.out.println("Digite o nome da mídia para procurar na lista 'Para Ver':");
@@ -247,42 +271,42 @@ public class Main {
                     System.out.println("Gêneros disponíveis: \n"+Arrays.asList(Genero.values()));
                     System.out.println("Digite o gênero da mídia para procurar na lista 'Para Ver':");
                     String generoMidia = scanner.nextLine();
-                    clienteAtual.filtrarParaVerPorGenero(generoMidia.toUpperCase());
+                    clienteAtual.filtrarParaVerPorGenero(generoMidia);
                     break;
                     case 5:
                     scanner.nextLine();
                     System.out.println("Gêneros disponíveis: \n"+Arrays.asList(Genero.values()));
                     System.out.println("Digite o gênero da mídia para procurar na lista 'Já vistas':");
                     generoMidia = scanner.nextLine();
-                    clienteAtual.filtrarJaVistasPorGenero(generoMidia.toUpperCase());
+                    clienteAtual.filtrarJaVistasPorGenero(generoMidia);
                     break;
                     case 6:
                     scanner.nextLine();
                     System.out.println("Gêneros disponíveis: \n"+Arrays.asList(Genero.values()));
                     System.out.println("Digite o gênero da mídia a ser procurada no catálogo de mídias:");
                     generoMidia = scanner.nextLine();
-                    plataforma.filtrarPorGenero(generoMidia.toUpperCase());
+                    plataforma.filtrarPorGenero(generoMidia);
                     break;
                     case 7:
                     scanner.nextLine();
                     System.out.println("Idiomas disponíveis: \n"+Arrays.asList(Idioma.values()));
                     System.out.println("Digite o idioma da mídia para procurar na lista 'Para Ver':");
                     String idiomaMidia = scanner.nextLine();
-                    clienteAtual.filtrarParaVerPorIdioma(idiomaMidia.toUpperCase());
+                    clienteAtual.filtrarParaVerPorIdioma(idiomaMidia);
                     break;
                     case 8:
                     scanner.nextLine();
                     System.out.println("Idiomas disponíveis: \n"+Arrays.asList(Idioma.values()));
                     System.out.println("Digite o idioma da mídia para procurar na lista 'Já vistas':");
                     idiomaMidia = scanner.nextLine();
-                    clienteAtual.filtrarJaVistasPorIdioma(idiomaMidia.toUpperCase());
+                    clienteAtual.filtrarJaVistasPorIdioma(idiomaMidia);
                     break;
                     case 9:
                     scanner.nextLine();
                     System.out.println("Idiomas disponíveis: \n"+Arrays.asList(Idioma.values()));
                     System.out.println("Digite o idioma da mídia a ser procurada no catálogo de mídias:");
                     idiomaMidia = scanner.nextLine();
-                    plataforma.filtrarPorIdioma(idiomaMidia.toUpperCase());
+                    plataforma.filtrarPorIdioma(idiomaMidia);
                     break;
                     default:
                     System.out.println("Opção inválida! Tente novamente.");
@@ -300,7 +324,7 @@ public class Main {
 
         }
         scanner.close();
-    
+
 
     }
     public final static void clearConsole()

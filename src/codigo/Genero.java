@@ -13,8 +13,15 @@ public enum Genero {
 	DOCUMENTARIO("Documentário"),
 	DRAMA("Drama");
 
-	Genero(String string) {
-	}
+	private final String descricao;
+
+    private Genero(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
 	
     public static Genero geraGeneroAleatorio() {
     	Genero[] values = Genero.values();
@@ -22,5 +29,18 @@ public enum Genero {
         int randIndex = new Random().nextInt(length);
         return values[randIndex];
     }
-	
+    
+    public static String geraDescricaoAleatoria() {
+        Genero generoAleatorio = geraGeneroAleatorio();
+        return generoAleatorio.getDescricao();
+    }
+    
+    public static Genero findByValue(String value) {
+        for (Genero genero : Genero.values()) {
+            if (genero.name().equalsIgnoreCase(value)) {
+                return genero;
+            }
+        }
+        throw new EnumException("Este gênero não foi inserido na lista!");
+    }
 }

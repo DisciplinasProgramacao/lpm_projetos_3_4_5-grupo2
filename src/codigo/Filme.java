@@ -9,14 +9,14 @@ public class Filme extends Midia{
      */
     public Filme() {}
     
-    public Filme(int idFilme, String nome, String dataLancamento, int duracao, Genero genero) {
+    public Filme(int idFilme, String nome, String dataLancamento, int duracao) {
         super();
         this.id = idFilme;
         this.nome = nome;
         this.dataLancamento = dataLancamento;
         this.duracao = duracao;
-        this.genero = genero;
         this.idioma = Midia.gerarIdiomaAleatorio();
+		this.genero = Midia.gerarGeneroAleatorio();
     }
 
     public Filme(String nome, Genero genero, Idioma idioma, int duracao, String dataLancamento) {

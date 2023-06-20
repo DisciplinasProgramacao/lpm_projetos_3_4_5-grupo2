@@ -203,7 +203,7 @@ public class Cliente {
     public ArrayList<Midia> filtrarJaVistasPorGenero(String genero) {
         ArrayList<Midia> aux = new ArrayList<>();
         for (Midia midia : this.listaJaVistas){
-            if (genero.equals(midia.getGenero().name())){
+            if (midia.getGenero().name().equalsIgnoreCase(genero) || midia.getGenero().getDescricao().equalsIgnoreCase(genero)){
                 aux.add(midia);
             }
         }
@@ -225,7 +225,7 @@ public class Cliente {
     public ArrayList<Midia> filtrarJaVistasPorIdioma(String idioma) {
         ArrayList<Midia> aux = new ArrayList<>();
         for (Midia midia : this.listaJaVistas){
-            if (idioma.equals(midia.getIdioma().name())){
+            if (midia.getIdioma().name().equalsIgnoreCase(idioma) || midia.getIdioma().getDescricao().equalsIgnoreCase(idioma)){
                 aux.add(midia);
             }
         }
@@ -246,7 +246,7 @@ public class Cliente {
     public ArrayList<Midia> filtrarParaVerPorGenero(String genero) {
         ArrayList<Midia> aux = new ArrayList<>();
         for (Midia midia : this.listaJaVistas){
-            if (genero.equals(midia.getGenero().name())){
+            if (midia.getGenero().name().equalsIgnoreCase(genero) || midia.getGenero().getDescricao().equalsIgnoreCase(genero)){
                 aux.add(midia);
             }
         }
@@ -269,7 +269,7 @@ public class Cliente {
     public ArrayList<Midia> filtrarParaVerPorIdioma(String idioma) {
         ArrayList<Midia> aux = new ArrayList<>();
         for (Midia midia : this.listaParaVer){
-            if (idioma.equals(midia.getIdioma().name())){
+            if (midia.getIdioma().name().equalsIgnoreCase(idioma) || midia.getIdioma().getDescricao().equalsIgnoreCase(idioma)){
                 aux.add(midia);
             }
         }

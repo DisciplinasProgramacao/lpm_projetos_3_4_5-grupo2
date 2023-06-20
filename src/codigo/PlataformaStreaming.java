@@ -1,10 +1,10 @@
 package codigo;
 
-import java.io.File;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -40,9 +40,6 @@ public class PlataformaStreaming {
 
         System.out.println("Carregando audiência...");
         carregarAudiencia("src/codigo/POO_Audiencia.csv");
-        
-    }
-    public void avaliar (Midia midia, int nota){
         
     }
 
@@ -100,10 +97,8 @@ public class PlataformaStreaming {
             int idSerie = Integer.parseInt(detalhes[0]);
             String nome = detalhes[1];
             String dataLancamento = detalhes[2];
-          //  Genero genero = Midia.gerarGeneroAleatorio(); //Passar para o construtor (Filme e Midia)
-
-            Serie s = new Serie(idSerie, nome, dataLancamento);
-            this.midias.add(s);
+            
+            this.midias.add(MidiaFactory.initMidia("Serie", idSerie,nome, dataLancamento));
 
         }
     }
@@ -123,10 +118,8 @@ public class PlataformaStreaming {
             String nome = detalhes[1];
             String dataLancamento = detalhes[2];
             int duracao = Integer.parseInt(detalhes[3]);
-            Genero genero = Midia.gerarGeneroAleatorio();
 
-            Filme f = new Filme (idFilme, nome, dataLancamento, duracao, genero);
-            midias.add(f);
+            midias.add(MidiaFactory.initMidia("Filme", idFilme, nome, dataLancamento, duracao));
 
         }
     }
@@ -239,7 +232,7 @@ public class PlataformaStreaming {
     public ArrayList<Midia> filtrarPorGenero(String genero) {
         ArrayList<Midia> aux = new ArrayList<>();
         for (Midia midia : midias){
-            if (genero.equals(midia.getGenero().name())){
+            if (midia.getGenero().name().equalsIgnoreCase(genero) || midia.getGenero().getDescricao().equalsIgnoreCase(genero)){
                 aux.add(midia);
             }
         }
@@ -278,7 +271,7 @@ public class PlataformaStreaming {
     public ArrayList<Midia> filtrarPorIdioma(String idioma) {
         ArrayList<Midia> aux = new ArrayList<>();
         for (Midia midia : midias){
-            if (idioma.equals(midia.getIdioma().name())){
+            if (midia.getIdioma().name().equalsIgnoreCase(idioma) || midia.getIdioma().getDescricao().equalsIgnoreCase(idioma)){
                 aux.add(midia);
             }
         }
