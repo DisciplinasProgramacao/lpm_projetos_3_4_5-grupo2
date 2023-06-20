@@ -24,6 +24,10 @@ public class PlataformaStreaming {
      * Construtor padrão
      */
     public PlataformaStreaming() {
+    	this.midias = new ArrayList<Midia>();
+        this.clientes = new ArrayList<Cliente>();
+        this.usuarios = new HashMap<>();
+        this.clienteAtual = null;
     }
     public PlataformaStreaming(String nome) throws FileNotFoundException {
         this.nome = nome;
@@ -245,7 +249,12 @@ public class PlataformaStreaming {
 
         return aux;
     }
-
+    
+    /**
+     * Método que filtra as mídias por nome
+     * @param nome
+     * @return aux
+     */
     public ArrayList<Midia> filtrarPorNome(String nomeMidia) {
         ArrayList<Midia> aux = new ArrayList<>();
         for (Midia midia : midias){
