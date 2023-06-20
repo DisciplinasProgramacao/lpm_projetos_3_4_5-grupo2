@@ -30,10 +30,6 @@ public enum Genero {
         return values[randIndex];
     }
     
-    public static String geraDescricaoAleatoria() {
-        Genero generoAleatorio = geraGeneroAleatorio();
-        return generoAleatorio.getDescricao();
-    }
     
     public static Genero findByValue(String value) {
         for (Genero genero : Genero.values()) {
