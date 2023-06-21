@@ -20,8 +20,5 @@ public class MidiaFactory {
 		}
 		return null;
 	}
-	public static Midia initMidia(String tipo, int id, String nome, String dataLancamento) {
-	    return initMidia(tipo, id, nome, dataLancamento, 0);
-	}
 
 }

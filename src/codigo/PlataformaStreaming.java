@@ -102,7 +102,7 @@ public class PlataformaStreaming {
             String nome = detalhes[1];
             String dataLancamento = detalhes[2];
             
-            this.midias.add(MidiaFactory.initMidia("Serie", idSerie,nome, dataLancamento));
+            this.midias.add(MidiaFactory.initMidia("Serie", idSerie,nome, dataLancamento, 0));
 
         }
     }
