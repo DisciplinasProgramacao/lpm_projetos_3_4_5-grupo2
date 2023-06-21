@@ -36,66 +36,59 @@ public class Main {
                 System.out.println("*  4. Adicionar série                               *");
             if (clienteAtual != null && clienteAtual.ehAdmin())
                 System.out.println("*  5. Adicionar filme                               *");
-            if (clienteAtual == null)
-                System.out.println("*  6. Login                                         *");
-            if (clienteAtual != null)
-                System.out.println("*  6. Logoff                                        *");
-            if (clienteAtual != null)
-                System.out.println("*  7. Minha lista 'Para Ver'                        *");
-            if (clienteAtual != null)
-                System.out.println("*  8. Minha lista de itens 'Já Vistos'              *");
-            if (clienteAtual != null)
-                System.out.println("*  9. Avaliar mídia assistida                       *");
-            if (clienteAtual != null)
-                System.out.println("*  10. Acessar menu de filtros                      *");
+            if (clienteAtual == null) System.out.println("*  6. Login                                         *");
+            if (clienteAtual != null) System.out.println("*  6. Logoff                                        *");
+            if (clienteAtual != null) System.out.println("*  7. Minha lista 'Para Ver'                        *");
+            if (clienteAtual != null) System.out.println("*  8. Minha lista de itens 'Já Vistos'              *");
+            if (clienteAtual != null) System.out.println("*  9. Avaliar mídia assistida                       *");
+            if (clienteAtual != null) System.out.println("*  10. Acessar menu de filtros                      *");
             System.out.println("*  0. Sair                                          *");
             System.out.println("*****************************************************");
 
             System.out.print("\nDigite o número da opção desejada: ");
             try {
                 opcao = scanner.nextInt();
-            } catch (
-                    InputMismatchException e) {
+            } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida! Digite um número inteiro.");
                 scanner.nextLine();
                 continue;
             }
 
             switch (opcao) {
-            case 0:
-                System.out.println("Saindo...");
-                break;
+                case 0:
+                    System.out.println("Saindo...");
+                    break;
 
-            case 1:
-                System.out.println("*** Lista de Mídias ***");
+                case 1:
+                    System.out.println("*** Lista de Mídias ***");
 
-                for (Midia midia : plataforma.getMidias()) {
-                    System.out.println(midia.toString());
-                }
-                break;
+                    for (Midia midia : plataforma.getMidias()) {
+                        System.out.println(midia.toString());
+                    }
+                    break;
 
-            case 2:
-                System.out.println("*** Lista de Clientes ***");
+                case 2:
+                    System.out.println("*** Lista de Clientes ***");
 
-                for (Cliente cliente : plataforma.getClientes()) {
-                    System.out.println(cliente.toString());
-                }
-                break;
+                    for (Cliente cliente : plataforma.getClientes()) {
+                        System.out.println(cliente.toString());
+                    }
+                    break;
 
-            case 3:
-                scanner.nextLine();
-                System.out.println("Digite o nome do cliente");
-                String nome = scanner.nextLine();
-                System.out.println("Digite o nome de usuário do cliente");
-                String nomeUsuario = scanner.nextLine();
-                System.out.println("Digite a senha de usuário do cliente");
-                String senha = scanner.nextLine();
-                Cliente cliente = new Cliente(nome, nomeUsuario, senha);
-                plataforma.adicionarCliente(cliente);
-                break;
+                case 3:
+                    scanner.nextLine();
+                    System.out.println("Digite o nome do cliente");
+                    String nome = scanner.nextLine();
+                    System.out.println("Digite o nome de usuário do cliente");
+                    String nomeUsuario = scanner.nextLine();
+                    System.out.println("Digite a senha de usuário do cliente");
+                    String senha = scanner.nextLine();
+                    Cliente cliente = new Cliente(nome, nomeUsuario, senha);
+                    plataforma.adicionarCliente(cliente);
+                    break;
 
-            case 4:
-                try {
+                case 4:
+                	try {
                     scanner.nextLine();
                     System.out.println("Digite o nome da série");
                     nome = scanner.nextLine();
@@ -116,13 +109,12 @@ public class Main {
                     Midia serie = MidiaFactory.criarMidia("Serie", nome, genero, idioma, qntEps, dataLancamento);
 
                     plataforma.adicionarMidia(serie);
-                } catch (
-                        EnumException e) {
-                    System.out.println(e.getMessage());
-                }
-                break;
-            case 5:
-                try {
+                	} catch(EnumException e) {
+                		System.out.println(e.getMessage());
+                	}
+                    break;
+                case 5:
+                	try {
                     scanner.nextLine();
                     System.out.println("Digite o nome do filme");
                     nome = scanner.nextLine();
@@ -142,215 +134,191 @@ public class Main {
                     Midia filme = MidiaFactory.criarMidia("Filme", nome, genero, idioma, duracao, dataLancamento);
 
                     plataforma.adicionarMidia(filme);
-                } catch (
-                        EnumException e) {
-                    System.out.println(e.getMessage());
-                }
-                break;
+                	} catch(EnumException e) {
+                		System.out.println(e.getMessage());
+                	}
+                    break;
 
-            case 6:
-                scanner.nextLine();
+                case 6:
+                    scanner.nextLine();
 
-                if (plataforma.getClienteAtual() == null) {
-                    cliente = null;
-                    while (cliente == null) {
-                        System.out.println("Digite o usuário");
-                        String usuario = scanner.nextLine();
-                        System.out.println("Digite a senha");
-                        senha = scanner.nextLine();
-                        cliente = plataforma.login(usuario, senha);
+                    if (plataforma.getClienteAtual() == null) {
+                        cliente = null;
+                        while (cliente == null) {
+                            System.out.println("Digite o usuário");
+                            String usuario = scanner.nextLine();
+                            System.out.println("Digite a senha");
+                            senha = scanner.nextLine();
+                            cliente = plataforma.login(usuario, senha);
+                            clienteAtual = cliente;
 
-                        if (cliente != null) {
-                            System.out.printf("Bem-vindo(a), %s!", cliente.getNome());
-                        } else {
-                            System.out.println("Acesso negado. Tente novamente.");
-                        }
-
-                    }
-                } else {
-                    plataforma.logoff();
-                    System.out.println("Logoff efetuado com sucesso.");
-                }
-                break;
-
-            case 7:
-                if (clienteAtual != null) {
-                    clienteAtual.imprimeListaParaVer();
-                }
-                break;
-
-            case 8:
-                if (clienteAtual != null) {
-                    clienteAtual.imprimeListaJaVistas();
-                }
-                break;
-
-            case 9:
-                scanner.nextLine();
-                System.out.println("Selecione a mídia a avaliar, digitando o ID correspondente.");
-                if (clienteAtual != null) {
-                    clienteAtual.imprimeListaJaVistas();
-                }
-                int idMidia = scanner.nextInt();
-
-                // Busca a mídia na plataforma pelo ID
-                Midia midiaParaAvaliar = plataforma.buscarMidia(idMidia);
-
-                // Verifica se o cliente possui na lista 'Para avaliar' aquela mídia
-                if (clienteAtual != null && clienteAtual.getListaJaVistas().contains(midiaParaAvaliar)) {
-                    // Verifica se o cliente já não avaliou essa mídia
-                    if (!midiaParaAvaliar.verificaAvaliacaoRegistrada(clienteAtual.getNomedeUsuario())) {
-
-                        int nota = -1;
-                        // Pede a nota a ser dada até que esteja certa.
-                        while (!(nota > 0 && nota <= 5)) {
-                            System.out.println("Você está avaliando a mídia '" + midiaParaAvaliar.getNome() + "'. Digite sua avaliação (de 1 a 5)");
-                            nota = scanner.nextInt();
-
-                            if (!clienteAtual.ehClienteEspecialista()) {
-                                // Registra a avaliação só com nota, passando junto o nome do usuário,
-                                // pois o cliente não é especialista
-                                midiaParaAvaliar.registrarAvaliacao(clienteAtual.getNomedeUsuario(), nota);
+                            if (cliente != null) {
+                                System.out.printf("Bem-vindo(a), %s!", cliente.getNome());
                             } else {
-                                // Para cliente especialista, registra a avaliação com nota e comentário,
-                                // passando junto o nome do usuário
-                                String comentario;
-                                System.out.println("Você é um cliente especialista! Digite seu comentário");
-                                comentario = scanner.nextLine();
-                                midiaParaAvaliar.registrarAvaliacaoComentario(clienteAtual.getNomedeUsuario(), nota, comentario);
+                                System.out.println("Acesso negado. Tente novamente.");
                             }
 
                         }
-                        System.out.println("Média de notas de '" + midiaParaAvaliar.getNome() + "': " + midiaParaAvaliar.getMediaAvaliacoes() + " (" + midiaParaAvaliar.getQuantidadeAvaliacoes() + " avaliações)");
-                        // Se o usuário for administrador, serão exibidas as notas dadas para essa mídia.
-                        if (clienteAtual.ehAdmin()) {
-                            midiaParaAvaliar.getNotasAvaliacoesMidia();
-                        }
-
-                        // Se o cliente já avaliou a mídia, retorna a mensagem abaixo com a nota.
                     } else {
-                        System.out.println("Você já avaliou a mídia '" + midiaParaAvaliar.getNome() + "' com a nota " + midiaParaAvaliar.getNotaAvaliacaoUsuario(clienteAtual.getNomedeUsuario()));
+                        plataforma.logoff();
+                        System.out.println("Logoff efetuado com sucesso.");
                     }
-                    // Se o cliente não assistiu à mídia, retorna a mensagem abaixo.
-                }
-                break;
+                    break;
 
-            case 10:
+                case 7:
+                    clienteAtual.imprimeListaParaVer();
+                    break;
+
+                case 8:
+                    clienteAtual.imprimeListaJaVistas();
+                    break;
+
+                case 9:
+                    scanner.nextLine();
+                    System.out.println("Selecione a mídia a avaliar, digitando o ID correspondente.");
+                    clienteAtual.imprimeListaJaVistas();
+                    int idMidia = scanner.nextInt();
+
+                    // Busca a mídia na plataforma pelo ID
+                    Midia midiaParaAvaliar = plataforma.buscarMidia(idMidia);
+
+                    // Verifica se o cliente possui na lista 'Para avaliar' aquela mídia
+                    if (clienteAtual.getListaJaVistas().contains(midiaParaAvaliar)) {
+                        // Verifica se o cliente já não avaliou essa mídia
+                        if (!midiaParaAvaliar.verificaAvaliacaoRegistrada(clienteAtual.getNomedeUsuario())) {
+
+                            int nota = -1;
+                            // Pede a nota a ser dada até que esteja certa.
+                            while (!(nota > 0 && nota <= 5)) {
+                                System.out.println("Você está avaliando a mídia '" + midiaParaAvaliar.getNome() + "'. Digite sua avaliação (de 1 a 5)");
+                                nota = scanner.nextInt();
+
+                                if (!clienteAtual.ehClienteEspecialista()) {
+                                    // Registra a avaliação só com nota, passando junto o nome do usuário,
+                                    // pois o cliente não é especialista
+                                    midiaParaAvaliar.registrarAvaliacao(clienteAtual.getNomedeUsuario(), nota);
+                                } else {
+                                    // Para cliente especialista, registra a avaliação com nota e comentário,
+                                    // passando junto o nome do usuário
+                                    String comentario;
+                                    System.out.println("Você é um cliente especialista! Digite seu comentário");
+                                    comentario = scanner.nextLine();
+                                    midiaParaAvaliar.registrarAvaliacaoComentario(clienteAtual.getNomedeUsuario(), nota, comentario);
+                                }
+
+                            }
+                            System.out.println("Média de notas de '" + midiaParaAvaliar.getNome() + "': " + midiaParaAvaliar.getMediaAvaliacoes() + " (" + midiaParaAvaliar.getQuantidadeAvaliacoes() + " avaliações)");
+                            ;
+                            // Se o usuário for administrador, serão exibidas as notas dadas para essa mídia.
+                            if (clienteAtual.ehAdmin()) {
+                                midiaParaAvaliar.getNotasAvaliacoesMidia();
+                            }
+
+                            // Se o cliente já avaliou a mídia, retorna a mensagem abaixo com a nota.
+                        } else {
+                            System.out.println("Você já avaliou a mídia '" + midiaParaAvaliar.getNome() + "' com a nota " + midiaParaAvaliar.getNotaAvaliacaoUsuario(clienteAtual.getNomedeUsuario()));
+                        }
+                        // Se o cliente não assistiu a mídia, retorna a mensagem abaixo.
+                    } else {
+                        System.out.println("Essa mídia não foi assistida por você");
+                    }
+                    break;
+
+                case 10:
                 clearConsole();
-                if (clienteAtual != null)
-                    System.out.println("*  1. Filtrar mídias por nome na lista 'Para Ver'   *");
-                if (clienteAtual != null)
-                    System.out.println("*  2. Filtrar mídias por nome na lista 'Já Vistas'  *");
-                if (clienteAtual != null)
-                    System.out.println("*  3. Filtrar mídias por nome no catálogo geral     *");
-                if (clienteAtual != null)
-                    System.out.println("*  4. Filtrar mídias por gênero na lista 'Para Ver' *");
-                if (clienteAtual != null)
-                    System.out.println("*  5. Filtrar mídias por gênero na lista 'Já Vistas'*");
-                if (clienteAtual != null)
-                    System.out.println("*  6. Filtrar mídias por gênero no catálogo geral   *");
-                if (clienteAtual != null)
-                    System.out.println("*  7. Filtrar mídias por idioma na lista 'Para Ver' *");
-                if (clienteAtual != null)
-                    System.out.println("*  8. Filtrar mídias por idioma na lista 'Já Vistas'*");
-                if (clienteAtual != null)
-                    System.out.println("*  9. Filtrar mídias por idioma no catálogo geral   *");
+                if (clienteAtual != null) System.out.println("*  1. Filtrar mídias por nome na lista 'Para Ver'   *");
+                if (clienteAtual != null) System.out.println("*  2. Filtrar mídias por nome na lista 'Já Vistas'  *");
+                if (clienteAtual != null) System.out.println("*  3. Filtrar mídias por nome no catálogo geral     *");
+                if (clienteAtual != null) System.out.println("*  4. Filtrar mídias por gênero na lista 'Para Ver' *");
+                if (clienteAtual != null) System.out.println("*  5. Filtrar mídias por gênero na lista 'Já Vistas'*");
+                if (clienteAtual != null) System.out.println("*  6. Filtrar mídias por gênero no catálogo geral   *");
+                if (clienteAtual != null) System.out.println("*  7. Filtrar mídias por idioma na lista 'Para Ver' *");
+                if (clienteAtual != null) System.out.println("*  8. Filtrar mídias por idioma na lista 'Já Vistas'*");
+                if (clienteAtual != null) System.out.println("*  9. Filtrar mídias por idioma no catálogo geral   *");
                 System.out.print("\nDigite o número da opção desejada: ");
                 int op;
                 try {
                     op = scanner.nextInt();
-                } catch (
-                        InputMismatchException e) {
+                } catch (InputMismatchException e) {
                     System.out.println("Entrada inválida! Digite um número inteiro.");
                     scanner.nextLine();
                     continue;
                 }
-                switch (op) {
+                switch (op){
 
-                case 1:
+                    case 1:
                     scanner.nextLine();
                     System.out.println("Digite o nome da mídia para procurar na lista 'Para Ver':");
                     String nomeMidia = scanner.nextLine();
-                    if (clienteAtual != null) {
-                        clienteAtual.filtrarListaParaVer(nomeMidia);
-                    }
+                    clienteAtual.filtrarListaParaVer(nomeMidia);
                     break;
-                case 2:
+                    case 2:
                     scanner.nextLine();
                     System.out.println("Digite o nome da mídia para procurar na lista 'Já Vistas':");
                     nomeMidia = scanner.nextLine();
-                    if (clienteAtual != null) {
-                        clienteAtual.filtrarListaJaVistas(nomeMidia);
-                    }
+                    clienteAtual.filtrarListaJaVistas(nomeMidia);
+
                     //Revisar chamadas de 2 métodos
                     break;
-                case 3:
+                    case 3:
                     scanner.nextLine();
                     System.out.println("Digite o nome da mídia a ser procurada no catálogo de mídias:");
                     nomeMidia = scanner.nextLine();
                     plataforma.filtrarPorNome(nomeMidia);
                     break;
-                case 4:
+                    case 4:
                     scanner.nextLine();
-                    System.out.println("Gêneros disponíveis: \n" + Arrays.asList(Genero.values()));
+                    System.out.println("Gêneros disponíveis: \n"+Arrays.asList(Genero.values()));
                     System.out.println("Digite o gênero da mídia para procurar na lista 'Para Ver':");
                     String generoMidia = scanner.nextLine();
-                    if (clienteAtual != null) {
-                        clienteAtual.filtrarParaVerPorGenero(generoMidia);
-                    }
+                    clienteAtual.filtrarParaVerPorGenero(generoMidia);
                     break;
-                case 5:
+                    case 5:
                     scanner.nextLine();
-                    System.out.println("Gêneros disponíveis: \n" + Arrays.asList(Genero.values()));
+                    System.out.println("Gêneros disponíveis: \n"+Arrays.asList(Genero.values()));
                     System.out.println("Digite o gênero da mídia para procurar na lista 'Já vistas':");
                     generoMidia = scanner.nextLine();
-                    if (clienteAtual != null) {
-                        clienteAtual.filtrarJaVistasPorGenero(generoMidia);
-                    }
+                    clienteAtual.filtrarJaVistasPorGenero(generoMidia);
                     break;
-                case 6:
+                    case 6:
                     scanner.nextLine();
-                    System.out.println("Gêneros disponíveis: \n" + Arrays.asList(Genero.values()));
+                    System.out.println("Gêneros disponíveis: \n"+Arrays.asList(Genero.values()));
                     System.out.println("Digite o gênero da mídia a ser procurada no catálogo de mídias:");
                     generoMidia = scanner.nextLine();
                     plataforma.filtrarPorGenero(generoMidia);
                     break;
-                case 7:
+                    case 7:
                     scanner.nextLine();
-                    System.out.println("Idiomas disponíveis: \n" + Arrays.asList(Idioma.values()));
+                    System.out.println("Idiomas disponíveis: \n"+Arrays.asList(Idioma.values()));
                     System.out.println("Digite o idioma da mídia para procurar na lista 'Para Ver':");
                     String idiomaMidia = scanner.nextLine();
-                    if (clienteAtual != null) {
-                        clienteAtual.filtrarParaVerPorIdioma(idiomaMidia);
-                    }
+                    clienteAtual.filtrarParaVerPorIdioma(idiomaMidia);
                     break;
-                case 8:
+                    case 8:
                     scanner.nextLine();
-                    System.out.println("Idiomas disponíveis: \n" + Arrays.asList(Idioma.values()));
+                    System.out.println("Idiomas disponíveis: \n"+Arrays.asList(Idioma.values()));
                     System.out.println("Digite o idioma da mídia para procurar na lista 'Já vistas':");
                     idiomaMidia = scanner.nextLine();
-                    if (clienteAtual != null) {
-                        clienteAtual.filtrarJaVistasPorIdioma(idiomaMidia);
-                    }
+                    clienteAtual.filtrarJaVistasPorIdioma(idiomaMidia);
                     break;
-                case 9:
+                    case 9:
                     scanner.nextLine();
-                    System.out.println("Idiomas disponíveis: \n" + Arrays.asList(Idioma.values()));
+                    System.out.println("Idiomas disponíveis: \n"+Arrays.asList(Idioma.values()));
                     System.out.println("Digite o idioma da mídia a ser procurada no catálogo de mídias:");
                     idiomaMidia = scanner.nextLine();
                     plataforma.filtrarPorIdioma(idiomaMidia);
                     break;
-                default:
+                    default:
                     System.out.println("Opção inválida! Tente novamente.");
                     break;
 
                 }
-                break;
+                    break;
 
 
-            default:
-                System.out.println("Opção inválida! Tente novamente.");
-                break;
+                default:
+                    System.out.println("Opção inválida! Tente novamente.");
+                    break;
             }
 
 
@@ -359,20 +327,25 @@ public class Main {
 
 
     }
+    public final static void clearConsole()
+{
+    try
+    {
+        final String os = System.getProperty("os.name");
 
-    public static void clearConsole() {
-        try {
-            final String os = System.getProperty("os.name");
-
-            if (os.contains("Windows")) {
-                Runtime.getRuntime().exec("cls");
-            } else {
-                Runtime.getRuntime().exec("clear");
-            }
-        } catch (final
-        Exception e) {
-            //  Handle any exceptions.
+        if (os.contains("Windows"))
+        {
+            Runtime.getRuntime().exec("cls");
+        }
+        else
+        {
+            Runtime.getRuntime().exec("clear");
         }
     }
+    catch (final Exception e)
+    {
+        //  Handle any exceptions.
+    }
+}
 
 }

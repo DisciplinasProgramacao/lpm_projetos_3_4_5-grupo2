@@ -3,107 +3,88 @@ skinparam linetype ortho
 skinparam classAttributeIconSize 0
 
 class Avaliacao {
-        - nota: int
-        - comentario: String
-        ..
-        + Avaliacao(nota: int, comentario: String)
-        + Avaliacao(nota: int)
-    }
+  - nota: int
+  - comentario: String
+  ..
+  + Avaliacao(int, String)
+  + Avaliacao(int)
+}
 
 class Cliente {
-        - nome: String
-        - nomedeUsuario: String
-        - senha: String
-        - listaParaVer: List<Midia>
-        - listaJaVistas: List<Midia>
-        - datasExibicao: HashMap<Midia, String>
-        - quantAval: int
-        ..
-        + Cliente()
-        + Cliente(nome: String, nomedeUsuario: String, senha: String)
-        + ehAdmin(): boolean
-        + adicionarNaLista(midia: Midia): void
-        + retirarDaLista(nomeMidia: String): void
-        + registrarAudiencia(midia: Midia, dataExibicao: String): void
-        + ehClienteEspecialista(): boolean
-        + imprimeListaParaVer(): void
-        + imprimeListaJaVistas(): void
-        + filtrarListaJaVistas(nomeMidia: String): ArrayList<Midia>
-        + filtrarJaVistasPorGenero(genero: String): ArrayList<Midia>
-        + filtrarJaVistasPorIdioma(idioma: String): ArrayList<Midia>
-        + filtrarListaParaVer(nomeMidia: String): ArrayList<Midia>
-        + filtrarParaVerPorGenero(genero: String): ArrayList<Midia>
-        + filtrarParaVerPorIdioma(idioma: String): ArrayList<Midia>
-        + calcularQntAvalCliente(): int
-        + toString(): String
-    }
+  + Cliente():
+  + Cliente(String, String, String):
+  ~ nomedeUsuario: String
+  ~ senha: String
+  - nome: String
+  - listaJaVistas: List<Midia>
+  - listaParaVer: List<Midia>
+  ..
+  + filtrarJaVistasPorIdioma(String): ArrayList<Midia>
+  + ehAdmin(): boolean
+  + filtrarListaParaVer(String): ArrayList<Midia>
+  + filtrarJaVistasPorGenero(String): ArrayList<Midia>
+  + imprimeListaJaVistas(): void
+  + imprimeListaParaVer(): void
+  + registrarAudiencia(Midia, String): void
+  + filtrarParaVerPorGenero(String): ArrayList<Midia>
+  + ehClienteEspecialista(): boolean
+  + filtrarListaJaVistas(String): ArrayList<Midia>
+  + retirarDaLista(String): void
+  + filtrarParaVerPorIdioma(String): ArrayList<Midia>
+  + toString(): String
+  + adicionarNaLista(Midia): void
+}
 
 class Filme {
-        - duracao: int
-        ..
-        + Filme()
-        + Filme(idFilme: int, nome: String, dataLancamento: String, duracao: int)
-        + Filme(nome: String, genero: Genero, idioma: Idioma, duracao: int, dataLancamento: String)
-        + toString(): String
-    }
+  - idFilme: int
+  + toString(): String
+  ..
+  + Filme(String, String, String, int, String):
+}
 
-abstract class Midia {
-        - genero: Genero
-        - idioma: Idioma
-        - id: int
-        - ultimoId: int
-        - nome: String
-        - audiencia: int
-        - dataLancamento: String
-        - avaliacoes: HashMap<String, Avaliacao>
-        ..
-        + Midia()
-        + gerarGeneroAleatorio(): Genero
-        + gerarIdiomaAleatorio(): Idioma
-        + registraAudiencia()
-        + registrarAvaliacao(loginUsuario: String, notaDada: int)
-        + registrarAvaliacaoComentario(loginUsuario: String, notaDada: int, comentario: String)
-        + verificaAvaliacaoRegistrada(loginUsuario: String)
-    }
-
-class MidiaFactory {
-        + criarMidia(tipo: String, nome: String, genero: Genero, idioma: Idioma, tempo: int, dataLancamento: String): Midia
-        + initMidia(tipo: String, id: int, nome: String, dataLancamento: String, duracao: int): Midia
-        + initMidia(tipo: String, id: int, nome: String, dataLancamento: String): Midia
-    }
+class Midia {
+  + Midia():
+  # dataLancamento: String
+  # genero: String
+  # ultimoId: int
+  # nome: String
+  # idioma: String
+  # audiencia: int
+  ..
+  + registrarAvaliacaoComentario(String, int, String): void
+  + gerarGeneroAleatorio(): String
+  + registraAudiencia(): int
+  + verificaAvaliacaoRegistrada(String): boolean
+  + registrarAvaliacao(String, int): void
+  + gerarIdiomaAleatorio(): String
+}
 
 class PlataformaStreaming {
-        - nome: String
-        - midias: List<Midia>
-        - clientes: List<Cliente>
-        - clienteAtual: Cliente
-        - usuarios: HashMap<String, Cliente>
-        ..
-        + PlataformaStreaming()
-        + PlataformaStreaming(nome: String)
-        + buscarMidia(idMidia: int): Midia
-        + carregarEspectador(nomeArquivo: String): void
-        + carregarSeries(nomeArquivo: String): void
-        + carregarFilmes(nomeArquivo: String): void
-        + carregarAudiencia(nomeArquivo: String): void
-        + login(nomeUsuario: String, senha: String): Cliente
-        + adicionarMidia(midia: Midia): void
-        + adicionarCliente(cliente: Cliente): void
-        + filtrarPorGenero(genero: String): ArrayList<Midia>
-        + filtrarPorNome(nomeMidia: String): ArrayList<Midia>
-        + filtrarPorIdioma(idioma: String): ArrayList<Midia>
-        + registrarAudiencia(m: Midia): int
-        + logoff(): void
-        + buscarMidia(nomeMidia: String): Midia
-        + filtrarPorQntEps(qntEps: int): List<Serie>
-        + atualizarArquivo(nomeArquivo: String, novaLinha: String): void
-        + PorcentagemClientesMaisQue15Aval(): double
-        + buscarMelhoresMidiasAvaliadas(): List<Midia>
-        + buscarMidiasMaisAvaliadas(): List<Midia>
-        + buscarMidiasMaisAvaliadasPorGenero(): Map<Genero, List<Midia>>
-        + buscarMidiasMaisVisu(): List<Midia>
-        + buscarMidiasMaisVisuPorGenero(): Map<Genero, List<Midia>>
-    }
+  + PlataformaStreaming():
+  + PlataformaStreaming(String):
+  - clientes: List<Cliente>
+  - midias: List<Midia>
+  - nome: String
+  - clienteAtual: Cliente
+  ..
+  + carregarSeries(String): void
+  + buscarMidia(int): Midia
+  + filtrarPorGenero(String): ArrayList<Midia>
+  + filtrarPorIdioma(String): ArrayList<Midia>
+  + adicionarCliente(Cliente): void
+  + filtrarPorQntEps(int): List<Serie>
+  + carregarAudiencia(String): void
+  + registrarAudiencia(Midia): int
+  + atualizarArquivo(String, String): void
+  + logoff(): void
+  + adicionarMidia(Midia): void
+  + avaliar(Midia, int): void
+  + carregarEspectador(String): void
+  + filtrarPorNome(String): ArrayList<Midia>
+  + login(String, String): Cliente
+  + buscarMidia(String): Midia
+  + carregarFilmes(String): void
+}
 
 class Serie {
   - quantidadeDeEpsodios: int
