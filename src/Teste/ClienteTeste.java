@@ -36,6 +36,7 @@ class ClienteTeste {
 	    @Test
 		@DisplayName("Método que testa o retirar midia da lista do cliente")
 	    public void testRetirarDaLista(){
+	    	plataforma.adicionarCliente(cliente);
 	        cliente.adicionarNaLista(serie);
 	        cliente.retirarDaLista("Game of Thrones");
 	        assertEquals(0, cliente.getListaParaVer().size());
