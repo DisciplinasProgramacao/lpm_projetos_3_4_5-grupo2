@@ -235,6 +235,15 @@ public class Main {
                 if (clienteAtual != null) System.out.println("*  7. Filtrar mídias por idioma na lista 'Para Ver' *");
                 if (clienteAtual != null) System.out.println("*  8. Filtrar mídias por idioma na lista 'Já Vistas'*");
                 if (clienteAtual != null) System.out.println("*  9. Filtrar mídias por idioma no catálogo geral   *");
+                if (clienteAtual != null) System.out.println("*  10.Buscar porcentagem dos clientes com pelo menos 15 avaliações *");
+                if (clienteAtual != null) System.out.println("*  11. Buscar melhores Mídias avaliadas *");
+                if (clienteAtual != null) System.out.println("*  12. Buscar Mídias mais avaliadas *");
+                if (clienteAtual != null) System.out.println("*  13. Buscar Mídias mais avaliadas por gênero *");
+                if (clienteAtual != null) System.out.println("*  14. Buscar Mídias mais visualizadas *");
+                if (clienteAtual != null) System.out.println("*  15. Buscar Mídias mais visualizadas por gênero *");
+                if (clienteAtual != null) System.out.println("*  16. Buscar Cliente com mais avaliações *");
+                if (clienteAtual != null) System.out.println("*  17. Buscar Cliente com mais Mídias assistidas *");
+                
                 System.out.print("\nDigite o número da opção desejada: ");
                 int op;
                 try {
@@ -308,6 +317,29 @@ public class Main {
                     idiomaMidia = scanner.nextLine();
                     plataforma.filtrarPorIdioma(idiomaMidia);
                     break;
+                    case 10:
+                    System.out.println(plataforma.PorcentagemClientesMaisQue15Aval());
+                    break;
+                    case 11:
+                    System.out.println(plataforma.buscarMelhoresMidiasAvaliadas());
+                    break;
+                    case 12:
+                    System.out.println(plataforma.buscarMidiasMaisAvaliadas());
+                    break;
+                    case 13:
+                    System.out.println(plataforma.buscarMidiasMaisAvaliadasPorGenero());
+                    break;
+                    case 14:
+                    System.out.println(plataforma.buscarMidiasMaisVisu());
+                    break;
+                    case 15:
+                    System.out.println(plataforma.buscarMidiasMaisVisuPorGenero());
+                    break;
+                    case 16:
+                    System.out.println(plataforma.getClienteComMaisAvaliacoes());
+                    break;
+                    case 17:
+                    System.out.println(plataforma.getClienteComMaisMidiasAssistidas());
                     default:
                     System.out.println("Opção inválida! Tente novamente.");
                     break;

@@ -10,6 +10,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -404,23 +405,12 @@ public class PlataformaStreaming {
             System.out.println("Ocorreu um erro ao adicionar a nova linha: " + e.getMessage());
         }
     }
-    /*public Cliente buscarClienteMaisAssistiu(){
-        Cliente clienteMaisAssistiu = this.clientes.stream()
-                                        .max(Comparator.comparingInt(cliente -> cliente.getListaJaVistas.size()))
-                                        .orElse(null);
-        
 
-        return clienteMaisAssistiu;
-    }*/
-    /*public Cliente buscarClientesMaisAvaliacoes (){
-        Cliente clienteMaisAvaliacoes = this.clientes.stream()
-                                        .mapToInt(cliente -> cliente.calcularQntAvalCliente())
-                                        .max();
-  
-
-        
-        return clienteMaisAvaliacoes;
-    }*/
+    /**
+     * Calcula a porcentagem de clientes que possuem mais de 15 avaliações.
+     *
+     * @return A porcentagem de clientes com mais de 15 avaliações.
+     */
     public double PorcentagemClientesMaisQue15Aval(){
         long qtdCLientesAval = this.clientes.stream()
                                         .filter(cliente -> cliente.calcularQntAvalCliente()>15)
@@ -430,6 +420,12 @@ public class PlataformaStreaming {
 
         return porcentagemClientesAval;
     }
+    
+    /**
+     * Busca as 10 melhores mídias avaliadas, com pelo menos 100 avaliações.
+     *
+     * @return Uma lista contendo as 10 melhores mídias avaliadas.
+     */
     public List<Midia> buscarMelhoresMidiasAvaliadas (){ 
         List<Midia> melhoresMidiasAvaliadas = midias.stream()
         .filter(midia -> midia.getQuantidadeAvaliacoes()>=100)
@@ -439,6 +435,12 @@ public class PlataformaStreaming {
 
         return melhoresMidiasAvaliadas;
     }
+    
+    /**
+     * Busca as 10 mídias mais avaliadas.
+     *
+     * @return Uma lista contendo as 10 mídias mais avaliadas.
+     */
     public List<Midia> buscarMidiasMaisAvaliadas (){
         List<Midia> midiasMaisAvaliadas = midias.stream()
         .sorted(Comparator.comparingDouble(Midia::getQuantidadeAvaliacoes).reversed())
@@ -447,13 +449,25 @@ public class PlataformaStreaming {
 
         return midiasMaisAvaliadas;
     }
-    public Map<Genero, List<Midia>> buscarMidiasMaisAvaliadasPorGenero() { //TODO TESTAR STREAM
+    
+    /**
+     * Busca as 10 mídias mais avaliadas por gênero.
+     *
+     * @return Um mapa onde as chaves são os gêneros e os valores são listas das 10 mídias mais avaliadas de cada gênero.
+     */
+    public Map<Genero, List<Midia>> buscarMidiasMaisAvaliadasPorGenero() {
         Map<Genero, List<Midia>> midiasMaisAvaliadasPorGenero = midias.stream()
         .sorted(Comparator.comparingDouble(Midia::getQuantidadeAvaliacoes).reversed())
         .limit(10)
         .collect(Collectors.groupingBy(Midia::getGenero));
         return midiasMaisAvaliadasPorGenero;
     }
+    
+    /**
+     * Busca as 10 mídias mais visualizadas.
+     *
+     * @return Uma lista contendo as 10 mídias mais visualizadas.
+     */
     public List<Midia> buscarMidiasMaisVisu(){
         List<Midia> midiasMaisVisualizadas = midias.stream()
                                             .sorted(Comparator.comparingInt(Midia:: getAudiencia).reversed())
@@ -462,6 +476,12 @@ public class PlataformaStreaming {
     
         return midiasMaisVisualizadas;
     }
+    
+    /**
+     * Busca as 10 mídias mais visualizadas por gênero.
+     *
+     * @return Um mapa onde as chaves são os gêneros e os valores são listas das 10 mídias mais visualizadas de cada gênero.
+     */
     public Map<Genero, List<Midia>> buscarMidiasMaisVisuPorGenero(){
         Map<Genero, List<Midia>> midiasMaisVisualizadas = midias.stream()
                                             .sorted(Comparator.comparingInt(Midia:: getAudiencia).reversed())
@@ -470,6 +490,29 @@ public class PlataformaStreaming {
     
         return midiasMaisVisualizadas;
     }
+    
+    /**
+     * Retorna o cliente com o maior número de mídias assistidas.
+     *
+     * @return O cliente com o maior número de mídias assistidas.
+     */
+    public Cliente getClienteComMaisMidiasAssistidas() {
+        Optional<Cliente> clienteComMaisMidias = clientes.stream()
+                .max(Comparator.comparingInt(cliente -> cliente.getListaJaVistas().size()));
 
+        return clienteComMaisMidias.orElse(null);
+    }
+    
+    /**
+     * Retorna o cliente com o maior número de avaliações.
+     *
+     * @return O cliente com o maior número de avaliações.
+     */
+    public Cliente getClienteComMaisAvaliacoes() {
+        Optional<Cliente> clienteComMaisAvaliacoes = clientes.stream()
+                .max(Comparator.comparingInt(Cliente::calcularQntAvalCliente));
+
+        return clienteComMaisAvaliacoes.orElse(null);
+    }
 }
 

@@ -93,14 +93,8 @@ public class Cliente {
 		for (Midia midia : this.listaParaVer)
 			if (midia.getNome().equals(nomeMidia))
 				this.listaParaVer.remove(midia);
-
-//		Midia[] midias = this.listaParaVer.allElements(new Midia[this.listaParaVer.size()]);
-//		for (Midia item : midias) {
-//			if (item.getNome().equals(nomeMidia)) {
-//				this.listaParaVer.remove(Arrays.asList(midias).indexOf(item));
-//			}
-//		}
 	}
+	
 	/**
 	 * Método que registra audiencia das midias já vistas pelo Cliente
 	 * @param midia
