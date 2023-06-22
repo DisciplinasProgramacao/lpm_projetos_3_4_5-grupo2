@@ -5,6 +5,7 @@ import java.util.Random;
 /**
  * Enumeração que representa diferentes idiomas.
  */
+
 public enum Idioma {
 	INGLES("Inglês"), PORTUGUES("Português"), ESPANHOL("Espanhol"), FRANCES("Francês"), COREANO("Coreano"),
 	JAPONES("Japonês");
@@ -16,7 +17,8 @@ public enum Idioma {
 	 *
 	 * @param descricao - a descrição do idioma
 	 */
-    private Idioma(String descricao) {
+
+	Idioma(String descricao) {
         this.descricao = descricao;
     }
 
@@ -25,6 +27,7 @@ public enum Idioma {
 	 *
 	 * @return descricao
 	 */
+
     public String getDescricao() {
         return descricao;
     }
@@ -34,6 +37,7 @@ public enum Idioma {
 	 *
 	 * @return um idioma aleatório
 	 */
+
 	public static Idioma geraIdiomaAleatorio() {
 		Idioma[] values = Idioma.values();
 		int length = values.length;
@@ -48,6 +52,7 @@ public enum Idioma {
 	 * @return o idioma correspondente ao valor especificado
 	 * @throws EnumException se o idioma não for encontrado na lista
 	 */
+
 	public static Idioma findByValue(String value) {
 		for (Idioma idioma : Idioma.values()) {
 			if (idioma.name().equalsIgnoreCase(value)) {

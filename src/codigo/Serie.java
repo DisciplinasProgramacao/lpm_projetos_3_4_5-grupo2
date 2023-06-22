@@ -3,25 +3,28 @@ package codigo;
 import java.util.Random;
 
 /**
- * Classe que representa uma série de TV.
+ * Representa uma série de TV.
  */
+
 public class Serie extends Midia {
 	private int idSerie;
 	private int quantidadeDeEpsodios;
 
 	/**
-	 * Construtores padrão
+	 * Construtor padrão.
 	 */
+
 	public Serie() {
 	}
-	
+
 	/**
-	 * Construtor para criar uma instância de uma série com um ID específico, nome e data de lançamento.
+	 * Construtor com parâmetros.
 	 *
-	 * @param idSerie        - O ID da série.
-	 * @param nome           - O nome da série.
-	 * @param dataLancamento - A data de lançamento da série.
+	 * @param idSerie           o ID da série
+	 * @param nome              o nome da série
+	 * @param dataLancamento    a data de lançamento da série
 	 */
+
 	public Serie(int idSerie, String nome, String dataLancamento) {
 		Random r = new Random();
 
@@ -34,14 +37,15 @@ public class Serie extends Midia {
 	}
 
 	/**
-	 * Construtor para criar uma instância de uma série com nome, gênero, idioma, quantidade de episódios e data de lançamento.
+	 * Construtor com parâmetros.
 	 *
-	 * @param nome                  - O nome da série.
-	 * @param genero                - O gênero da série.
-	 * @param idioma                - O idioma da série.
-	 * @param quantidadeDeEpsodios  - A quantidade de episódios da série.
-	 * @param dataLancamento        - A data de lançamento da série.
+	 * @param nome                  o nome da série
+	 * @param genero                o gênero da série
+	 * @param idioma                o idioma da série
+	 * @param quantidadeDeEpsodios  o número de episódios na série
+	 * @param dataLancamento        a data de lançamento da série
 	 */
+
 	public Serie(String nome, Genero genero, Idioma idioma, int quantidadeDeEpsodios, String dataLancamento) {
 		super();
 		int novoId = Midia.getUltimoIdMidia() + 1;
@@ -55,34 +59,53 @@ public class Serie extends Midia {
 	}
 
 	/**
-	 * Getters e Setters
+	 * Obtém o ID da série.
 	 *
-	 * @return
+	 * @return o ID da série
 	 */
+
 	public int getIdSerie() {
 		return idSerie;
 	}
+
+	/**
+	 * Define o ID da série.
+	 *
+	 * @param idSerie o ID da série
+	 */
 
 	public void setIdSerie(int idSerie) {
 		this.idSerie = idSerie;
 	}
 
+	/**
+	 * Obtém a quantidade de episódios da série.
+	 *
+	 * @return a quantidade de episódios da série
+	 */
+
 	public int getQuantidadeDeEpsodios() {
 		return quantidadeDeEpsodios;
 	}
+
+	/**
+	 * Define a quantidade de episódios da série.
+	 *
+	 * @param quantidadeDeEpsodios a quantidade de episódios da série
+	 */
 
 	public void setQuantidadeDeEpsodios(int quantidadeDeEpsodios) {
 		this.quantidadeDeEpsodios = quantidadeDeEpsodios;
 	}
 
 	/**
-	 * Retorna uma representação em string da série.
+	 * Retorna uma representação em formato de string da série.
 	 *
-	 * @return A representação em string da série.
+	 * @return uma representação em formato de string da série
 	 */
+
 	@Override
 	public String toString() {
-
 		StringBuilder sb = new StringBuilder();
 		sb.append("## ID ").append(id).append(" ##\n");
 		sb.append("Série: ").append(nome).append("\n");

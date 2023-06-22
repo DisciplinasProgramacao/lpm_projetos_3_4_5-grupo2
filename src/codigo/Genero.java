@@ -5,6 +5,7 @@ import java.util.Random;
 /**
  * Enumeração que representa os gêneros de um filme.
  */
+
 public enum Genero {
     ANIME("Anime"),
     AVENTURA("Aventura"),
@@ -53,7 +54,7 @@ public enum Genero {
     /**
      * Busca um gênero pelo seu valor.
      *
-     * @param value - o valor do gênero a ser buscado.
+     * @param value o valor do gênero a ser buscado.
      * @return o gênero correspondente ao valor.
      * @throws EnumException se o gênero não for encontrado na lista.
      */

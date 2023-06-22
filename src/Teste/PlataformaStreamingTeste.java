@@ -1,24 +1,16 @@
 package Teste;
 
-import static org.junit.Assert.assertNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
+import codigo.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import codigo.Cliente;
-import codigo.Filme;
-import codigo.Genero;
-import codigo.Idioma;
-import codigo.Midia;
-import codigo.PlataformaStreaming;
-import codigo.Serie;
+import java.io.FileNotFoundException;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class PlataformaStreamingTeste {
 

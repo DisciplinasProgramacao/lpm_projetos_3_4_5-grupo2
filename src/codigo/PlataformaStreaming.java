@@ -14,194 +14,186 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+/**
+ * Classe que representa uma plataforma de streaming.
+ */
+
 public class PlataformaStreaming {
     private String nome;
     private List<Midia> midias;
     private List<Cliente> clientes;
     private Cliente clienteAtual;
-    private HashMap <String, Cliente> usuarios;
- 
-    /*
-     * Construtor padrão
+    private HashMap<String, Cliente> usuarios;
+
+    /**
+     * Construtor padrão da classe PlataformaStreaming.
+     * Inicializa as listas de mídias e clientes, e o mapa de usuários.
      */
+
     public PlataformaStreaming() {
-    	this.midias = new ArrayList<Midia>();
-        this.clientes = new ArrayList<Cliente>();
+        this.midias = new ArrayList<>();
+        this.clientes = new ArrayList<>();
         this.usuarios = new HashMap<>();
         this.clienteAtual = null;
     }
+
+    /**
+     * Construtor da classe PlataformaStreaming que permite carregar os dados iniciais a partir de arquivos CSV.
+     *
+     * @param nome o nome da plataforma de streaming.
+     * @throws FileNotFoundException se ocorrer um erro ao abrir o arquivo.
+     */
+
     public PlataformaStreaming(String nome) throws FileNotFoundException {
         this.nome = nome;
-        this.midias = new ArrayList<Midia>();
-        this.clientes = new ArrayList<Cliente>();
+        this.midias = new ArrayList<>();
+        this.clientes = new ArrayList<>();
         this.usuarios = new HashMap<>();
         this.clienteAtual = null;
-
         System.out.println("Carregando dados...");
         carregarSeries("src/codigo/POO_Series.csv");
         carregarFilmes("src/codigo/POO_Filmes.csv");
         carregarEspectador("src/codigo/POO_Espectadores.csv");
         Midia.setUltimoId(getMaiorId());
-
         System.out.println("Carregando audiência...");
         carregarAudiencia("src/codigo/POO_Audiencia.csv");
-        
     }
 
     /**
-     * Método que busca uma série de acordo com seu ID, para ser adicionado na lista do cliente
+     * Busca uma mídia com base no seu ID.
      *
-     * @param idMidia
-     * @throws FileNotFoundException
+     * @param idMidia o ID da mídia a ser buscada.
+     * @return a mídia encontrada ou null se não for encontrada.
      */
-    public Midia buscarMidia(int idMidia){
 
+    public Midia buscarMidia(int idMidia) {
         for (Midia midia : midias)
-            if(midia.getIdMidia() == idMidia){
+            if (midia.getIdMidia() == idMidia) {
                 return midia;
             }
         return null;
     }
 
-
     /**
-     * Método que carrega um arquivo e cria as listas contendo informações de Espectadores
-     * @param nomeArquivo
+     * Carrega os dados dos espectadores a partir de um arquivo CSV.
+     *
+     * @param nomeArquivo o nome do arquivo CSV.
+     * @throws FileNotFoundException se ocorrer um erro ao abrir o arquivo.
      */
-    public void carregarEspectador(String nomeArquivo) throws FileNotFoundException {
 
+    public void carregarEspectador(String nomeArquivo) throws FileNotFoundException {
         Scanner leitor = new Scanner(new File(nomeArquivo));
         String linha = leitor.nextLine();
-        while(leitor.hasNextLine()){
-
+        while (leitor.hasNextLine()) {
             linha = leitor.nextLine();
-            String [] detalhes = linha.split(";");
+            String[] detalhes = linha.split(";");
             String nome = detalhes[0];
             String login = detalhes[1];
             String senha = detalhes[2];
-
             Cliente c = new Cliente(nome, login, senha);
             this.clientes.add(c);
             this.usuarios.put(login, c);
-            //System.out.println("Usuário " + nome + " adicionado com sucesso. Login: " + login);
-
         }
     }
 
     /**
-     * Método que carrega Serie
-     * @param nomeArquivo
-     * @throws FileNotFoundException
+     * Carrega as séries a partir de um arquivo CSV.
+     *
+     * @param nomeArquivo O nome do arquivo CSV contendo as séries a serem carregadas.
+     * @throws FileNotFoundException Se o arquivo especificado não for encontrado.
      */
+
     public void carregarSeries(String nomeArquivo) throws FileNotFoundException {
         Scanner leitor = new Scanner(new File(nomeArquivo));
         String linha = leitor.nextLine();
-        while(leitor.hasNextLine()){
+        while (leitor.hasNextLine()) {
             linha = leitor.nextLine();
-            String [] detalhes = linha.split(";");
+            String[] detalhes = linha.split(";");
             int idSerie = Integer.parseInt(detalhes[0]);
             String nome = detalhes[1];
             String dataLancamento = detalhes[2];
-            
-            this.midias.add(MidiaFactory.initMidia("Serie", idSerie,nome, dataLancamento, 0));
-
+            this.midias.add(MidiaFactory.initMidia("Serie", idSerie, nome, dataLancamento, 0));
         }
     }
 
     /**
-     * Método que carrega filme
-     * @param nomeArquivo
-     * @throws FileNotFoundException
+     * Carrega os filmes a partir de um arquivo CSV.
+     *
+     * @param nomeArquivo O nome do arquivo CSV contendo os filmes a serem carregados.
+     * @throws FileNotFoundException Se o arquivo especificado não for encontrado.
      */
+
     public void carregarFilmes(String nomeArquivo) throws FileNotFoundException {
         Scanner leitor = new Scanner(new File(nomeArquivo));
         String linha = leitor.nextLine();
-        while(leitor.hasNextLine()){
+        while (leitor.hasNextLine()) {
             linha = leitor.nextLine();
-            String [] detalhes = linha.split(";");
+            String[] detalhes = linha.split(";");
             int idFilme = Integer.parseInt(detalhes[0]);
             String nome = detalhes[1];
             String dataLancamento = detalhes[2];
             int duracao = Integer.parseInt(detalhes[3]);
-
             midias.add(MidiaFactory.initMidia("Filme", idFilme, nome, dataLancamento, duracao));
-
         }
     }
 
     /**
-     * Método que carrega Audiencia
-     * @param nomeArquivo
-     * @throws FileNotFoundException
+     * Carrega as audiências a partir de um arquivo CSV.
+     *
+     * @param nomeArquivo O nome do arquivo CSV contendo as audiências a serem carregadas.
+     * @throws FileNotFoundException Se o arquivo especificado não for encontrado.
      */
+
     public void carregarAudiencia(String nomeArquivo) throws FileNotFoundException {
-//        if (clientes.size() == 0 || clientes.size() == 0) {
-//            System.out.println("Audiência não carregada. As listas estão vazias. É necessário fazer a carga dos arquivos primeiro.");
-//        } else {
-            Scanner leitor = new Scanner(new File(nomeArquivo));
-            //Cliente[] clientesComAudiencia = new Cliente[clientes.size()];
-            //clientesComAudiencia = clientes.toArray();
-
-            String linha = leitor.nextLine();
-            while(leitor.hasNextLine()) {
-                linha = leitor.nextLine();
-                String[] detalhes = linha.split(";");
-                String login = detalhes[0];
-                String tipoLista = detalhes[1];
-
-                
-                //Verificar porque está dando loop infinito quando coloco um else na linha 113.
-                int idSerie = Integer.parseInt(detalhes[2]);
-                Midia serie = buscarMidia(idSerie);
-//                if (serie == null){
-//                    System.out.println("Série ID " + idSerie + " não encontrada\nDados: " + linha);
-//                }
-//                System.out.println(login);
-                Cliente cliente = this.usuarios.get(login);
-//                System.out.println(cliente.toString());
-                        if (tipoLista.equals("F")) {
-                            cliente.adicionarNaLista(serie);
-                            //System.out.printf("Série %s adicionada na lista 'Para ver' do cliente %s\n", serie.getNome(), cliente.getNome());
-                        } else {
-                            String dataAleatoria = Data.gerarDataAleatoria();
-                            //cliente.registrarAudiencia(serie, dataAleatoria);
-                            cliente.registrarAudiencia(serie, "21/04/2023");
-                            //System.out.printf("\nSérie %s adicionada na lista 'Já assistidas' do cliente %s\n", serie.getNome(), cliente.getNome());
-                        }
-                    }
-            System.out.println("Audiência carregada com sucesso");
-
+        Scanner leitor = new Scanner(new File(nomeArquivo));
+        String linha = leitor.nextLine();
+        while (leitor.hasNextLine()) {
+            linha = leitor.nextLine();
+            String[] detalhes = linha.split(";");
+            String login = detalhes[0];
+            String tipoLista = detalhes[1];
+            int idSerie = Integer.parseInt(detalhes[2]);
+            Midia serie = buscarMidia(idSerie);
+            Cliente cliente = this.usuarios.get(login);
+            if (tipoLista.equals("F")) {
+                cliente.adicionarNaLista(serie);
+            } else {
+                String dataAleatoria = Data.gerarDataAleatoria();
+                cliente.registrarAudiencia(serie, "21/04/2023");
+            }
         }
-   // }
-    
+        System.out.println("Audiência carregada com sucesso");
+    }
+
     /**
-     * Método que faz login do Cliente
-     * @param nomeUsuario
-     * @param senha
-     * @return
+     * Realiza o login de um cliente no sistema.
+     *
+     * @param nomeUsuario O nome de usuário do cliente.
+     * @param senha A senha do cliente.
+     * @return O cliente que efetuou o login, ou null se as credenciais forem inválidas.
      */
+
     public Cliente login(String nomeUsuario, String senha) {
-        for (Cliente cliente : clientes){
-            if (nomeUsuario.equals(cliente.nomedeUsuario) && senha.equals(cliente.senha)){
-                this.clienteAtual=cliente;
+        for (Cliente cliente : clientes) {
+            if (nomeUsuario.equals(cliente.nomedeUsuario) && senha.equals(cliente.senha)) {
+                this.clienteAtual = cliente;
                 return clienteAtual;
             }
         }
         return null;
-        
     }
-    
+
     /**
-     * Método que adiciona midia na Plataforma
-     * @param midia
+     * Adiciona uma nova mídia ao catálogo.
+     *
+     * @param midia A mídia a ser adicionada.
      */
+
     public void adicionarMidia(Midia midia) {
         midias.add(midia);
-
         String nomeArquivo = "";
         String novaLinhaMidia = "";
-
-        if (midia.getClass().equals(Serie.class)){
+        if (midia.getClass().equals(Serie.class)) {
             nomeArquivo = "POO_Series.csv";
             novaLinhaMidia = midia.getIdMidia() + ";" + midia.getNome() + ";" + midia.getDataLancamento();
         } else {
@@ -209,14 +201,15 @@ public class PlataformaStreaming {
             nomeArquivo = "POO_Filmes.csv";
             novaLinhaMidia = filme.getIdMidia() + ";" + filme.getNome() + ";" + midia.getDataLancamento() + ";" + filme.getDuracaoFilme();
         }
-
         atualizarArquivo(nomeArquivo, novaLinhaMidia);
     }
 
     /**
-     * Método que adiciona Cliente na Plataforma
-     * @param cliente
+     * Adiciona um novo cliente ao sistema.
+     *
+     * @param cliente O cliente a ser adicionado.
      */
+
     public void adicionarCliente(Cliente cliente) {
         for (Cliente c : clientes) {
             if (c.getNomedeUsuario().equals(cliente.getNomedeUsuario())) {
@@ -228,157 +221,178 @@ public class PlataformaStreaming {
         String novaLinhaEspectador = cliente.getNome() + ";" + cliente.getNomedeUsuario() + ";" + cliente.getSenha();
         atualizarArquivo("POO_Espectadores.csv", novaLinhaEspectador);
     }
-    
+
     /**
-     * Método que filtra as mídias por genero
-     * @param genero
-     * @return
+     * Filtra as mídias por gênero.
+     *
+     * @param genero O gênero pelo qual as mídias serão filtradas.
+     * @return Uma lista de mídias filtradas pelo gênero especificado.
      */
+
     public ArrayList<Midia> filtrarPorGenero(String genero) {
         ArrayList<Midia> aux = new ArrayList<>();
-        for (Midia midia : midias){
-            if (midia.getGenero().name().equalsIgnoreCase(genero) || midia.getGenero().getDescricao().equalsIgnoreCase(genero)){
+        for (Midia midia : midias) {
+            if (midia.getGenero().name().equalsIgnoreCase(genero) || midia.getGenero().getDescricao().equalsIgnoreCase(genero)) {
                 aux.add(midia);
             }
         }
-        if (!aux.isEmpty()){
+        if (!aux.isEmpty()) {
             for (Midia midia : aux)
                 System.out.printf("\n- %s (ID %d) - %s", midia.getNome(), midia.getIdMidia(), midia.getGenero());
         } else {
             System.out.println("Não foram encontradas mídias desse gênero.");
         }
-
         return aux;
     }
-    
+
     /**
-     * Método que filtra as mídias por nome
-     * @param nome
-     * @return aux
+     * Filtra as mídias por nome.
+     *
+     * @param nomeMidia O nome da mídia pelo qual será filtrada.
+     * @return Uma lista de mídias filtradas pelo nome especificado.
      */
+
     public ArrayList<Midia> filtrarPorNome(String nomeMidia) {
         ArrayList<Midia> aux = new ArrayList<>();
-        for (Midia midia : midias){
-            if (nomeMidia.equals(midia.getNome())){
+        for (Midia midia : midias) {
+            if (nomeMidia.equals(midia.getNome())) {
                 aux.add(midia);
             }
         }
-        if (!aux.isEmpty()){
+        if (!aux.isEmpty()) {
             for (Midia midia : aux)
                 System.out.printf("\n- %s (ID %d) - %s", midia.getNome(), midia.getIdMidia(), midia.getGenero());
         } else {
             System.out.println("Não foram encontradas mídias com esse nome.");
         }
-
         return aux;
     }
-    
+
     /**
-     * Método que filtra as mídias por idioma
-     * @param idioma
-     * @return
+     * Filtra as mídias por idioma.
+     *
+     * @param idioma O idioma pelo qual as mídias serão filtradas.
+     * @return Uma lista de mídias filtradas pelo idioma especificado.
      */
+
     public ArrayList<Midia> filtrarPorIdioma(String idioma) {
         ArrayList<Midia> aux = new ArrayList<>();
-        for (Midia midia : midias){
-            if (midia.getIdioma().name().equalsIgnoreCase(idioma) || midia.getIdioma().getDescricao().equalsIgnoreCase(idioma)){
+        for (Midia midia : midias) {
+            if (midia.getIdioma().name().equalsIgnoreCase(idioma) || midia.getIdioma().getDescricao().equalsIgnoreCase(idioma)) {
                 aux.add(midia);
             }
         }
-        if (!aux.isEmpty()){
+        if (!aux.isEmpty()) {
             for (Midia midia : aux)
                 System.out.printf("\n- %s (ID %d) - %s", midia.getNome(), midia.getIdMidia(), midia.getIdioma());
         } else {
             System.out.println("Não foram encontradas mídias com esse idioma.");
         }
-
         return aux;
     }
-    
-    //TODO: Verificar se o método abaixo pode ser removido e o teste adaptado.
-    //Registro da audiência pelo cliente (método registrarAudiencia)
+
     /**
-     * Método que registra audiencia de determinada midia
-     * @param m
-     * @return
+     * Registra uma audiência para uma mídia.
+     *
+     * @param m A mídia para a qual será registrada a audiência.
+     * @return O número de audiências registradas para a mídia.
      */
+
     public int registrarAudiencia(Midia m) {
-    	return this.buscarMidia(m.getNome()).registraAudiencia();
+        return this.buscarMidia(m.getNome()).registraAudiencia();
     }
-    
+
     /**
-     * Método que faz logoff do Cliente logado 
+     * Realiza o logoff do cliente atualmente logado no sistema.
      */
+
     public void logoff() {
-        this.clienteAtual=null;
+        this.clienteAtual = null;
     }
-    
+
     /**
-     * Método que busca midia
-     * @param nomeMidia
-     * @return
+     * Busca uma mídia pelo nome.
+     *
+     * @param nomeMidia O nome da mídia a ser buscada.
+     * @return A mídia encontrada, ou null se não for encontrada nenhuma mídia com o nome especificado.
      */
+
     public Midia buscarMidia(String nomeMidia) {
-        for (Midia midia : midias){
-            if (nomeMidia.equals(midia.getNome())){
+        for (Midia midia : midias) {
+            if (nomeMidia.equals(midia.getNome())) {
                 return midia;
             }
         }
         return null;
     }
-    
+
     /**
-     * Método que filtra Serie por quantidade de epsódios
-     * @param qntEps
-     * @return
+     * Filtra as séries por quantidade de episódios.
+     *
+     * @param qntEps A quantidade de episódios pela qual as séries serão filtradas.
+     * @return Uma lista de séries filtradas pela quantidade de episódios especificada.
      */
-	public List<Serie> filtrarPorQntEps(int qntEps) {
+
+    public List<Serie> filtrarPorQntEps(int qntEps) {
         List<Serie> aux = new ArrayList<>();
-        for (Midia midia : midias){
-            if (midia instanceof Serie && qntEps == ((Serie) midia).getQuantidadeDeEpsodios()){
+        for (Midia midia : midias) {
+            if (midia instanceof Serie && qntEps == ((Serie) midia).getQuantidadeDeEpsodios()) {
                 aux.add((Serie) midia);
             }
         }
-
         return aux;
     }
-    // Salvar dados novos no arquivo
-    // Atualizar ID das mídias
-    // Corrigir filtros (passar para mídia)
-    // (Adicionar cliente ao entrar, no arquivo)
 
     /**
-     * Get e set de ClienteAtual e Clientes para testar na classe PlataformaStreamingteste
-     * @return
+     * Obtém o cliente atualmente logado no sistema.
+     *
+     * @return O cliente atualmente logado, ou null se nenhum cliente estiver logado.
      */
+
     public Cliente getClienteAtual() {
         return clienteAtual;
     }
+
+    /**
+     * Obtém a lista de clientes cadastrados no sistema.
+     *
+     * @return A lista de clientes cadastrados.
+     */
+
     public List<Cliente> getClientes() {
         return clientes;
     }
 
     /**
-     * Get lista de mídias
-     * @return
+     * Obtém a lista de todas as mídias do catálogo.
+     *
+     * @return A lista de mídias do catálogo.
      */
+
     public List<Midia> getMidias() {
         return midias;
     }
+
+    /**
+     * Obtém o nome do sistema.
+     *
+     * @return O nome do sistema.
+     */
 
     public String getNome() {
         return nome;
     }
 
     /**
-     * Método que filtra maior ID
-     * 
-     * @return
+     * Obtém o maior ID de mídia presente no catálogo.
+     *
+     * @return O maior ID de mídia presente no catálogo.
      */
+
     public int getMaiorId() {
         int maxId = -1;
-        for (Midia midia : midias){
-            if (midia.getIdMidia() > maxId){
+        for (Midia midia : midias) {
+            if (midia.getIdMidia() > maxId) {
                 maxId = midia.getIdMidia();
             }
         }
@@ -386,22 +400,22 @@ public class PlataformaStreaming {
     }
 
     /**
-     * Método que atualiza o arquivo
-     * @param nomeArquivo
-     * @param novaLinha
+     * Atualiza um arquivo CSV com uma nova linha de dados.
+     *
+     * @param nomeArquivo O nome do arquivo CSV a ser atualizado.
+     * @param novaLinha A nova linha a ser adicionada ao arquivo.
      */
+
     public void atualizarArquivo(String nomeArquivo, String novaLinha) {
-
         try {
-            FileWriter fileWriter = new FileWriter(nomeArquivo, true); // true para modo de adição
+            FileWriter fileWriter = new FileWriter(nomeArquivo, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-            bufferedWriter.newLine(); // Adicionar uma nova linha
+            bufferedWriter.newLine();
             bufferedWriter.write(novaLinha);
-
-            bufferedWriter.close(); // Fechar o BufferedWriter
+            bufferedWriter.close();
             System.out.println("Nova linha adicionada com sucesso ao arquivo " + nomeArquivo);
-        } catch (IOException e) {
+        } catch (
+                IOException e) {
             System.out.println("Ocorreu um erro ao adicionar a nova linha: " + e.getMessage());
         }
     }
@@ -411,107 +425,107 @@ public class PlataformaStreaming {
      *
      * @return A porcentagem de clientes com mais de 15 avaliações.
      */
-    public double PorcentagemClientesMaisQue15Aval(){
-        long qtdCLientesAval = this.clientes.stream()
-                                        .filter(cliente -> cliente.calcularQntAvalCliente()>15)
-                                        .count();
-                                        
-        double porcentagemClientesAval = (qtdCLientesAval / this.clientes.size());
 
+    public double PorcentagemClientesMaisQue15Aval() {
+        long qtdCLientesAval = this.clientes.stream()
+                .filter(cliente -> cliente.calcularQntAvalCliente() > 15)
+                .count();
+        double porcentagemClientesAval = ((double) qtdCLientesAval / this.clientes.size());
         return porcentagemClientesAval;
     }
-    
-    /**
-     * Busca as 10 melhores mídias avaliadas, com pelo menos 100 avaliações.
-     *
-     * @return Uma lista contendo as 10 melhores mídias avaliadas.
-     */
-    public List<Midia> buscarMelhoresMidiasAvaliadas (){ 
-        List<Midia> melhoresMidiasAvaliadas = midias.stream()
-        .filter(midia -> midia.getQuantidadeAvaliacoes()>=100)
-        .sorted(Comparator.comparingDouble(Midia::getMediaAvaliacoes).reversed())
-        .limit(10)
-        .collect(Collectors.toList());
 
+    /**
+     * Busca as melhores mídias avaliadas com base na média de avaliações.
+     *
+     * @return Uma lista das melhores mídias avaliadas.
+     */
+
+    public List<Midia> buscarMelhoresMidiasAvaliadas() {
+        List<Midia> melhoresMidiasAvaliadas = midias.stream()
+                .filter(midia -> midia.getQuantidadeAvaliacoes() >= 100)
+                .sorted(Comparator.comparingDouble(Midia::getMediaAvaliacoes).reversed())
+                .limit(10)
+                .collect(Collectors.toList());
         return melhoresMidiasAvaliadas;
     }
-    
-    /**
-     * Busca as 10 mídias mais avaliadas.
-     *
-     * @return Uma lista contendo as 10 mídias mais avaliadas.
-     */
-    public List<Midia> buscarMidiasMaisAvaliadas (){
-        List<Midia> midiasMaisAvaliadas = midias.stream()
-        .sorted(Comparator.comparingDouble(Midia::getQuantidadeAvaliacoes).reversed())
-        .limit(10)
-        .collect(Collectors.toList());
 
+    /**
+     * Busca as mídias mais avaliadas com base no número de avaliações recebidas.
+     *
+     * @return Uma lista das mídias mais avaliadas.
+     */
+
+    public List<Midia> buscarMidiasMaisAvaliadas() {
+        List<Midia> midiasMaisAvaliadas = midias.stream()
+                .sorted(Comparator.comparingDouble(Midia::getQuantidadeAvaliacoes).reversed())
+                .limit(10)
+                .collect(Collectors.toList());
         return midiasMaisAvaliadas;
     }
-    
+
     /**
-     * Busca as 10 mídias mais avaliadas por gênero.
+     * Busca as mídias mais avaliadas por gênero, com base no número de avaliações recebidas.
      *
-     * @return Um mapa onde as chaves são os gêneros e os valores são listas das 10 mídias mais avaliadas de cada gênero.
+     * @return Um mapa em que as chaves são os gêneros e os valores são as listas de mídias mais avaliadas para cada gênero.
      */
+
     public Map<Genero, List<Midia>> buscarMidiasMaisAvaliadasPorGenero() {
         Map<Genero, List<Midia>> midiasMaisAvaliadasPorGenero = midias.stream()
-        .sorted(Comparator.comparingDouble(Midia::getQuantidadeAvaliacoes).reversed())
-        .limit(10)
-        .collect(Collectors.groupingBy(Midia::getGenero));
+                .sorted(Comparator.comparingDouble(Midia::getQuantidadeAvaliacoes).reversed())
+                .limit(10)
+                .collect(Collectors.groupingBy(Midia::getGenero));
         return midiasMaisAvaliadasPorGenero;
     }
-    
+
     /**
-     * Busca as 10 mídias mais visualizadas.
+     * Busca as mídias mais visualizadas com base no número de audiências.
      *
-     * @return Uma lista contendo as 10 mídias mais visualizadas.
+     * @return Uma lista das mídias mais visualizadas.
      */
-    public List<Midia> buscarMidiasMaisVisu(){
+
+    public List<Midia> buscarMidiasMaisVisu() {
         List<Midia> midiasMaisVisualizadas = midias.stream()
-                                            .sorted(Comparator.comparingInt(Midia:: getAudiencia).reversed())
-                                            .limit(10)
-                                            .collect(Collectors.toList());
-    
+                .sorted(Comparator.comparingInt(Midia::getAudiencia).reversed())
+                .limit(10)
+                .collect(Collectors.toList());
         return midiasMaisVisualizadas;
     }
-    
+
     /**
-     * Busca as 10 mídias mais visualizadas por gênero.
+     * Busca as mídias mais visualizadas por gênero, com base no número de audiências.
      *
-     * @return Um mapa onde as chaves são os gêneros e os valores são listas das 10 mídias mais visualizadas de cada gênero.
+     * @return Um mapa em que as chaves são os gêneros e os valores são as listas de mídias mais visualizadas para cada gênero.
      */
-    public Map<Genero, List<Midia>> buscarMidiasMaisVisuPorGenero(){
+
+    public Map<Genero, List<Midia>> buscarMidiasMaisVisuPorGenero() {
         Map<Genero, List<Midia>> midiasMaisVisualizadas = midias.stream()
-                                            .sorted(Comparator.comparingInt(Midia:: getAudiencia).reversed())
-                                            .limit(10)
-                                            .collect(Collectors.groupingBy(Midia::getGenero));
-    
+                .sorted(Comparator.comparingInt(Midia::getAudiencia).reversed())
+                .limit(10)
+                .collect(Collectors.groupingBy(Midia::getGenero));
         return midiasMaisVisualizadas;
     }
-    
+
     /**
-     * Retorna o cliente com o maior número de mídias assistidas.
+     * Obtém o cliente que assistiu ao maior número de mídias.
      *
      * @return O cliente com o maior número de mídias assistidas.
      */
+
     public Cliente getClienteComMaisMidiasAssistidas() {
         Optional<Cliente> clienteComMaisMidias = clientes.stream()
                 .max(Comparator.comparingInt(cliente -> cliente.getListaJaVistas().size()));
-
         return clienteComMaisMidias.orElse(null);
     }
-    
+
     /**
-     * Retorna o cliente com o maior número de avaliações.
+     * Obtém o cliente que realizou o maior número de avaliações.
      *
      * @return O cliente com o maior número de avaliações.
      */
+
     public Cliente getClienteComMaisAvaliacoes() {
         Optional<Cliente> clienteComMaisAvaliacoes = clientes.stream()
                 .max(Comparator.comparingInt(Cliente::calcularQntAvalCliente));
-
         return clienteComMaisAvaliacoes.orElse(null);
     }
 }
