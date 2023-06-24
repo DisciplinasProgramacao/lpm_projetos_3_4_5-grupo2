@@ -192,13 +192,7 @@ public abstract class Midia {
      * @param notaDada     A nota dada na avaliação.
      */
 
-    public void registrarAvaliacao(String loginUsuario, int notaDada) {
-        Avaliacao avaliacao = new Avaliacao(notaDada);
-        if (notaDada > 1 && notaDada <= 5)
-            this.avaliacoes.put(loginUsuario, avaliacao);
-        else
-            System.out.println("Nota inválida. Ela deve ser de 1 a 5.");
-    }
+    
 
     /**
      * Registra uma avaliação com comentário para a mídia.
@@ -208,13 +202,7 @@ public abstract class Midia {
      * @param comentario   O comentário da avaliação.
      */
 
-    public void registrarAvaliacaoComentario(String loginUsuario, int notaDada, String comentario) {
-        Avaliacao avaliacao = new Avaliacao(notaDada, comentario);
-        if (notaDada > 1 && notaDada <= 5)
-            this.avaliacoes.put(loginUsuario, avaliacao);
-        else
-            System.out.println("Nota inválida. Ela deve ser de 1 a 5.");
-    }
+
 
     /**
      * Verifica se uma avaliação foi registrada para o usuário especificado.
