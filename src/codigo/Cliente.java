@@ -20,7 +20,6 @@ public class Cliente {
 	private List<Midia> listaJaVistas;
 	private HashMap<Midia, String> datasExibicao;
 	private int quantAval;
-	public HashMap<String, Avaliacao> avaliacoes;
 
 	/**
 	 * Construtores padrão
