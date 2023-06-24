@@ -106,6 +106,15 @@ public class Serie extends Midia {
 
 	@Override
 	public String toString() {
+
+		String lancamento;
+
+		if (this.ehLancamento){
+			lancamento = "Sim";
+		} else {
+			lancamento = "Não";
+		}
+
 		StringBuilder sb = new StringBuilder();
 		sb.append("## ID ").append(id).append(" ##\n");
 		sb.append("Série: ").append(nome).append("\n");
@@ -113,6 +122,7 @@ public class Serie extends Midia {
 		sb.append("Idioma: ").append(idioma).append("\n");
 		sb.append("Episódios: ").append(quantidadeDeEpsodios).append(" episódios").append("\n");
 		sb.append("Data de lançamento: ").append(dataLancamento).append("\n");
+		sb.append("É lançamento? ").append(lancamento).append("\n");
 		return sb.toString();
 	}
 }

@@ -219,7 +219,7 @@ public class PlataformaStreaming {
         }
         clientes.add(cliente);
         String novaLinhaEspectador = cliente.getNome() + ";" + cliente.getNomedeUsuario() + ";" + cliente.getSenha();
-        atualizarArquivo("POO_Espectadores.csv", novaLinhaEspectador);
+        atualizarArquivo("src/codigo/POO_Espectadores.csv", novaLinhaEspectador);
     }
 
     /**
@@ -413,10 +413,10 @@ public class PlataformaStreaming {
             bufferedWriter.newLine();
             bufferedWriter.write(novaLinha);
             bufferedWriter.close();
-            System.out.println("Nova linha adicionada com sucesso ao arquivo " + nomeArquivo);
+            System.out.println("Registrado com sucesso!");
         } catch (
                 IOException e) {
-            System.out.println("Ocorreu um erro ao adicionar a nova linha: " + e.getMessage());
+            System.out.println("Ocorreu um erro ao atualizar o registro: " + e.getMessage());
         }
     }
 

@@ -16,11 +16,12 @@ public class MidiaFactory {
 	 * @param idioma         O idioma da mídia.
 	 * @param tempo          A duração da mídia.
 	 * @param dataLancamento A data de lançamento da mídia.
+	 * @param ehLancamento   Indica se a mídia é ou não um lançamento
 	 * @return Um objeto {@link Midia} representando a mídia criada, ou null se o tipo for desconhecido.
 	 */
 
 	public static Midia criarMidia(String tipo, String nome, Genero genero, Idioma idioma, int tempo,
-			String dataLancamento) {
+								   String dataLancamento, boolean ehLancamento) {
 		if (tipo == "Filme") {
 			return new Filme(nome, genero, idioma, tempo, dataLancamento);
 		} else if (tipo == "Serie") {

@@ -49,6 +49,8 @@ public class Main {
             if (clienteAtual != null && clienteAtual.ehAdmin())
                 System.out.println("*  5. Adicionar filme                               *");
             if (clienteAtual == null)
+                System.out.println("*  3. Registrar-se                                  *");
+            if (clienteAtual == null)
                 System.out.println("*  6. Login                                         *");
             if (clienteAtual != null)
                 System.out.println("*  6. Logoff                                        *");
@@ -60,6 +62,8 @@ public class Main {
                 System.out.println("*  9. Avaliar mídia assistida                       *");
             if (clienteAtual != null)
                 System.out.println("*  10. Acessar menu de filtros                      *");
+            if (clienteAtual != null)
+                System.out.println("*  11. Assistir mídia                               *");
             System.out.println("*  0. Sair                                          *");
             System.out.println("*****************************************************");
 
@@ -98,9 +102,9 @@ public class Main {
                 scanner.nextLine();
                 System.out.println("Digite o nome do cliente");
                 String nome = scanner.nextLine();
-                System.out.println("Digite o nome de usuário do cliente");
+                System.out.println("Digite o nome de usuário");
                 String nomeUsuario = scanner.nextLine();
-                System.out.println("Digite a senha de usuário do cliente");
+                System.out.println("Digite a senha de acesso");
                 String senha = scanner.nextLine();
                 Cliente cliente = new Cliente(nome, nomeUsuario, senha);
                 plataforma.adicionarCliente(cliente);
@@ -122,10 +126,22 @@ public class Main {
 
                     System.out.println("Digite a quantidade de episódios");
                     int qntEps = Integer.parseInt(scanner.nextLine());
+
                     System.out.println("Digite a data de lançamento de série");
                     String dataLancamento = scanner.nextLine();
 
-                    Midia serie = MidiaFactory.criarMidia("Serie", nome, genero, idioma, qntEps, dataLancamento);
+                    System.out.println("É lançamento? Digite S para Sim e N para Não");
+                    String lancamento = scanner.nextLine();
+
+                    boolean ehLancamento;
+                    if (lancamento.equals("S")){
+                        ehLancamento = true;
+                    } else {
+                        ehLancamento = false;
+                    }
+
+
+                    Midia serie = MidiaFactory.criarMidia("Serie", nome, genero, idioma, qntEps, dataLancamento, ehLancamento);
 
                     plataforma.adicionarMidia(serie);
                 } catch (
@@ -152,7 +168,17 @@ public class Main {
                     System.out.println("Digite a data de lançamento do filme");
                     String dataLancamento = scanner.nextLine();
 
-                    Midia filme = MidiaFactory.criarMidia("Filme", nome, genero, idioma, duracao, dataLancamento);
+                    System.out.println("É lançamento? Digite S para Sim e N para Não");
+                    String lancamento = scanner.nextLine();
+
+                    boolean ehLancamento;
+                    if (lancamento.equals("S")){
+                        ehLancamento = true;
+                    } else {
+                        ehLancamento = false;
+                    }
+
+                    Midia filme = MidiaFactory.criarMidia("Filme", nome, genero, idioma, duracao, dataLancamento, ehLancamento);
 
                     plataforma.adicionarMidia(filme);
                 } catch (
@@ -221,6 +247,7 @@ public class Main {
                     }
                 } else {
                     System.out.println("Essa mídia não foi assistida por você");
+                    break;
                 }
                 break;
 
@@ -362,6 +389,19 @@ public class Main {
                 }
                 break;
 
+            case 11:
+                System.out.println("");
+                System.out.println("*** Lista de Mídias ***");
+
+                for (Midia midia : plataforma.getMidias()) {
+                    System.out.println(midia.toString());
+                }
+                System.out.println("Selecione a mídia para assistir, digitando o ID correspondente.");
+                idMidia = scanner.nextInt();
+                Midia midiaParaVer = plataforma.buscarMidia(idMidia);
+                clienteAtual.registrarAudiencia(midiaParaVer, Data.agoraString());
+                System.out.println("Você assistiu à mídia " + midiaParaVer.getNome());
+                break;
             default:
                 System.out.println("Opção inválida! Tente novamente.");
                 break;

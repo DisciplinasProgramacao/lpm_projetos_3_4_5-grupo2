@@ -15,6 +15,7 @@ public abstract class Midia {
     protected int audiencia;
     protected String dataLancamento;
     public HashMap<String, Avaliacao> avaliacoes;
+    public boolean ehLancamento;
 
     /**
      * Construtor padrão da classe Midia.

@@ -75,6 +75,15 @@ public class Filme extends Midia {
 
     @Override
     public String toString() {
+
+        String lancamento;
+
+        if (this.ehLancamento){
+            lancamento = "Sim";
+        } else {
+            lancamento = "Não";
+        }
+
         StringBuilder sb = new StringBuilder();
         sb.append("## ID ").append(id).append(" ##\n");
         sb.append("Filme: ").append(this.nome).append("\n");
@@ -82,6 +91,7 @@ public class Filme extends Midia {
         sb.append("Idioma: ").append(idioma).append("\n");
         sb.append("Duração: ").append(this.duracao).append(" minutos").append("\n");
         sb.append("Data de lançamento: ").append(this.dataLancamento).append("\n");
+        sb.append("É lançamento? ").append(lancamento).append("\n");
         return sb.toString();
     }
 }
