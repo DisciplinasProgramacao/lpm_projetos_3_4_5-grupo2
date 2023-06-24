@@ -226,41 +226,25 @@ public class Main {
 
             case 10:
                 clearConsole();
-                if (clienteAtual != null)
+                if (clienteAtual != null) {
                     System.out.println("*  1. Filtrar mídias por nome na lista 'Para Ver'   *");
-                if (clienteAtual != null)
                     System.out.println("*  2. Filtrar mídias por nome na lista 'Já Vistas'  *");
-                if (clienteAtual != null)
                     System.out.println("*  3. Filtrar mídias por nome no catálogo geral     *");
-                if (clienteAtual != null)
                     System.out.println("*  4. Filtrar mídias por gênero na lista 'Para Ver' *");
-                if (clienteAtual != null)
                     System.out.println("*  5. Filtrar mídias por gênero na lista 'Já Vistas'*");
-                if (clienteAtual != null)
                     System.out.println("*  6. Filtrar mídias por gênero no catálogo geral   *");
-                if (clienteAtual != null)
                     System.out.println("*  7. Filtrar mídias por idioma na lista 'Para Ver' *");
-                if (clienteAtual != null)
                     System.out.println("*  8. Filtrar mídias por idioma na lista 'Já Vistas'*");
-                if (clienteAtual != null)
                     System.out.println("*  9. Filtrar mídias por idioma no catálogo geral   *");
-                if (clienteAtual != null)
                     System.out.println("*  10.Buscar porcentagem dos clientes com pelo menos 15 avaliações *");
-                if (clienteAtual != null)
                     System.out.println("*  11. Buscar melhores Mídias avaliadas *");
-                if (clienteAtual != null)
                     System.out.println("*  12. Buscar Mídias mais avaliadas *");
-                if (clienteAtual != null)
                     System.out.println("*  13. Buscar Mídias mais avaliadas por gênero *");
-                if (clienteAtual != null)
                     System.out.println("*  14. Buscar Mídias mais visualizadas *");
-                if (clienteAtual != null)
                     System.out.println("*  15. Buscar Mídias mais visualizadas por gênero *");
-                if (clienteAtual != null)
                     System.out.println("*  16. Buscar Cliente com mais avaliações *");
-                if (clienteAtual != null)
                     System.out.println("*  17. Buscar Cliente com mais Mídias assistidas *");
-
+                }
                 System.out.print("\nDigite o número da opção desejada: ");
                 int op;
                 try {
@@ -268,7 +252,7 @@ public class Main {
                 } catch (
                         InputMismatchException e) {
                     System.out.println("Entrada inválida! Digite um número inteiro.");
-                    scanner.nextLine(); // Limpar o buffer do scanner
+                    scanner.nextLine();
                     continue;
                 }
                 switch (op) {

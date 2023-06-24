@@ -440,13 +440,21 @@ public class PlataformaStreaming {
      * @return Uma lista das melhores mídias avaliadas.
      */
 
-    public List<Midia> buscarMelhoresMidiasAvaliadas() {
+    public String buscarMelhoresMidiasAvaliadas() {
         List<Midia> melhoresMidiasAvaliadas = midias.stream()
                 .filter(midia -> midia.getQuantidadeAvaliacoes() >= 100)
                 .sorted(Comparator.comparingDouble(Midia::getMediaAvaliacoes).reversed())
                 .limit(10)
                 .collect(Collectors.toList());
-        return melhoresMidiasAvaliadas;
+        
+        StringBuilder resultado = new StringBuilder();
+        for (int i = 0; i < melhoresMidiasAvaliadas.size(); i++) {
+            Midia midia = melhoresMidiasAvaliadas.get(i);
+            resultado.append(String.format("%dº - %s - ", i + 1, midia.getNome()));
+            resultado.append(midia.getNotasAvaliacoesMidia());
+        }
+
+        return resultado.toString();
     }
 
     /**
@@ -455,12 +463,20 @@ public class PlataformaStreaming {
      * @return Uma lista das mídias mais avaliadas.
      */
 
-    public List<Midia> buscarMidiasMaisAvaliadas() {
+    public String buscarMidiasMaisAvaliadas() {
         List<Midia> midiasMaisAvaliadas = midias.stream()
-                .sorted(Comparator.comparingDouble(Midia::getQuantidadeAvaliacoes).reversed())
+                .sorted(Comparator.comparingDouble(Midia::getMediaAvaliacoes).reversed())
                 .limit(10)
                 .collect(Collectors.toList());
-        return midiasMaisAvaliadas;
+
+        StringBuilder resultado = new StringBuilder();
+        for (int i = 0; i < midiasMaisAvaliadas.size(); i++) {
+            Midia midia = midiasMaisAvaliadas.get(i);
+            resultado.append(String.format("%dº - %s - ", i + 1, midia.getNome()));
+            resultado.append(midia.getNotasAvaliacoesMidia());
+        }
+
+        return resultado.toString();
     }
 
     /**
@@ -469,12 +485,28 @@ public class PlataformaStreaming {
      * @return Um mapa em que as chaves são os gêneros e os valores são as listas de mídias mais avaliadas para cada gênero.
      */
 
-    public Map<Genero, List<Midia>> buscarMidiasMaisAvaliadasPorGenero() {
+    public String buscarMidiasMaisAvaliadasPorGenero() {
         Map<Genero, List<Midia>> midiasMaisAvaliadasPorGenero = midias.stream()
                 .sorted(Comparator.comparingDouble(Midia::getQuantidadeAvaliacoes).reversed())
                 .limit(10)
                 .collect(Collectors.groupingBy(Midia::getGenero));
-        return midiasMaisAvaliadasPorGenero;
+
+        StringBuilder resultado = new StringBuilder();
+        int posicao = 1;
+        resultado.append("Mídias mais visualizadas por gênero\n");
+        for (Map.Entry<Genero, List<Midia>> entry : midiasMaisAvaliadasPorGenero.entrySet()) {
+            Genero genero = entry.getKey();
+            List<Midia> midiasMaisAvaliadas = entry.getValue();
+            resultado.append("Gênero: ").append(genero).append("\n");
+            for (int i = 0; i < midiasMaisAvaliadas.size(); i++) {
+                Midia midia = midiasMaisAvaliadas.get(i);
+                resultado.append(String.format("%dº - %s - ", posicao++, midia.getNome()));
+                resultado.append(midia.getNotasAvaliacoesMidia());
+            }
+            resultado.append("\n");
+        }
+
+        return resultado.toString();
     }
 
     /**
@@ -483,12 +515,20 @@ public class PlataformaStreaming {
      * @return Uma lista das mídias mais visualizadas.
      */
 
-    public List<Midia> buscarMidiasMaisVisu() {
+    public String buscarMidiasMaisVisu() {
         List<Midia> midiasMaisVisualizadas = midias.stream()
                 .sorted(Comparator.comparingInt(Midia::getAudiencia).reversed())
                 .limit(10)
                 .collect(Collectors.toList());
-        return midiasMaisVisualizadas;
+        
+        StringBuilder resultado = new StringBuilder();
+        resultado.append("Mídias mais visualizadas\n");
+        for (int i = 0; i < midiasMaisVisualizadas.size(); i++) {
+            Midia midia = midiasMaisVisualizadas.get(i);
+            resultado.append(String.format("%dº - %s \n", i + 1, midia.getNome()));
+        }
+
+        return resultado.toString();
     }
 
     /**
@@ -497,12 +537,26 @@ public class PlataformaStreaming {
      * @return Um mapa em que as chaves são os gêneros e os valores são as listas de mídias mais visualizadas para cada gênero.
      */
 
-    public Map<Genero, List<Midia>> buscarMidiasMaisVisuPorGenero() {
+    public String buscarMidiasMaisVisuPorGenero() {
         Map<Genero, List<Midia>> midiasMaisVisualizadas = midias.stream()
                 .sorted(Comparator.comparingInt(Midia::getAudiencia).reversed())
                 .limit(10)
                 .collect(Collectors.groupingBy(Midia::getGenero));
-        return midiasMaisVisualizadas;
+
+        StringBuilder resultado = new StringBuilder();
+        int posicao = 1;
+        for (Map.Entry<Genero, List<Midia>> entry : midiasMaisVisualizadas.entrySet()) {
+            Genero genero = entry.getKey();
+            List<Midia> midiasMaisVisualizadasPorGenero = entry.getValue();
+            resultado.append("Gênero: ").append(genero).append("\n");
+            for (int i = 0; i < midiasMaisVisualizadasPorGenero.size(); i++) {
+                Midia midia = midiasMaisVisualizadasPorGenero.get(i);
+                resultado.append(String.format("%dº - %s - Audiência: %d\n", posicao++, midia.getNome(), midia.getAudiencia()));
+            }
+            resultado.append("\n");
+        }
+
+        return resultado.toString();
     }
 
     /**
@@ -511,10 +565,21 @@ public class PlataformaStreaming {
      * @return O cliente com o maior número de mídias assistidas.
      */
 
-    public Cliente getClienteComMaisMidiasAssistidas() {
+    public String getClienteComMaisMidiasAssistidas() {
         Optional<Cliente> clienteComMaisMidias = clientes.stream()
                 .max(Comparator.comparingInt(cliente -> cliente.getListaJaVistas().size()));
-        return clienteComMaisMidias.orElse(null);
+
+        StringBuilder resultado = new StringBuilder();
+        if (clienteComMaisMidias.isPresent()) {
+            Cliente cliente = clienteComMaisMidias.get();
+            resultado.append("Cliente com mais mídias assistidas:\n")
+                    .append("Nome: ").append(cliente.getNome()).append("\n")
+                    .append("Quantidade de mídias assistidas: ").append(cliente.getListaJaVistas().size()).append("\n");
+        } else {
+            resultado.append("Não há clientes registrados ou nenhuma mídia foi assistida por algum cliente.");
+        }
+
+        return resultado.toString();
     }
 
     /**
@@ -523,10 +588,21 @@ public class PlataformaStreaming {
      * @return O cliente com o maior número de avaliações.
      */
 
-    public Cliente getClienteComMaisAvaliacoes() {
+    public String getClienteComMaisAvaliacoes() {
         Optional<Cliente> clienteComMaisAvaliacoes = clientes.stream()
                 .max(Comparator.comparingInt(Cliente::calcularQntAvalCliente));
-        return clienteComMaisAvaliacoes.orElse(null);
+
+        StringBuilder resultado = new StringBuilder();
+        if (clienteComMaisAvaliacoes.isPresent()) {
+            Cliente cliente = clienteComMaisAvaliacoes.get();
+            resultado.append("Cliente com mais avaliações:\n")
+                    .append("Nome: ").append(cliente.getNome()).append("\n")
+                    .append("Quantidade de avaliações: ").append(cliente.calcularQntAvalCliente()).append("\n");
+        } else {
+            resultado.append("Não há clientes registrados ou nenhum cliente fez avaliações.");
+        }
+
+        return resultado.toString();
     }
 }
 

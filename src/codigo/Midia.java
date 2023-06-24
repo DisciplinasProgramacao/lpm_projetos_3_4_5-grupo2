@@ -264,17 +264,34 @@ public abstract class Midia {
      * Exibe as notas das avaliações da mídia.
      */
 
-    public void getNotasAvaliacoesMidia() {
+    public String getNotasAvaliacoesMidia() {
+        StringBuilder notasAvaliacoes = new StringBuilder();
+
         if (!this.avaliacoes.isEmpty()) {
-            System.out.println("Notas dessa mídia:");
+            notasAvaliacoes.append("Notas dessa mídia:\n");
             for (HashMap.Entry<String, Avaliacao> entrada : this.avaliacoes.entrySet()) {
                 String comentario = entrada.getValue().getComentario();
                 if (comentario == null)
                     comentario = "(Sem comentário)";
-                System.out.println("Nota: " + entrada.getValue().getNota() + " | Comentário: " + comentario + " | Usuário responsável pela nota: " + entrada.getKey() + "\n");
+                notasAvaliacoes.append("Nota: ").append(entrada.getValue().getNota())
+                    .append(" | Comentário: ").append(comentario)
+                    .append(" | Usuário responsável pela nota: ").append(entrada.getKey())
+                    .append("\n\n");
             }
         } else {
-            System.out.println("Não há notas registradas para essa mídia.");
+            notasAvaliacoes.append("Não há notas registradas para essa mídia.\n");
         }
+
+        return notasAvaliacoes.toString();
     }
+    
+//    public String toStringMelhoresAvaliações() {
+//		StringBuilder str = new StringBuilder();
+//    	for(int i = 1; i <= 10; i++) {
+//    		str.append(i + "º-");
+//    		str.append(getNome() + " - " + getQuantidadeAvaliacoes());
+//    		str.append("\n");
+//    	}
+//    	return str.toString();
+//    }
 }
