@@ -259,14 +259,12 @@ public abstract class Midia {
         return media;
     }
 
-
     /**
      * Exibe as notas das avaliações da mídia.
      */
 
     public String getNotasAvaliacoesMidia() {
         StringBuilder notasAvaliacoes = new StringBuilder();
-
         if (!this.avaliacoes.isEmpty()) {
             notasAvaliacoes.append("Notas dessa mídia:\n");
             for (HashMap.Entry<String, Avaliacao> entrada : this.avaliacoes.entrySet()) {
@@ -284,14 +282,4 @@ public abstract class Midia {
 
         return notasAvaliacoes.toString();
     }
-    
-//    public String toStringMelhoresAvaliações() {
-//		StringBuilder str = new StringBuilder();
-//    	for(int i = 1; i <= 10; i++) {
-//    		str.append(i + "º-");
-//    		str.append(getNome() + " - " + getQuantidadeAvaliacoes());
-//    		str.append("\n");
-//    	}
-//    	return str.toString();
-//    }
 }

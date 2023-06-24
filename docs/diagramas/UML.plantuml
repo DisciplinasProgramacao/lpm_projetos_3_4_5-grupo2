@@ -2,104 +2,165 @@
 skinparam linetype ortho
 skinparam classAttributeIconSize 0
 
+
 class Avaliacao {
   - nota: int
   - comentario: String
   ..
-  + Avaliacao(int, String)
-  + Avaliacao(int)
+  + Avaliacao(nota: int, comentario: String)
+  + Avaliacao(nota: int)
 }
 
 class Cliente {
-  + Cliente():
-  + Cliente(String, String, String):
-  ~ nomedeUsuario: String
-  ~ senha: String
   - nome: String
-  - listaJaVistas: List<Midia>
+  - nomedeUsuario: String
+  - senha: String
   - listaParaVer: List<Midia>
+  - listaJaVistas: List<Midia>
+  - datasExibicao: HashMap<Midia, String>
+  - quantAval: int
   ..
-  + filtrarJaVistasPorIdioma(String): ArrayList<Midia>
+  + Cliente()
+  + Cliente(nome: String, nomedeUsuario: String, senha: String)
   + ehAdmin(): boolean
-  + filtrarListaParaVer(String): ArrayList<Midia>
-  + filtrarJaVistasPorGenero(String): ArrayList<Midia>
-  + imprimeListaJaVistas(): void
-  + imprimeListaParaVer(): void
-  + registrarAudiencia(Midia, String): void
-  + filtrarParaVerPorGenero(String): ArrayList<Midia>
+  + adicionarNaLista(midia: Midia): void
+  + retirarDaLista(nomeMidia: String): void
+  + registrarAudiencia(midia: Midia, dataExibicao: String): void
   + ehClienteEspecialista(): boolean
-  + filtrarListaJaVistas(String): ArrayList<Midia>
-  + retirarDaLista(String): void
-  + filtrarParaVerPorIdioma(String): ArrayList<Midia>
+  + imprimeListaParaVer(): void
+  + imprimeListaJaVistas(): void
+  + filtrarListaJaVistas(nomeMidia: String): ArrayList<Midia>
+  + filtrarJaVistasPorGenero(genero: String): ArrayList<Midia>
+  + filtrarJaVistasPorIdioma(idioma: String): ArrayList<Midia>
+  + filtrarListaParaVer(nomeMidia: String): ArrayList<Midia>
+  + filtrarParaVerPorGenero(genero: String): ArrayList<Midia>
+  + filtrarParaVerPorIdioma(idioma: String): ArrayList<Midia>
+  + calcularQntAvalCliente(): int
   + toString(): String
-  + adicionarNaLista(Midia): void
 }
 
-class Filme {
-  - idFilme: int
-  + toString(): String
-  ..
-  + Filme(String, String, String, int, String):
+class Filme extends Midia {
+    - idFilme : int
+    ..
+    + duracao : int
+    + toString() : String
 }
 
-class Midia {
-  + Midia():
-  # dataLancamento: String
-  # genero: String
-  # ultimoId: int
-  # nome: String
-  # idioma: String
-  # audiencia: int
+enum Genero << enumeration >> {
+  - Genero(String):
+  - descricao: String
   ..
-  + registrarAvaliacaoComentario(String, int, String): void
-  + gerarGeneroAleatorio(): String
+  + values(): Genero[]
+  + valueOf(String): Genero
+  + findByValue(String): Genero
+  + geraGeneroAleatorio(): Genero
+   descricao: String
+}
+
+enum Idioma << enumeration >> {
+  - Idioma(String):
+  - descricao: String
+  ..
+  + valueOf(String): Idioma
+  + geraIdiomaAleatorio(): Idioma
+  + values(): Idioma[]
+  + findByValue(String): Idioma
+}
+
+abstract class Midia {
+  - genero: Genero
+  - idioma: Idioma
+  - id: int
+  - ultimoId: static int
+  - nome: String
+  - audiencia: int
+  - dataLancamento: String
+  - avaliacoes: HashMap<String, Avaliacao>
+  ..
+  + Midia()
+  + gerarGeneroAleatorio(): Genero
+  + gerarIdiomaAleatorio(): Idioma
   + registraAudiencia(): int
-  + verificaAvaliacaoRegistrada(String): boolean
-  + registrarAvaliacao(String, int): void
-  + gerarIdiomaAleatorio(): String
+  + registrarAvaliacao(loginUsuario: String, notaDada: int): void
+  + registrarAvaliacaoComentario(loginUsuario: String, notaDada: int, comentario: String): void
+  + verificaAvaliacaoRegistrada(loginUsuario: String): boolean
+}
+
+class MidiaFactory {
+    + criarMidia(tipo: String, nome: String, genero: Genero, idioma: Idioma, tempo: int, dataLancamento: String): Midia
+    + initMidia(tipo: String, id: int, nome: String, dataLancamento: String, duracao: int): Midia
 }
 
 class PlataformaStreaming {
   + PlataformaStreaming():
   + PlataformaStreaming(String):
-  - clientes: List<Cliente>
   - midias: List<Midia>
-  - nome: String
   - clienteAtual: Cliente
+  - nome: String
+  - clientes: List<Cliente>
   ..
-  + carregarSeries(String): void
-  + buscarMidia(int): Midia
-  + filtrarPorGenero(String): ArrayList<Midia>
-  + filtrarPorIdioma(String): ArrayList<Midia>
-  + adicionarCliente(Cliente): void
-  + filtrarPorQntEps(int): List<Serie>
-  + carregarAudiencia(String): void
-  + registrarAudiencia(Midia): int
-  + atualizarArquivo(String, String): void
   + logoff(): void
+  + PorcentagemClientesMaisQue15Aval(): double
+  + buscarMelhoresMidiasAvaliadas(): String
+  + carregarAudiencia(String): void
   + adicionarMidia(Midia): void
-  + avaliar(Midia, int): void
-  + carregarEspectador(String): void
+  + filtrarPorGenero(String): ArrayList<Midia>
   + filtrarPorNome(String): ArrayList<Midia>
+  + buscarMidiasMaisAvaliadas(): String
+  + adicionarCliente(Cliente): void
+  + buscarMidia(int): Midia
+  + buscarMidiasMaisVisuPorGenero(): String
+  + registrarAudiencia(Midia): int
   + login(String, String): Cliente
   + buscarMidia(String): Midia
+  + filtrarPorIdioma(String): ArrayList<Midia>
+  + filtrarPorQntEps(int): List<Serie>
+  + buscarMidiasMaisVisu(): String
+  + buscarMidiasMaisAvaliadasPorGenero(): String
   + carregarFilmes(String): void
+  + carregarSeries(String): void
+  + atualizarArquivo(String, String): void
+  + carregarEspectador(String): void
 }
 
 class Serie {
   - quantidadeDeEpsodios: int
   - idSerie: int
   ..
-  + Serie(String, String, String, int, String):
+  + Serie(int, String, String):
+  + Serie(String, Genero, Idioma, int, String):
+  + Serie():
   + toString(): String
 }
 
-Midia  <--  PlataformaStreaming
-Midia  <|--  Filme
-Serie  --|>  Midia
-Avaliacao  <--*  Midia
-Filme  <--  PlataformaStreaming
-Serie  <--  PlataformaStreaming
-Cliente  *-->  Midia
-PlataformaStreaming  *--> Cliente
+Cliente              -->  Cliente
+Cliente              -->  Genero
+Cliente              -->  Idioma
+Cliente             "1" *--> "listaParaVer\n*" Midia
+Filme                -->  Genero
+Filme                -->  Idioma
+Filme                --^  Midia
+Genero               -->  Genero
+Idioma               -->  Idioma
+Midia               "1" *--> "avaliacoes\n*" Avaliacao
+Midia                -->  Avaliacao
+Midia               "1" *--> "genero\n1" Genero
+Midia               "1" *--> "idioma\n1" Idioma
+MidiaFactory         -->  Filme              
+MidiaFactory         -->  Genero
+MidiaFactory         -->  Idioma
+MidiaFactory         -->  Midia
+MidiaFactory         -->  Serie
+PlataformaStreaming  -->  Cliente
+PlataformaStreaming "1" *--> "clientes\n*" Cliente
+PlataformaStreaming  -->  Filme
+PlataformaStreaming  -->  Genero
+PlataformaStreaming  -->  Idioma
+PlataformaStreaming "1" *--> "midias\n*" Midia
+PlataformaStreaming  -->  MidiaFactory
+PlataformaStreaming  -->  PlataformaStreaming
+PlataformaStreaming  -->  Serie
+Serie                -->  Genero
+Serie                -->  Idioma
+Serie                --^  Midia
 @enduml
