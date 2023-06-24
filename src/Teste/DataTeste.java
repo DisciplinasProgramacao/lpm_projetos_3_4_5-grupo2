@@ -1,9 +1,9 @@
 package Teste;
 
-import java.time.LocalDate;
+
 
 import static org.junit.jupiter.api.Assertions.*;
-
+import java.time.LocalDate;
 import codigo.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ public class DataTeste {
 	@Test
 	@DisplayName("Teste do método agoraString")
 	public void testAgoraString() {
-		assertEquals("21/06/2023", Data.agoraString());	
+		assertEquals("24/06/2023", Data.agoraString());	
 	}//É necessário mudar a data para a data atual para o teste dar certo.
 	
 	@Test
